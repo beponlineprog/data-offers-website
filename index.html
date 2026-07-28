@@ -3,94 +3,168 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>MTN Anytime Data</title>
 
 <style>
-
 *{
 margin:0;
 padding:0;
 box-sizing:border-box;
-font-family:Arial, Helvetica, sans-serif;
+font-family:Arial,Helvetica,sans-serif;
+scroll-behavior:smooth;
 }
 
 body{
 background:#071b4d;
-color:#ffffff;
-line-height:1.6;
+color:#fff;
 }
 
-header{
-background:#ffcc00;
-padding:20px;
-text-align:center;
-color:#000;
-font-size:30px;
+/* Navigation */
+
+nav{
+position:sticky;
+top:0;
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:15px 8%;
+background:#04153b;
+box-shadow:0 2px 10px rgba(0,0,0,.4);
+z-index:1000;
+}
+
+.logo{
+font-size:28px;
 font-weight:bold;
+color:#ffcc00;
 }
 
-.hero{
-padding:60px 20px;
-text-align:center;
+nav ul{
+display:flex;
+list-style:none;
+gap:25px;
 }
 
-.hero h1{
-font-size:45px;
-margin-bottom:15px;
-}
-
-.hero p{
-max-width:700px;
-margin:auto;
-font-size:18px;
-margin-bottom:30px;
-}
-
-.btn{
-display:inline-block;
-padding:15px 30px;
-background:#ffcc00;
-color:#000;
+nav a{
 text-decoration:none;
+color:white;
 font-weight:bold;
-border-radius:8px;
 transition:.3s;
 }
 
-.btn:hover{
-background:#ffd633;
+nav a:hover{
+color:#ffcc00;
 }
 
-.section{
-padding:50px 20px;
-}
+/* Hero */
 
-.section h2{
+.hero{
+height:85vh;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
 text-align:center;
-margin-bottom:30px;
-font-size:32px;
+padding:20px;
+background:linear-gradient(rgba(7,27,77,.85),rgba(7,27,77,.85)),
+url("https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1200&q=80");
+background-size:cover;
+background-position:center;
 }
+
+.hero h1{
+font-size:55px;
+color:#ffcc00;
+margin-bottom:20px;
+}
+
+.hero p{
+font-size:20px;
+max-width:700px;
+margin-bottom:30px;
+}
+
+.buttons{
+display:flex;
+gap:20px;
+flex-wrap:wrap;
+}
+
+.btn{
+padding:15px 30px;
+border-radius:8px;
+font-weight:bold;
+text-decoration:none;
+transition:.3s;
+}
+
+.primary{
+background:#ffcc00;
+color:#000;
+}
+
+.secondary{
+background:#25D366;
+color:#fff;
+}
+
+.btn:hover{
+transform:translateY(-5px);
+}
+
+/* Banner */
+
+.banner{
+background:#ffcc00;
+color:#000;
+padding:15px;
+text-align:center;
+font-size:22px;
+font-weight:bold;
+animation:slide 10s infinite;
+}
+
+@keyframes slide{
+0%{opacity:1;}
+50%{opacity:.6;}
+100%{opacity:1;}
+}
+
+/* Sections */
+
+section{
+padding:70px 8%;
+}
+
+section h2{
+text-align:center;
+font-size:38px;
+margin-bottom:40px;
+color:#ffcc00;
+}
+
+/* Offers */
 
 .offers{
 display:flex;
 justify-content:center;
-gap:25px;
+gap:30px;
 flex-wrap:wrap;
 }
 
 .card{
-background:#ffffff;
-color:#000;
 width:300px;
+background:white;
+color:black;
 padding:25px;
-border-radius:12px;
+border-radius:15px;
 text-align:center;
-box-shadow:0 5px 15px rgba(0,0,0,.3);
+transition:.4s;
 }
 
-.card h3{
-margin-bottom:10px;
+.card:hover{
+transform:translateY(-10px);
+box-shadow:0 15px 35px rgba(255,204,0,.5);
 }
 
 .price{
@@ -100,7 +174,7 @@ color:#071b4d;
 margin:15px 0;
 }
 
-.whatsapp{
+.order{
 display:inline-block;
 margin-top:15px;
 padding:12px 25px;
@@ -108,148 +182,230 @@ background:#25D366;
 color:white;
 text-decoration:none;
 border-radius:8px;
-font-weight:bold;
 }
+
+/* Features */
 
 .features{
 display:flex;
 justify-content:center;
-gap:20px;
+gap:25px;
 flex-wrap:wrap;
 }
 
 .feature{
-background:#0d2d75;
+width:230px;
+background:#10327e;
 padding:25px;
 border-radius:12px;
+text-align:center;
+transition:.3s;
+}
+
+.feature:hover{
+background:#ffcc00;
+color:black;
+}
+
+/* Steps */
+
+.steps{
+display:flex;
+justify-content:center;
+gap:25px;
+flex-wrap:wrap;
+}
+
+.step{
 width:220px;
+background:#0d2d75;
+padding:20px;
+border-radius:10px;
 text-align:center;
 }
 
-.feature h3{
-margin:15px 0;
+/* Reviews */
+
+.review{
+background:#10327e;
+padding:20px;
+border-radius:12px;
+margin:15px auto;
+max-width:600px;
+text-align:center;
 }
+
+/* Contact */
 
 .contact{
 text-align:center;
 font-size:20px;
+line-height:2;
 }
+
+/* Footer */
 
 footer{
-background:#ffcc00;
-color:#000;
+background:#04153b;
+padding:25px;
 text-align:center;
-padding:20px;
-margin-top:40px;
-font-weight:bold;
+margin-top:50px;
 }
 
-</style>
+/* WhatsApp */
 
+.whatsapp{
+position:fixed;
+right:20px;
+bottom:20px;
+background:#25D366;
+color:white;
+padding:15px 20px;
+border-radius:50px;
+text-decoration:none;
+font-weight:bold;
+box-shadow:0 5px 15px rgba(0,0,0,.4);
+}
+</style>
 </head>
 
 <body>
 
-<header>
+<nav>
 
-MTN ANYTIME DATA
+<div class="logo">MTN DATA</div>
 
-</header>
+<ul>
+<li><a href="#home">Home</a></li>
+<li><a href="#offers">Offers</a></li>
+<li><a href="#about">About</a></li>
+<li><a href="#contact">Contact</a></li>
+</ul>
 
-<section class="hero">
+</nav>
+
+<div class="banner">
+🔥 35GB for R250 • 50GB for R350 • Valid for 30 Days 🔥
+</div>
+
+<section class="hero" id="home">
 
 <h1>Stay Connected.</h1>
 
 <p>
 Why pay more for your data?
-We offer the best and most reasonable prices on MTN Anytime Data bundles.
-Fast, reliable and affordable.
+We offer the best and most affordable MTN Anytime Data bundles.
 </p>
 
-<a class="btn" href="https://wa.me/27730916623">
+<div class="buttons">
+<a href="#offers" class="btn primary">View Offers</a>
+
+<a href="https://wa.me/27730916623" class="btn secondary">
 Order on WhatsApp
 </a>
+</div>
 
 </section>
 
-<section class="section">
+<section id="offers">
 
 <h2>Our Offers</h2>
 
 <div class="offers">
 
 <div class="card">
-<h3>35GB Anytime Data</h3>
-
+<h3>35GB Anytime</h3>
 <div class="price">R250</div>
-
-<p>Valid for 30 Days</p>
-
-<a class="whatsapp" href="https://wa.me/27730916623?text=Hi,%20I%20would%20like%20to%20order%20the%2035GB%20bundle.">
-Order Now
-</a>
-
+<p>30 Days Validity</p>
+<a class="order" href="https://wa.me/27730916623?text=Hi%20I%20want%2035GB">Order Now</a>
 </div>
 
 <div class="card">
-
-<h3>50GB Anytime Data</h3>
-
+<h3>50GB Anytime</h3>
 <div class="price">R350</div>
-
-<p>Valid for 30 Days</p>
-
-<a class="whatsapp" href="https://wa.me/27730916623?text=Hi,%20I%20would%20like%20to%20order%20the%2050GB%20bundle.">
-Order Now
-</a>
-
+<p>30 Days Validity</p>
+<a class="order" href="https://wa.me/27730916623?text=Hi%20I%20want%2050GB">Order Now</a>
 </div>
 
 </div>
 
 </section>
 
-<section class="section">
+<section id="about">
 
-<h2>Why Choose Us?</h2>
+<h2>Why Choose Us</h2>
 
 <div class="features">
 
 <div class="feature">
 <h3>⚡ Fast Activation</h3>
-<p>Your data is activated quickly after confirmation.</p>
+<p>Quick turnaround after payment.</p>
 </div>
 
 <div class="feature">
 <h3>📶 Reliable Network</h3>
-<p>Enjoy dependable MTN network coverage.</p>
-</div>
-
-<div class="feature">
-<h3>📅 30-Day Validity</h3>
-<p>Your bundle remains valid for a full month.</p>
+<p>Stable MTN network performance.</p>
 </div>
 
 <div class="feature">
 <h3>💰 Affordable Prices</h3>
-<p>Great value with competitive pricing.</p>
+<p>Competitive data bundle prices.</p>
+</div>
+
+<div class="feature">
+<h3>📅 30-Day Validity</h3>
+<p>Enjoy a full month of connectivity.</p>
 </div>
 
 </div>
 
 </section>
 
-<section class="section">
+<section>
+
+<h2>How To Order</h2>
+
+<div class="steps">
+
+<div class="step">1️⃣ Choose Your Bundle</div>
+
+<div class="step">2️⃣ WhatsApp Us</div>
+
+<div class="step">3️⃣ Make Payment</div>
+
+<div class="step">4️⃣ Receive Your Data</div>
+
+</div>
+
+</section>
+
+<section>
+
+<h2>Customer Reviews</h2>
+
+<div class="review">
+⭐⭐⭐⭐⭐<br><br>
+"Fast service and affordable prices!"
+</div>
+
+<div class="review">
+⭐⭐⭐⭐⭐<br><br>
+"My data was activated quickly. Highly recommended."
+</div>
+
+</section>
+
+<section id="contact">
 
 <h2>Contact Us</h2>
 
 <div class="contact">
 
-<p><strong>WhatsApp:</strong> 073 091 6623</p>
+📱 WhatsApp: <strong>073 091 6623</strong><br>
 
-<p><strong>Business Hours:</strong> Monday - Sunday</p>
+Monday – Sunday<br>
 
-<p>07:00 - 21:00</p>
+07:00 – 21:00
 
 </div>
 
@@ -257,9 +413,15 @@ Order Now
 
 <footer>
 
+© 2026 MTN Anytime Data<br>
+
 Stay Connected. Anytime. Anywhere.
 
 </footer>
+
+<a class="whatsapp" href="https://wa.me/27730916623">
+WhatsApp
+</a>
 
 </body>
   </html>

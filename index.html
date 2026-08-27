@@ -67,7 +67,7 @@ nav a:hover{
 
 
 /* =========================
-   YELLOW BANNER
+   PROMOTIONAL BANNER
 ========================= */
 
 .banner{
@@ -81,6 +81,7 @@ nav a:hover{
 }
 
 @keyframes slide{
+
     0%{
         opacity:1;
     }
@@ -92,16 +93,19 @@ nav a:hover{
     100%{
         opacity:1;
     }
+
 }
 
 
 /* =========================
-   HERO
+   HERO / BACKGROUND BANNER
 ========================= */
 
 .hero{
-    height:60vh;
-    min-height:450px;
+
+    height:38vh;
+
+    min-height:280px;
 
     display:flex;
     flex-direction:column;
@@ -109,6 +113,7 @@ nav a:hover{
     align-items:center;
 
     text-align:center;
+
     padding:20px;
 
     background:
@@ -120,19 +125,20 @@ nav a:hover{
 
     background-size:cover;
     background-position:center;
+
 }
 
 .hero h1{
     font-size:55px;
     color:#ffcc00;
-    margin-bottom:20px;
+    margin-bottom:15px;
 }
 
 .hero p{
     font-size:20px;
     max-width:700px;
-    margin-bottom:30px;
-    line-height:1.6;
+    margin-bottom:25px;
+    line-height:1.5;
 }
 
 
@@ -148,7 +154,7 @@ nav a:hover{
 }
 
 .btn{
-    padding:15px 30px;
+    padding:13px 28px;
     border-radius:8px;
     font-weight:bold;
     text-decoration:none;
@@ -276,7 +282,7 @@ section h2{
 
 
 /* =========================
-   STEPS
+   HOW TO ORDER
 ========================= */
 
 .steps{
@@ -304,7 +310,7 @@ section h2{
 
 
 /* =========================
-   REVIEWS
+   CUSTOMER REVIEWS
 ========================= */
 
 .review{
@@ -343,11 +349,12 @@ footer{
 
 
 /* =========================
-   WHATSAPP FLOATING BUTTON
+   FLOATING WHATSAPP
 ========================= */
 
 .whatsapp{
     position:fixed;
+
     right:20px;
     bottom:20px;
 
@@ -355,14 +362,17 @@ footer{
     color:white;
 
     padding:15px 20px;
+
     border-radius:50px;
 
     text-decoration:none;
+
     font-weight:bold;
 
     box-shadow:0 5px 15px rgba(0,0,0,.4);
 
     z-index:999;
+
     transition:.3s;
 }
 
@@ -372,7 +382,7 @@ footer{
 
 
 /* =========================
-   MOBILE RESPONSIVE
+   TABLET
 ========================= */
 
 @media(max-width:768px){
@@ -399,17 +409,19 @@ footer{
     }
 
     .hero{
-        height:55vh;
-        min-height:400px;
+        height:38vh;
+        min-height:280px;
         padding:20px 15px;
     }
 
     .hero h1{
         font-size:40px;
+        margin-bottom:10px;
     }
 
     .hero p{
         font-size:17px;
+        margin-bottom:18px;
     }
 
     section{
@@ -445,22 +457,28 @@ footer{
 @media(max-width:480px){
 
     .hero{
-        height:50vh;
-        min-height:360px;
+        height:38vh;
+        min-height:280px;
     }
 
     .hero h1{
-        font-size:34px;
+        font-size:32px;
     }
 
     .hero p{
-        font-size:16px;
+        font-size:15px;
+        max-width:340px;
+        margin-bottom:18px;
+    }
+
+    .buttons{
+        gap:10px;
     }
 
     .btn{
         width:100%;
-        max-width:280px;
-        text-align:center;
+        max-width:260px;
+        padding:12px 20px;
     }
 
     .whatsapp{
@@ -489,21 +507,31 @@ footer{
     </div>
 
     <ul>
+
         <li>
-            <a href="#home">Home</a>
+            <a href="#home">
+                Home
+            </a>
         </li>
 
         <li>
-            <a href="#offers">Offers</a>
+            <a href="#offers">
+                Offers
+            </a>
         </li>
 
         <li>
-            <a href="#about">About</a>
+            <a href="#about">
+                About
+            </a>
         </li>
 
         <li>
-            <a href="#contact">Contact</a>
+            <a href="#contact">
+                Contact
+            </a>
         </li>
+
     </ul>
 
 </nav>
@@ -538,7 +566,10 @@ footer{
 
     <div class="buttons">
 
-        <a href="#offers" class="btn primary">
+        <a
+            href="#offers"
+            class="btn primary"
+        >
             View Offers
         </a>
 
@@ -568,7 +599,7 @@ footer{
     <div class="offers">
 
 
-        <!-- 35GB -->
+        <!-- 35GB PACKAGE -->
 
         <div class="card">
 
@@ -595,7 +626,7 @@ footer{
         </div>
 
 
-        <!-- 50GB -->
+        <!-- 50GB PACKAGE -->
 
         <div class="card">
 
@@ -709,26 +740,21 @@ footer{
 
     <div class="steps">
 
-
         <div class="step">
             1️⃣ Choose Your Bundle
         </div>
-
 
         <div class="step">
             2️⃣ WhatsApp Us
         </div>
 
-
         <div class="step">
             3️⃣ Make Payment
         </div>
 
-
         <div class="step">
             4️⃣ Receive Your Data
         </div>
-
 
     </div>
 
@@ -767,7 +793,6 @@ footer{
         Highly recommended."
 
     </div>
-
 
 </section>
 

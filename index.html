@@ -1,105 +1,67 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
 
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<meta name="viewport"
-content="width=device-width, initial-scale=1.0">
-
-<meta name="description"
-content="Affordable MTN Anytime Data bundles. Order online and pay securely through Yoco.">
-
-<title>MTN Anytime Data | Stay Connected</title>
-
-
-<!-- FONT AWESOME -->
+<title>MTN Anytime Data</title>
 
 <link rel="stylesheet"
 href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
-
 <style>
-
-/* =========================
-   GENERAL
-========================= */
 
 *{
     margin:0;
     padding:0;
     box-sizing:border-box;
-    font-family:Arial,Helvetica,sans-serif;
-    scroll-behavior:smooth;
+    font-family:Arial, Helvetica, sans-serif;
 }
 
 html{
-    scroll-padding-top:80px;
+    scroll-behavior:smooth;
 }
 
 body{
-    background:#071b4d;
-    color:#fff;
-    line-height:1.6;
+    background:#f5f7fb;
+    color:#111;
 }
 
-a{
-    text-decoration:none;
-}
-
-
-/* =========================
-   NAVIGATION
-========================= */
+/* NAVIGATION */
 
 nav{
+    background:#071b4d;
+    color:white;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:15px 7%;
     position:sticky;
     top:0;
     z-index:1000;
-
-    width:100%;
-
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-
-    padding:15px 7%;
-
-    background:#04153b;
-
-    box-shadow:
-    0 3px 15px rgba(0,0,0,.45);
 }
 
 .logo{
-    display:flex;
-    align-items:center;
-    gap:10px;
-
-    color:#ffcc00;
-
-    font-size:25px;
+    font-size:22px;
     font-weight:bold;
+    color:#ffcc00;
 }
 
-.logo i{
-    font-size:27px;
+.logo span{
+    color:white;
 }
 
 .nav-links{
     display:flex;
-    align-items:center;
     gap:25px;
-
     list-style:none;
 }
 
 .nav-links a{
     color:white;
+    text-decoration:none;
     font-weight:bold;
-
-    transition:.3s;
 }
 
 .nav-links a:hover{
@@ -108,2596 +70,375 @@ nav{
 
 .menu-btn{
     display:none;
-
-    color:#ffcc00;
-
     font-size:25px;
-
     cursor:pointer;
 }
 
-
-/* =========================
-   PROMOTIONAL BANNER
-========================= */
+/* PROMO BANNER */
 
 .banner{
     background:#ffcc00;
     color:#071b4d;
-
-    padding:11px 15px;
-
     text-align:center;
-
-    font-size:17px;
+    padding:10px;
     font-weight:bold;
-
-    overflow:hidden;
 }
 
-.banner-text{
-    animation:bannerAnimation 7s infinite;
-}
-
-@keyframes bannerAnimation{
-
-    0%,100%{
-        opacity:1;
-    }
-
-    50%{
-        opacity:.55;
-    }
-
-}
-
-
-/* =========================
-   HERO
-========================= */
+/* HERO */
 
 .hero{
-
-    min-height:540px;
-
-    display:flex;
-    flex-direction:column;
-
-    justify-content:center;
-    align-items:center;
-
-    text-align:center;
-
-    padding:60px 20px;
-
-    background:
-
-    linear-gradient(
-        rgba(7,27,77,.90),
-        rgba(4,21,59,.96)
-    ),
-
-    url(
-        "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1600&q=80"
+    background:linear-gradient(
+        rgba(4,21,59,.9),
+        rgba(7,27,77,.9)
     );
-
-    background-size:cover;
-    background-position:center;
-}
-
-.hero-badge{
-
-    background:
-    rgba(255,204,0,.15);
-
-    border:
-    1px solid #ffcc00;
-
-    color:#ffcc00;
-
-    padding:8px 18px;
-
-    border-radius:30px;
-
-    font-weight:bold;
-
-    margin-bottom:20px;
+    color:white;
+    text-align:center;
+    padding:80px 20px;
 }
 
 .hero h1{
-
-    font-size:58px;
-
-    color:#ffcc00;
-
+    font-size:42px;
     margin-bottom:15px;
-
-    line-height:1.1;
 }
 
 .hero h1 span{
-    color:white;
+    color:#ffcc00;
 }
 
 .hero p{
-
-    max-width:750px;
-
-    margin-bottom:30px;
-
-    font-size:20px;
-
-    color:#f5f5f5;
+    font-size:18px;
+    max-width:700px;
+    margin:auto;
+    line-height:1.7;
 }
 
-.highlight{
-    color:#ffcc00;
-    font-weight:bold;
-}
-
-
-/* =========================
-   BUTTONS
-========================= */
-
-.buttons{
-
-    display:flex;
-
-    gap:15px;
-
-    flex-wrap:wrap;
-
-    justify-content:center;
+.hero-buttons{
+    margin-top:30px;
 }
 
 .btn{
-
-    display:inline-flex;
-
-    align-items:center;
-    justify-content:center;
-
-    gap:8px;
-
-    padding:14px 27px;
-
-    border-radius:8px;
-
+    display:inline-block;
+    padding:14px 25px;
+    border-radius:7px;
+    text-decoration:none;
     font-weight:bold;
-
-    transition:.3s;
-
+    margin:5px;
     cursor:pointer;
+    border:none;
 }
 
-.primary{
-
+.btn-primary{
     background:#ffcc00;
-
     color:#071b4d;
 }
 
-.secondary{
+.btn-primary:hover{
+    background:#e6b800;
+}
 
+.btn-whatsapp{
     background:#25D366;
-
     color:white;
 }
 
-.dark-btn{
-
-    background:#04153b;
-
-    color:white;
-
-    border:2px solid #ffcc00;
-}
-
-.btn:hover{
-
-    transform:translateY(-4px);
-
-    box-shadow:
-    0 8px 20px rgba(0,0,0,.3);
-}
-
-
-/* =========================
-   SECTIONS
-========================= */
+/* SECTION */
 
 section{
-    padding:75px 7%;
+    padding:60px 7%;
 }
 
 .section-title{
-
     text-align:center;
-
-    margin-bottom:45px;
+    margin-bottom:35px;
 }
 
 .section-title h2{
-
-    color:#ffcc00;
-
-    font-size:38px;
-
-    margin-bottom:10px;
+    color:#071b4d;
+    font-size:32px;
 }
 
 .section-title p{
-
-    max-width:680px;
-
-    margin:auto;
-
-    color:#dce5ff;
+    margin-top:10px;
+    color:#666;
 }
 
-
-/* =========================
-   DATA OFFERS
-========================= */
+/* OFFERS */
 
 .offers{
-
     display:grid;
-
-    grid-template-columns:
-    repeat(auto-fit,minmax(250px,1fr));
-
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
     gap:25px;
-
-    max-width:1100px;
-
-    margin:auto;
 }
 
-.card{
-
-    position:relative;
-
+.offer-card{
     background:white;
-
-    color:#071b4d;
-
-    padding:30px 25px;
-
-    border-radius:18px;
-
+    border-radius:12px;
+    padding:30px 20px;
     text-align:center;
-
-    transition:.35s;
-
-    box-shadow:
-    0 8px 25px rgba(0,0,0,.25);
+    box-shadow:0 5px 20px rgba(0,0,0,.08);
+    border-top:5px solid #ffcc00;
 }
 
-.card:hover{
-
-    transform:translateY(-10px);
-
-    box-shadow:
-    0 15px 35px
-    rgba(255,204,0,.35);
-}
-
-.card.popular{
-
-    border:
-    3px solid #ffcc00;
-}
-
-.popular-badge{
-
-    position:absolute;
-
-    top:-13px;
-
-    left:50%;
-
-    transform:
-    translateX(-50%);
-
-    background:#ffcc00;
-
-    color:#071b4d;
-
-    padding:6px 18px;
-
-    border-radius:20px;
-
-    font-size:12px;
-
-    font-weight:bold;
-
-    white-space:nowrap;
-}
-
-.card-icon{
-
-    color:#071b4d;
-
+.offer-card i{
     font-size:40px;
-
-    margin-bottom:12px;
-}
-
-.card h3{
-
-    font-size:23px;
-
-    margin-bottom:8px;
-}
-
-.data-type{
-
-    color:#666;
-
-    font-size:15px;
-}
-
-.price{
-
     color:#071b4d;
+    margin-bottom:15px;
+}
 
-    font-size:43px;
+.offer-card h3{
+    color:#071b4d;
+    font-size:25px;
+    margin-bottom:10px;
+}
 
+.offer-card .price{
+    font-size:32px;
     font-weight:bold;
-
+    color:#071b4d;
     margin:15px 0;
 }
 
-.validity{
-
-    display:inline-block;
-
-    background:#eef2ff;
-
-    padding:5px 12px;
-
-    border-radius:20px;
-
-    font-size:14px;
-}
-
-.order{
-
-    width:100%;
-
-    display:inline-flex;
-
-    align-items:center;
-    justify-content:center;
-
-    gap:7px;
-
-    margin-top:20px;
-
-    padding:13px;
-
-    background:#25D366;
-
-    color:white;
-
-    border-radius:8px;
-
-    font-weight:bold;
-
-    transition:.3s;
-}
-
-.order:hover{
-
-    transform:scale(1.03);
-}
-
-
-/* =========================
-   FEATURES
-========================= */
-
-.features{
-
-    display:grid;
-
-    grid-template-columns:
-    repeat(auto-fit,minmax(220px,1fr));
-
-    gap:22px;
-
-    max-width:1100px;
-
-    margin:auto;
-}
-
-.feature{
-
-    background:#10327e;
-
-    padding:30px 20px;
-
-    border-radius:15px;
-
-    text-align:center;
-
-    transition:.3s;
-}
-
-.feature i{
-
-    font-size:38px;
-
-    color:#ffcc00;
-
-    margin-bottom:15px;
-}
-
-.feature h3{
-
-    margin-bottom:10px;
-}
-
-.feature p{
-
-    color:#dce5ff;
-}
-
-.feature:hover{
-
-    transform:translateY(-7px);
-
-    background:#0d2d75;
-}
-
-
-/* =========================
-   HOW TO ORDER
-========================= */
-
-.steps{
-
-    display:grid;
-
-    grid-template-columns:
-    repeat(auto-fit,minmax(200px,1fr));
-
-    gap:20px;
-
-    max-width:1000px;
-
-    margin:auto;
-}
-
-.step{
-
-    background:#0d2d75;
-
-    padding:25px 18px;
-
-    border-radius:15px;
-
-    text-align:center;
-
-    transition:.3s;
-}
-
-.step-number{
-
-    width:45px;
-    height:45px;
-
-    display:flex;
-
-    align-items:center;
-    justify-content:center;
-
-    margin:0 auto 15px;
-
-    border-radius:50%;
-
-    background:#ffcc00;
-
-    color:#071b4d;
-
-    font-size:20px;
-
-    font-weight:bold;
-}
-
-.step h3{
-
-    margin-bottom:8px;
-}
-
-.step:hover{
-
-    transform:translateY(-6px);
-}
-
-
-/* =========================
-   ORDER SECTION
-========================= */
-
-.order-section{
-
-    background:#061640;
-}
-
-.order-box{
-
-    max-width:700px;
-
-    margin:auto;
-
-    background:white;
-
-    color:#071b4d;
-
-    padding:35px;
-
-    border-radius:18px;
-
-    box-shadow:
-    0 12px 35px rgba(0,0,0,.3);
-}
-
-.form-group{
-
-    margin-bottom:18px;
-}
-
-.form-group label{
-
-    display:block;
-
-    font-weight:bold;
-
-    margin-bottom:7px;
-}
-
-.form-group input,
-.form-group select{
-
-    width:100%;
-
-    padding:13px;
-
-    border:1px solid #ccc;
-
-    border-radius:8px;
-
-    font-size:16px;
-
-    outline:none;
-}
-
-.form-group input:focus,
-.form-group select:focus{
-
-    border-color:#ffcc00;
-}
-
-.submit-btn{
-
-    width:100%;
-
-    border:none;
-
-    padding:14px;
-
-    border-radius:8px;
-
-    background:#ffcc00;
-
-    color:#071b4d;
-
-    font-size:17px;
-
-    font-weight:bold;
-
-    cursor:pointer;
-
-    transition:.3s;
-}
-
-.submit-btn:hover{
-
-    transform:translateY(-3px);
-}
-
-.order-note{
-
-    text-align:center;
-
+.offer-card p{
     color:#666;
-
-    font-size:13px;
-
-    margin-top:12px;
+    margin-bottom:20px;
 }
 
-
-/* =========================
-   ORDER SUMMARY
-========================= */
-
-.order-summary{
-
-    display:none;
-
-    margin-top:25px;
-
-    padding:20px;
-
-    background:#eef2ff;
-
-    border-radius:10px;
-
-    text-align:center;
-}
-
-.order-summary h3{
-
-    margin-bottom:10px;
-}
-
-.summary-price{
-
-    color:#071b4d;
-
-    font-size:28px;
-
-    font-weight:bold;
-
-    margin:10px 0;
-}
-
-
-/* =========================
-   PAYMENT
-========================= */
-
-.payment-section{
-
+.offer-card button{
+    width:100%;
+    padding:13px;
+    border:none;
     background:#071b4d;
+    color:white;
+    border-radius:6px;
+    font-weight:bold;
+    cursor:pointer;
 }
 
-.payment-box{
-
-    display:grid;
-
-    grid-template-columns:
-    repeat(auto-fit,minmax(250px,1fr));
-
-    gap:25px;
-
-    max-width:1000px;
-
-    margin:auto;
-}
-
-.payment-card{
-
-    background:#10327e;
-
-    padding:30px;
-
-    border-radius:15px;
-
-    text-align:center;
-}
-
-.payment-card i{
-
-    color:#ffcc00;
-
-    font-size:40px;
-
-    margin-bottom:15px;
-}
-
-.payment-card h3{
-
-    margin-bottom:10px;
-}
-
-.payment-card p{
-
-    color:#dce5ff;
-
-    margin-bottom:15px;
-}
-
-.yoco-btn{
-
-    display:inline-flex;
-
-    align-items:center;
-    justify-content:center;
-
-    gap:8px;
-
-    padding:12px 20px;
-
-    border-radius:8px;
-
+.offer-card button:hover{
     background:#ffcc00;
-
     color:#071b4d;
-
-    font-weight:bold;
-
-    transition:.3s;
-}
-
-.yoco-btn:hover{
-
-    transform:translateY(-3px);
-}
-
-
-/* =========================
-   REVIEWS
-========================= */
-
-.reviews{
-
-    display:grid;
-
-    grid-template-columns:
-    repeat(auto-fit,minmax(260px,1fr));
-
-    gap:20px;
-
-    max-width:1000px;
-
-    margin:auto;
-}
-
-.review{
-
-    background:#10327e;
-
-    padding:25px;
-
-    border-radius:15px;
-
-    text-align:center;
-}
-
-.stars{
-
-    color:#ffcc00;
-
-    font-size:20px;
-
-    margin-bottom:10px;
-}
-
-.review p{
-
-    color:#e7edff;
-}
-
-.review strong{
-
-    display:block;
-
-    margin-top:15px;
-}
-
-
-/* =========================
-   CONTACT
-========================= */
-
-.contact-container{
-
-    display:grid;
-
-    grid-template-columns:
-    repeat(auto-fit,minmax(250px,1fr));
-
-    gap:25px;
-
-    max-width:900px;
-
-    margin:auto;
-}
-
-.contact-card{
-
-    background:#10327e;
-
-    padding:30px;
-
-    border-radius:15px;
-
-    text-align:center;
-}
-
-.contact-card i{
-
-    color:#ffcc00;
-
-    font-size:35px;
-
-    margin-bottom:12px;
-}
-
-.contact-card a{
-
-    color:white;
-}
-
-.contact-card a:hover{
-
-    color:#ffcc00;
-}
-
-
-/* =========================
-   FOOTER
-========================= */
-
-footer{
-
-    background:#04153b;
-
-    padding:40px 7%;
-
-    text-align:center;
-}
-
-.footer-logo{
-
-    color:#ffcc00;
-
-    font-size:25px;
-
-    font-weight:bold;
-
-    margin-bottom:10px;
-}
-
-.footer-links{
-
-    margin:20px 0;
-
-    display:flex;
-
-    justify-content:center;
-
-    gap:20px;
-
-    flex-wrap:wrap;
-}
-
-.footer-links a{
-
-    color:white;
-}
-
-.footer-links a:hover{
-
-    color:#ffcc00;
-}
-
-.footer-copy{
-
-    color:#aebbdc;
-
-    font-size:14px;
-
-    margin-top:8px;
-}
-
-
-/* =========================
-   FLOATING WHATSAPP
-========================= */
-
-.whatsapp{
-
-    position:fixed;
-
-    right:20px;
-    bottom:20px;
-
-    width:58px;
-    height:58px;
-
-    display:flex;
-
-    align-items:center;
-    justify-content:center;
-
-    border-radius:50%;
-
-    background:#25D366;
-
-    color:white;
-
-    font-size:27px;
-
-    box-shadow:
-    0 5px 18px rgba(0,0,0,.4);
-
-    z-index:999;
-
-    transition:.3s;
-}
-
-.whatsapp:hover{
-
-    transform:scale(1.1);
-}
-
-
-/* =========================
-   MOBILE
-========================= */
-
-@media(max-width:768px){
-
-    nav{
-
-        padding:14px 5%;
-    }
-
-    .menu-btn{
-
-        display:block;
-    }
-
-    .nav-links{
-
-        position:absolute;
-
-        top:65px;
-        left:0;
-
-        width:100%;
-
-        background:#04153b;
-
-        display:none;
-
-        flex-direction:column;
-
-        padding:20px;
-
-        gap:18px;
-    }
-
-    .nav-links.active{
-
-        display:flex;
-    }
-
-    .hero{
-
-        min-height:500px;
-    }
-
-    .hero h1{
-
-        font-size:42px;
-    }
-
-    .hero p{
-
-        font-size:17px;
-    }
-
-    section{
-
-        padding:60px 5%;
-    }
-
-    .section-title h2{
-
-        font-size:31px;
-    }
-
-    .order-box{
-
-        padding:25px 20px;
-    }
-
-}
-
-
-/* =========================
-   SMALL PHONES
-========================= */
-
-@media(max-width:480px){
-
-    .logo{
-
-        font-size:21px;
-    }
-
-    .banner{
-
-        font-size:14px;
-    }
-
-    .hero{
-
-        min-height:480px;
-
-        padding:45px 15px;
-    }
-
-    .hero h1{
-
-        font-size:34px;
-    }
-
-    .hero p{
-
-        font-size:15px;
-    }
-
-    .buttons{
-
-        width:100%;
-    }
-
-    .btn{
-
-        width:100%;
-
-        max-width:280px;
-    }
-
-    .whatsapp{
-
-        width:52px;
-        height:52px;
-
-        right:15px;
-        bottom:15px;
-    }
-
 }
 
 </style>
 
 </head>
 
-
 <body>
 
-
-<!-- =========================
-     NAVIGATION
-========================= -->
+<!-- NAVIGATION -->
 
 <nav>
 
-    <a
-        href="#home"
-        class="logo"
-    >
+<div class="logo">
+MTN <span>Anytime Data</span>
+</div>
 
-        <i class="fa-solid fa-signal"></i>
+<div class="menu-btn" onclick="toggleMenu()">
+<i class="fas fa-bars"></i>
+</div>
 
-        MTN DATA
+<ul class="nav-links" id="navLinks">
 
-    </a>
+<li>
+<a href="#home">
+<i class="fas fa-home"></i> Home
+</a>
+</li>
 
+<li>
+<a href="#offers">
+<i class="fas fa-wifi"></i> Offers
+</a>
+</li>
 
-    <div
-        class="menu-btn"
-        onclick="toggleMenu()"
-    >
+<li>
+<a href="#order">
+<i class="fas fa-cart-shopping"></i> Order
+</a>
+</li>
 
-        <i class="fa-solid fa-bars"></i>
+<li>
+<a href="#payment">
+<i class="fas fa-credit-card"></i> Payment
+</a>
+</li>
 
-    </div>
+<li>
+<a href="#contact">
+<i class="fas fa-phone"></i> Contact
+</a>
+</li>
 
-
-    <ul
-        class="nav-links"
-        id="navLinks"
-    >
-
-        <li>
-            <a href="#home">
-                <i class="fa-solid fa-house"></i>
-                Home
-            </a>
-        </li>
-
-        <li>
-            <a href="#offers">
-                <i class="fa-solid fa-tags"></i>
-                Offers
-            </a>
-        </li>
-
-        <li>
-            <a href="#order">
-                <i class="fa-solid fa-cart-shopping"></i>
-                Order
-            </a>
-        </li>
-
-        <li>
-            <a href="#payment">
-                <i class="fa-solid fa-credit-card"></i>
-                Payment
-            </a>
-        </li>
-
-        <li>
-            <a href="#contact">
-                <i class="fa-solid fa-phone"></i>
-                Contact
-            </a>
-        </li>
-
-    </ul>
+</ul>
 
 </nav>
 
 
-<!-- =========================
-     PROMOTIONAL BANNER
-========================= -->
+<!-- PROMO -->
 
 <div class="banner">
 
-    <div class="banner-text">
+<i class="fas fa-bolt"></i>
 
-        🔥 SPECIAL OFFER:
-        35GB for R250
-        •
-        50GB for R350
-        •
-        30 DAYS 🔥
+Why pay more for your data?
 
-    </div>
+Get affordable MTN Anytime Data.
+
+<i class="fas fa-bolt"></i>
 
 </div>
 
 
-<!-- =========================
-     HERO
-========================= -->
+<!-- HERO -->
 
-<section
-    class="hero"
-    id="home"
->
+<section class="hero" id="home">
 
-    <div class="hero-badge">
+<h1>
+Affordable <span>MTN Anytime Data</span>
+</h1>
 
-        <i class="fa-solid fa-bolt"></i>
+<p>
+Stay connected with affordable Anytime Data bundles.
+Choose your package, place your order and pay securely through Yoco.
+</p>
 
-        Affordable Data. Easy Ordering.
+<div class="hero-buttons">
 
-    </div>
+<a href="#offers" class="btn btn-primary">
+<i class="fas fa-database"></i>
+View Data Offers
+</a>
 
+<a href="https://wa.me/27730916623"
+target="_blank"
+class="btn btn-whatsapp">
 
-    <h1>
-
-        Stay Connected.
-        <span>Pay Less.</span>
-
-    </h1>
-
-
-    <p>
-
-        Why pay more for your data?
-
-        Get affordable
-        <span class="highlight">
-            MTN Anytime Data
-        </span>
-
-        bundles and stay connected
-        wherever you go.
-
-    </p>
-
-
-    <div class="buttons">
-
-        <a
-            href="#offers"
-            class="btn primary"
-        >
-
-            <i class="fa-solid fa-tags"></i>
-
-            View Offers
-
-        </a>
-
-
-        <a
-            href="https://wa.me/27730916623"
-            class="btn secondary"
-            target="_blank"
-            rel="noopener noreferrer"
-        >
-
-            <i class="fa-brands fa-whatsapp"></i>
-
-            Order on WhatsApp
-
-        </a>
-
-    </div>
-
-</section>
-
-
-<!-- =========================
-     OFFERS
-========================= -->
-
-<section id="offers">
-
-    <div class="section-title">
-
-        <h2>
-            Our Data Offers
-        </h2>
-
-        <p>
-            Choose your bundle and continue
-            to the order section.
-        </p>
-
-    </div>
-
-
-    <div class="offers">
-
-
-        <!-- 10GB -->
-
-        <div class="card">
-
-            <div class="card-icon">
-                <i class="fa-solid fa-wifi"></i>
-            </div>
-
-            <h3>
-                10GB Anytime
-            </h3>
-
-            <div class="data-type">
-                MTN Anytime Data
-            </div>
-
-            <div class="price">
-                R100
-            </div>
-
-            <span class="validity">
-                30 Days
-            </span>
-
-            <a
-                class="order"
-                href="#order"
-                onclick="selectBundle('10GB Anytime','100')"
-            >
-
-                <i class="fa-solid fa-cart-shopping"></i>
-
-                Order Now
-
-            </a>
-
-        </div>
-
-
-        <!-- 20GB -->
-
-        <div class="card">
-
-            <div class="card-icon">
-                <i class="fa-solid fa-wifi"></i>
-            </div>
-
-            <h3>
-                20GB Anytime
-            </h3>
-
-            <div class="data-type">
-                MTN Anytime Data
-            </div>
-
-            <div class="price">
-                R150
-            </div>
-
-            <span class="validity">
-                30 Days
-            </span>
-
-            <a
-                class="order"
-                href="#order"
-                onclick="selectBundle('20GB Anytime','150')"
-            >
-
-                <i class="fa-solid fa-cart-shopping"></i>
-
-                Order Now
-
-            </a>
-
-        </div>
-
-
-        <!-- 35GB -->
-
-        <div class="card popular">
-
-            <div class="popular-badge">
-                MOST POPULAR
-            </div>
-
-            <div class="card-icon">
-                <i class="fa-solid fa-fire"></i>
-            </div>
-
-            <h3>
-                35GB Anytime
-            </h3>
-
-            <div class="data-type">
-                MTN Anytime Data
-            </div>
-
-            <div class="price">
-                R250
-            </div>
-
-            <span class="validity">
-                30 Days
-            </span>
-
-            <a
-                class="order"
-                href="#order"
-                onclick="selectBundle('35GB Anytime','250')"
-            >
-
-                <i class="fa-solid fa-cart-shopping"></i>
-
-                Order Now
-
-            </a>
-
-        </div>
-
-
-        <!-- 50GB -->
-
-        <div class="card">
-
-            <div class="card-icon">
-                <i class="fa-solid fa-rocket"></i>
-            </div>
-
-            <h3>
-                50GB Anytime
-            </h3>
-
-            <div class="data-type">
-                MTN Anytime Data
-            </div>
-
-            <div class="price">
-                R350
-            </div>
-
-            <span class="validity">
-                30 Days
-            </span>
-
-            <a
-                class="order"
-                href="#order"
-                onclick="selectBundle('50GB Anytime','350')"
-            >
-
-                <i class="fa-solid fa-cart-shopping"></i>
-
-                Order Now
-
-            </a>
-
-        </div>
-
-
-    </div>
-
-</section><!-- =========================
-     WHY CHOOSE US
-========================= -->
-
-<section id="about">
-
-    <div class="section-title">
-
-        <h2>
-            Why Choose Us?
-        </h2>
-
-        <p>
-            Simple ordering, affordable bundles
-            and convenient customer support.
-        </p>
-
-    </div>
-
-
-    <div class="features">
-
-
-        <div class="feature">
-
-            <i class="fa-solid fa-bolt"></i>
-
-            <h3>
-                Fast Activation
-            </h3>
-
-            <p>
-                Quick turnaround after payment
-                has been confirmed.
-            </p>
-
-        </div>
-
-
-        <div class="feature">
-
-            <i class="fa-solid fa-signal"></i>
-
-            <h3>
-                Reliable Network
-            </h3>
-
-            <p>
-                Stay connected using
-                MTN network services.
-            </p>
-
-        </div>
-
-
-        <div class="feature">
-
-            <i class="fa-solid fa-money-bill-wave"></i>
-
-            <h3>
-                Affordable Prices
-            </h3>
-
-            <p>
-                Competitive data bundle prices
-                for your budget.
-            </p>
-
-        </div>
-
-
-        <div class="feature">
-
-            <i class="fa-solid fa-calendar-days"></i>
-
-            <h3>
-                30-Day Validity
-            </h3>
-
-            <p>
-                Enjoy your data throughout
-                the validity period.
-            </p>
-
-        </div>
-
-
-    </div>
-
-</section>
-
-
-
-<!-- =========================
-     HOW TO ORDER
-========================= -->
-
-<section>
-
-    <div class="section-title">
-
-        <h2>
-            How To Order
-        </h2>
-
-        <p>
-            Ordering your data bundle
-            is simple.
-        </p>
-
-    </div>
-
-
-    <div class="steps">
-
-
-        <div class="step">
-
-            <div class="step-number">
-                1
-            </div>
-
-            <h3>
-                Choose Bundle
-            </h3>
-
-            <p>
-                Select the data package
-                you want.
-            </p>
-
-        </div>
-
-
-        <div class="step">
-
-            <div class="step-number">
-                2
-            </div>
-
-            <h3>
-                Enter Details
-            </h3>
-
-            <p>
-                Enter your name and
-                MTN number.
-            </p>
-
-        </div>
-
-
-        <div class="step">
-
-            <div class="step-number">
-                3
-            </div>
-
-            <h3>
-                Pay with Yoco
-            </h3>
-
-            <p>
-                Complete your payment
-                through Yoco.
-            </p>
-
-        </div>
-
-
-        <div class="step">
-
-            <div class="step-number">
-                4
-            </div>
-
-            <h3>
-                Confirm
-            </h3>
-
-            <p>
-                Send your payment
-                confirmation on WhatsApp.
-            </p>
-
-        </div>
-
-
-    </div>
-
-</section>
-
-
-
-<!-- =========================
-     ORDER FORM
-========================= -->
-
-<section
-    class="order-section"
-    id="order"
->
-
-    <div class="section-title">
-
-        <h2>
-            Place Your Order
-        </h2>
-
-        <p>
-            Enter your details before
-            proceeding to payment.
-        </p>
-
-    </div>
-
-
-    <div class="order-box">
-
-
-        <form id="orderForm">
-
-
-            <div class="form-group">
-
-                <label for="customerName">
-                    Full Name
-                </label>
-
-                <input
-                    type="text"
-                    id="customerName"
-                    placeholder="Enter your full name"
-                    required
-                >
-
-            </div>
-
-
-            <div class="form-group">
-
-                <label for="phoneNumber">
-                    MTN Number
-                </label>
-
-                <input
-                    type="tel"
-                    id="phoneNumber"
-                    placeholder="e.g. 0781234567"
-                    pattern="[0-9]{10}"
-                    maxlength="10"
-                    required
-                >
-
-            </div>
-
-
-            <div class="form-group">
-
-                <label for="bundle">
-                    Select Data Bundle
-                </label>
-
-                <select
-                    id="bundle"
-                    required
-                >
-
-                    <option value="">
-                        -- Select Bundle --
-                    </option>
-
-                    <option value="10GB Anytime|100">
-                        10GB Anytime - R100
-                    </option>
-
-                    <option value="20GB Anytime|150">
-                        20GB Anytime - R150
-                    </option>
-
-                    <option value="35GB Anytime|250">
-                        35GB Anytime - R250
-                    </option>
-
-                    <option value="50GB Anytime|350">
-                        50GB Anytime - R350
-                    </option>
-
-                </select>
-
-            </div>
-
-
-            <!-- ORDER SUMMARY -->
-
-            <div
-                class="order-summary"
-                id="orderSummary"
-            >
-
-                <h3>
-                    Order Summary
-                </h3>
-
-                <p id="summaryBundle">
-                    Bundle
-                </p>
-
-                <div
-                    class="summary-price"
-                    id="summaryPrice"
-                >
-                    R0
-                </div>
-
-                <p>
-                    30 Days Validity
-                </p>
-
-            </div>
-
-
-            <button
-                type="submit"
-                class="submit-btn"
-            >
-
-                <i class="fa-solid fa-credit-card"></i>
-
-                Continue to Payment
-
-            </button>
-
-
-            <p class="order-note">
-
-                You will be taken to the Yoco
-                payment page after submitting
-                your order.
-
-            </p>
-
-
-        </form>
-
-    </div>
-
-</section>
-
-
-
-<!-- =========================
-     YOCO PAYMENT
-========================= -->
-
-<section
-    class="payment-section"
-    id="payment"
->
-
-    <div class="section-title">
-
-        <h2>
-            Secure Yoco Payment
-        </h2>
-
-        <p>
-            Complete your payment using
-            our secure Yoco payment page.
-        </p>
-
-    </div>
-
-
-    <div class="payment-box">
-
-
-        <!-- YOCO -->
-
-        <div class="payment-card">
-
-            <i class="fa-solid fa-credit-card"></i>
-
-            <h3>
-                Pay with Yoco
-            </h3>
-
-            <p>
-                Click below to open the
-                secure Yoco checkout.
-            </p>
-
-            <a
-                href="https://pay.yoco.com/r/7vELMB"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="yoco-btn"
-            >
-
-                <i class="fa-solid fa-lock"></i>
-
-                Pay with Yoco
-
-            </a>
-
-        </div>
-
-
-        <!-- WHATSAPP -->
-
-        <div class="payment-card">
-
-            <i class="fa-brands fa-whatsapp"></i>
-
-            <h3>
-                Confirm Payment
-            </h3>
-
-            <p>
-                After paying, send your
-                payment confirmation to us.
-            </p>
-
-            <a
-                href="#"
-                id="whatsappConfirm"
-                class="yoco-btn"
-                style="
-                    background:#25D366;
-                    color:white;
-                "
-            >
-
-                <i class="fa-brands fa-whatsapp"></i>
-
-                Confirm on WhatsApp
-
-            </a>
-
-        </div>
-
-
-        <!-- SECURITY -->
-
-        <div class="payment-card">
-
-            <i class="fa-solid fa-shield-halved"></i>
-
-            <h3>
-                Secure Checkout
-            </h3>
-
-            <p>
-                Your card information is
-                entered directly on Yoco's
-                secure checkout page.
-            </p>
-
-        </div>
-
-
-    </div>
-
-</section>
-
-
-
-<!-- =========================
-     CUSTOMER REVIEWS
-========================= -->
-
-<section>
-
-    <div class="section-title">
-
-        <h2>
-            Customer Reviews
-        </h2>
-
-        <p>
-            What our customers say.
-        </p>
-
-    </div>
-
-
-    <div class="reviews">
-
-
-        <div class="review">
-
-            <div class="stars">
-                ★★★★★
-            </div>
-
-            <p>
-                "Fast service and affordable
-                data prices!"
-            </p>
-
-            <strong>
-                Happy Customer
-            </strong>
-
-        </div>
-
-
-        <div class="review">
-
-            <div class="stars">
-                ★★★★★
-            </div>
-
-            <p>
-                "My data was activated quickly
-                and the ordering process was
-                easy."
-            </p>
-
-            <strong>
-                Happy Customer
-            </strong>
-
-        </div>
-
-
-        <div class="review">
-
-            <div class="stars">
-                ★★★★★
-            </div>
-
-            <p>
-                "Good prices and convenient
-                WhatsApp ordering."
-            </p>
-
-            <strong>
-                Happy Customer
-            </strong>
-
-        </div>
-
-
-    </div>
-
-</section>
-
-
-
-<!-- =========================
-     CONTACT
-========================= -->
-
-<section id="contact">
-
-    <div class="section-title">
-
-        <h2>
-            Contact Us
-        </h2>
-
-        <p>
-            Need assistance?
-            Contact us directly.
-        </p>
-
-    </div>
-
-
-    <div class="contact-container">
-
-
-        <div class="contact-card">
-
-            <i class="fa-brands fa-whatsapp"></i>
-
-            <h3>
-                WhatsApp
-            </h3>
-
-            <p>
-
-                <a
-                    href="https://wa.me/27730916623"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >
-
-                    073 091 6623
-
-                </a>
-
-            </p>
-
-        </div>
-
-
-        <div class="contact-card">
-
-            <i class="fa-solid fa-clock"></i>
-
-            <h3>
-                Business Hours
-            </h3>
-
-            <p>
-                Monday – Sunday
-            </p>
-
-            <p>
-                07:00 – 21:00
-            </p>
-
-        </div>
-
-
-        <div class="contact-card">
-
-            <i class="fa-solid fa-envelope"></i>
-
-            <h3>
-                Email
-            </h3>
-
-            <p>
-
-                <a
-                    href="mailto:bep.onlineprog@gmail.com"
-                >
-
-                    bep.onlineprog@gmail.com
-
-                </a>
-
-            </p>
-
-        </div>
-
-
-    </div>
-
-</section>
-
-
-
-<!-- =========================
-     FOOTER
-========================= -->
-
-<footer>
-
-    <div class="footer-logo">
-
-        <i class="fa-solid fa-signal"></i>
-
-        MTN DATA
-
-    </div>
-
-
-    <p>
-        Stay Connected. Anytime. Anywhere.
-    </p>
-
-
-    <div class="footer-links">
-
-        <a href="#home">
-            Home
-        </a>
-
-        <a href="#offers">
-            Offers
-        </a>
-
-        <a href="#order">
-            Order
-        </a>
-
-        <a href="#payment">
-            Payment
-        </a>
-
-        <a href="#contact">
-            Contact
-        </a>
-
-    </div>
-
-
-    <p class="footer-copy">
-
-        © 2026 MTN Anytime Data.
-        All rights reserved.
-
-    </p>
-
-
-    <p class="footer-copy">
-
-        Bundle availability, pricing and
-        validity are subject to confirmation.
-
-    </p>
-
-</footer>
-
-
-
-<!-- =========================
-     FLOATING WHATSAPP
-========================= -->
-
-<a
-    class="whatsapp"
-    href="https://wa.me/27730916623"
-    target="_blank"
-    rel="noopener noreferrer"
-    aria-label="Chat on WhatsApp"
->
-
-    <i class="fa-brands fa-whatsapp"></i>
+<i class="fab fa-whatsapp"></i>
+WhatsApp Us
 
 </a>
 
+</div>
 
+</section>
 
-<!-- =========================
-     JAVASCRIPT
-========================= -->
 
-<script>
+<!-- OFFERS -->
 
+<section id="offers">
 
-/* =========================
-   MOBILE MENU
-========================= */
+<div class="section-title">
 
-function toggleMenu(){
+<h2>
+<i class="fas fa-wifi"></i>
+Data Offers
+</h2>
 
-    const menu =
-        document.getElementById(
-            "navLinks"
-        );
+<p>
+Choose the package that suits you.
+</p>
 
-    menu.classList.toggle(
-        "active"
-    );
+</div>
 
-}
 
+<div class="offers">
 
-/* =========================
-   CLOSE MOBILE MENU
-========================= */
 
-document
-.querySelectorAll(
-    ".nav-links a"
-)
-.forEach(function(link){
+<!-- 10GB -->
 
-    link.addEventListener(
-        "click",
-        function(){
+<div class="offer-card">
 
-            document
-            .getElementById(
-                "navLinks"
-            )
-            .classList.remove(
-                "active"
-            );
+<i class="fas fa-signal"></i>
 
-        }
-    );
+<h3>10GB Anytime</h3>
 
-});
+<p>Valid for 30 Days</p>
 
+<div class="price">
+R100
+</div>
 
-/* =========================
-   SELECT BUNDLE
-========================= */
+<button onclick="selectBundle('10GB Anytime','100')">
 
-function selectBundle(
-    bundleName,
-    price
-){
+<i class="fas fa-cart-plus"></i>
+Order Now
 
-    const bundleSelect =
-        document.getElementById(
-            "bundle"
-        );
+</button>
 
+</div>
 
-    const value =
-        bundleName + "|" + price;
 
+<!-- 20GB -->
 
-    bundleSelect.value =
-        value;
+<div class="offer-card">
 
+<i class="fas fa-signal"></i>
 
-    updateSummary();
+<h3>20GB Anytime</h3>
 
+<p>Valid for 30 Days</p>
 
-    document
-    .getElementById(
-        "order"
-    )
-    .scrollIntoView({
-        behavior:"smooth"
-    });
+<div class="price">
+R150
+</div>
 
-}
+<button onclick="selectBundle('20GB Anytime','150')">
 
+<i class="fas fa-cart-plus"></i>
+Order Now
 
-/* =========================
-   UPDATE ORDER SUMMARY
-========================= */
+</button>
 
-function updateSummary(){
+</div>
 
-    const select =
-        document.getElementById(
-            "bundle"
-        );
 
-    const summary =
-        document.getElementById(
-            "orderSummary"
-        );
+<!-- 35GB -->
 
-    const bundleText =
-        document.getElementById(
-            "summaryBundle"
-        );
+<div class="offer-card">
 
-    const priceText =
-        document.getElementById(
-            "summaryPrice"
-        );
+<i class="fas fa-signal"></i>
 
+<h3>35GB Anytime</h3>
 
-    if(!select.value){
+<p>Valid for 30 Days</p>
 
-        summary.style.display =
-            "none";
+<div class="price">
+R250
+</div>
 
-        return;
+<button onclick="selectBundle('35GB Anytime','250')">
 
-    }
+<i class="fas fa-cart-plus"></i>
+Order Now
 
+</button>
 
-    const parts =
-        select.value.split("|");
+</div>
 
 
-    const bundle =
-        parts[0];
+<!-- 50GB -->
 
-    const price =
-        parts[1];
+<div class="offer-card">
 
+<i class="fas fa-signal"></i>
 
-    bundleText.textContent =
-        bundle;
+<h3>50GB Anytime</h3>
 
-    priceText.textContent =
-        "R" + price;
+<p>Valid for 30 Days</p>
 
+<div class="price">
+R350
+</div>
 
-    summary.style.display =
-        "block";
+<button onclick="selectBundle('50GB Anytime','350')">
 
-}
+<i class="fas fa-cart-plus"></i>
+Order Now
 
+</button>
 
-/* =========================
-   BUNDLE SELECT CHANGE
-========================= */
+</div>
 
-document
-.getElementById("bundle")
-.addEventListener(
-    "change",
-    updateSummary
-);
+</div>
 
-
-/* =========================
-   ORDER FORM
-========================= */
-
-document
-.getElementById("orderForm")
-.addEventListener(
-    "submit",
-    function(event){
-
-        event.preventDefault();
-
-
-        const name =
-            document
-            .getElementById(
-                "customerName"
-            )
-            .value
-            .trim();
-
-
-        const phone =
-            document
-            .getElementById(
-                "phoneNumber"
-            )
-            .value
-            .trim();
-
-
-        const bundleValue =
-            document
-            .getElementById(
-                "bundle"
-            )
-            .value;
-
-
-        if(
-            name === "" ||
-            phone === "" ||
-            bundleValue === ""
-        ){
-
-            alert(
-                "Please complete all fields."
-            );
-
-            return;
-
-        }
-
-
-        if(
-            !/^[0-9]{10}$/.test(phone)
-        ){
-
-            alert(
-                "Please enter a valid 10-digit MTN number."
-            );
-
-            return;
-
-        }
-
-
-        const parts =
-            bundleValue.split("|");
-
-
-        const bundle =
-            parts[0];
-
-        const price =
-            parts[1];
-
-
-        /*
-        Store order information.
-        */
-
-        localStorage.setItem(
-            "customerName",
-            name
-        );
-
-        localStorage.setItem(
-            "customerPhone",
-            phone
-        );
-
-        localStorage.setItem(
-            "customerBundle",
-            bundle
-        );
-
-        localStorage.setItem(
-            "customerPrice",
-            price
-        );
-
-
-        /*
-        Prepare WhatsApp confirmation.
-        */
-
-        const message =
-
-            "Hello MTN Data,%0A%0A" +
-
-            "I have completed my Yoco payment.%0A%0A" +
-
-            "Name: " +
-            encodeURIComponent(name) +
-
-            "%0A" +
-
-            "MTN Number: " +
-            encodeURIComponent(phone) +
-
-            "%0A" +
-
-            "Bundle: " +
-            encodeURIComponent(bundle) +
-
-            "%0A" +
-
-            "Amount: R" +
-            encodeURIComponent(price) +
-
-            "%0A%0A" +
-
-            "Please confirm my data order.";
-
-
-        localStorage.setItem(
-            "whatsappMessage",
-            message
-        );
-
-
-        /*
-        Open Yoco payment page.
-        */
-
-        window.open(
-            "https://pay.yoco.com/r/7vELMB",
-            "_blank"
-        );
-
-
-        /*
-        Scroll customer to payment
-        instructions.
-        */
-
-        setTimeout(function(){
-
-            document
-            .getElementById(
-                "payment"
-            )
-            .scrollIntoView({
-                behavior:"smooth"
-            });
-
-        },500);
-
-    }
-);
-
-
-/* =========================
-   WHATSAPP CONFIRMATION
-========================= */
-
-document
-.getElementById(
-    "whatsappConfirm"
-)
-.addEventListener(
-    "click",
-    function(event){
-
-        event.preventDefault();
-
-
-        const name =
-            localStorage.getItem(
-                "customerName"
-            ) || "";
-
-
-        const phone =
-            localStorage.getItem(
-                "customerPhone"
-            ) || "";
-
-
-        const bundle =
-            localStorage.getItem(
-                "customerBundle"
-            ) || "";
-
-
-        const price =
-            localStorage.getItem(
-                "customerPrice"
-            ) || "";
-
-
-        if(
-            name === "" ||
-            phone === "" ||
-            bundle === ""
-        ){
-
-            alert(
-                "Please complete an order first."
-            );
-
-            document
-            .getElementById(
-                "order"
-            )
-            .scrollIntoView({
-                behavior:"smooth"
-            });
-
-            return;
-
-        }
-
-
-        const message =
-
-            "Hello MTN Data,%0A%0A" +
-
-            "I have completed my Yoco payment.%0A%0A" +
-
-            "Name: " +
-            encodeURIComponent(name) +
-
-            "%0A" +
-
-            "MTN Number: " +
-            encodeURIComponent(phone) +
-
-            "%0A" +
-
-            "Bundle: " +
-            encodeURIComponent(bundle) +
-
-            "%0A" +
-
-            "Amount: R" +
-            encodeURIComponent(price) +
-
-            "%0A%0A" +
-
-            "Please confirm my data order.";
-
-
-        window.open(
-
-            "https://wa.me/27730916623?text="
-            + message,
-
-            "_blank"
-
-        );
-
-    }
-);
-
-
-</script>
-
-
-</body>
-
-</html>
+</section>

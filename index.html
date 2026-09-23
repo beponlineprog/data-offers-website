@@ -1,10 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>MTN Anytime Data</title>
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<meta name="description"
+content="Affordable MTN Anytime Data bundles. Stay connected with affordable data packages and fast WhatsApp ordering.">
+
+<title>MTN Anytime Data | Affordable Data Bundles</title>
+
+
+<!-- =========================
+     FONT AWESOME
+========================= -->
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
 
 <style>
 
@@ -22,7 +37,16 @@
 
 body{
     background:#071b4d;
-    color:#fff;
+    color:white;
+    line-height:1.6;
+}
+
+a{
+    text-decoration:none;
+}
+
+html{
+    scroll-padding-top:80px;
 }
 
 
@@ -33,36 +57,51 @@ body{
 nav{
     position:sticky;
     top:0;
+    width:100%;
     display:flex;
     justify-content:space-between;
     align-items:center;
-    padding:15px 8%;
+    padding:15px 7%;
     background:#04153b;
-    box-shadow:0 2px 10px rgba(0,0,0,.4);
+    box-shadow:0 3px 15px rgba(0,0,0,.45);
     z-index:1000;
 }
 
 .logo{
-    font-size:28px;
+    display:flex;
+    align-items:center;
+    gap:10px;
+    font-size:25px;
     font-weight:bold;
     color:#ffcc00;
 }
 
-nav ul{
-    display:flex;
-    list-style:none;
-    gap:25px;
+.logo i{
+    font-size:27px;
 }
 
-nav a{
-    text-decoration:none;
+.nav-links{
+    display:flex;
+    align-items:center;
+    gap:25px;
+    list-style:none;
+}
+
+.nav-links a{
     color:white;
     font-weight:bold;
     transition:.3s;
 }
 
-nav a:hover{
+.nav-links a:hover{
     color:#ffcc00;
+}
+
+.menu-btn{
+    display:none;
+    color:#ffcc00;
+    font-size:25px;
+    cursor:pointer;
 }
 
 
@@ -72,40 +111,40 @@ nav a:hover{
 
 .banner{
     background:#ffcc00;
-    color:#000;
-    padding:15px;
+    color:#071b4d;
+    padding:11px 15px;
     text-align:center;
-    font-size:22px;
+    font-size:17px;
     font-weight:bold;
-    animation:slide 10s infinite;
+    overflow:hidden;
 }
 
-@keyframes slide{
+.banner-text{
+    animation:bannerMove 8s ease-in-out infinite;
+}
 
-    0%{
+@keyframes bannerMove{
+
+    0%,100%{
         opacity:1;
+        transform:scale(1);
     }
 
     50%{
-        opacity:.6;
-    }
-
-    100%{
-        opacity:1;
+        opacity:.65;
+        transform:scale(1.03);
     }
 
 }
 
 
 /* =========================
-   HERO / BACKGROUND BANNER
+   HERO
 ========================= */
 
 .hero{
 
-    height:38vh;
-
-    min-height:280px;
+    min-height:540px;
 
     display:flex;
     flex-direction:column;
@@ -114,31 +153,50 @@ nav a:hover{
 
     text-align:center;
 
-    padding:20px;
+    padding:60px 20px;
 
     background:
     linear-gradient(
-        rgba(7,27,77,.85),
-        rgba(7,27,77,.85)
+        rgba(7,27,77,.88),
+        rgba(4,21,59,.95)
     ),
-    url("https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1200&q=80");
+    url("https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1600&q=80");
 
     background-size:cover;
     background-position:center;
+}
 
+.hero-badge{
+    background:rgba(255,204,0,.15);
+    border:1px solid #ffcc00;
+    color:#ffcc00;
+    padding:8px 18px;
+    border-radius:30px;
+    font-weight:bold;
+    margin-bottom:20px;
 }
 
 .hero h1{
-    font-size:55px;
+    font-size:58px;
     color:#ffcc00;
     margin-bottom:15px;
+    line-height:1.1;
+}
+
+.hero h1 span{
+    color:white;
 }
 
 .hero p{
     font-size:20px;
-    max-width:700px;
-    margin-bottom:25px;
-    line-height:1.5;
+    max-width:750px;
+    margin-bottom:30px;
+    color:#f4f4f4;
+}
+
+.hero-highlight{
+    color:#ffcc00;
+    font-weight:bold;
 }
 
 
@@ -148,47 +206,71 @@ nav a:hover{
 
 .buttons{
     display:flex;
-    gap:20px;
+    gap:15px;
     flex-wrap:wrap;
     justify-content:center;
 }
 
 .btn{
-    padding:13px 28px;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+
+    padding:14px 27px;
+
     border-radius:8px;
+
     font-weight:bold;
-    text-decoration:none;
+
     transition:.3s;
 }
 
 .primary{
     background:#ffcc00;
-    color:#000;
+    color:#071b4d;
 }
 
 .secondary{
     background:#25D366;
-    color:#fff;
+    color:white;
+}
+
+.dark-btn{
+    background:#04153b;
+    color:white;
+    border:2px solid #ffcc00;
 }
 
 .btn:hover{
-    transform:translateY(-5px);
+    transform:translateY(-4px);
+    box-shadow:0 8px 20px rgba(0,0,0,.3);
 }
 
 
 /* =========================
-   SECTIONS
+   SECTION
 ========================= */
 
 section{
-    padding:70px 8%;
+    padding:75px 7%;
 }
 
-section h2{
+.section-title{
     text-align:center;
-    font-size:38px;
-    margin-bottom:40px;
+    margin-bottom:45px;
+}
+
+.section-title h2{
     color:#ffcc00;
+    font-size:38px;
+    margin-bottom:10px;
+}
+
+.section-title p{
+    max-width:650px;
+    margin:auto;
+    color:#dce5ff;
 }
 
 
@@ -197,87 +279,166 @@ section h2{
 ========================= */
 
 .offers{
-    display:flex;
-    justify-content:center;
-    gap:30px;
-    flex-wrap:wrap;
+    display:grid;
+    grid-template-columns:
+    repeat(auto-fit,minmax(260px,1fr));
+
+    gap:25px;
+
+    max-width:1100px;
+    margin:auto;
 }
 
 .card{
-    width:300px;
+    position:relative;
+
     background:white;
-    color:black;
-    padding:25px;
-    border-radius:15px;
+    color:#071b4d;
+
+    padding:30px 25px;
+
+    border-radius:18px;
+
     text-align:center;
-    transition:.4s;
+
+    transition:.35s;
+
+    box-shadow:
+    0 8px 25px rgba(0,0,0,.25);
 }
 
 .card:hover{
     transform:translateY(-10px);
-    box-shadow:0 15px 35px rgba(255,204,0,.5);
+    box-shadow:
+    0 15px 35px rgba(255,204,0,.35);
+}
+
+.card.popular{
+    border:3px solid #ffcc00;
+}
+
+.popular-badge{
+    position:absolute;
+    top:-13px;
+    left:50%;
+    transform:translateX(-50%);
+
+    background:#ffcc00;
+    color:#071b4d;
+
+    padding:6px 18px;
+
+    border-radius:20px;
+
+    font-size:13px;
+    font-weight:bold;
+}
+
+.card-icon{
+    font-size:40px;
+    color:#071b4d;
+    margin-bottom:12px;
 }
 
 .card h3{
     font-size:23px;
+    margin-bottom:8px;
+}
+
+.data-size{
+    font-size:17px;
+    font-weight:bold;
+    color:#555;
 }
 
 .price{
-    font-size:42px;
+    font-size:43px;
     font-weight:bold;
     color:#071b4d;
     margin:15px 0;
 }
 
-.order{
+.validity{
+    background:#eef2ff;
     display:inline-block;
-    margin-top:15px;
-    padding:12px 25px;
+    padding:5px 12px;
+    border-radius:20px;
+    font-size:14px;
+}
+
+.order{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:7px;
+
+    width:100%;
+
+    margin-top:20px;
+
+    padding:13px;
+
     background:#25D366;
     color:white;
-    text-decoration:none;
+
     border-radius:8px;
+
     font-weight:bold;
+
     transition:.3s;
 }
 
 .order:hover{
-    transform:scale(1.05);
+    transform:scale(1.03);
 }
 
 
 /* =========================
-   FEATURES
+   WHY CHOOSE US
 ========================= */
 
 .features{
-    display:flex;
-    justify-content:center;
-    gap:25px;
-    flex-wrap:wrap;
+    display:grid;
+    grid-template-columns:
+    repeat(auto-fit,minmax(220px,1fr));
+
+    gap:22px;
+
+    max-width:1100px;
+    margin:auto;
 }
 
 .feature{
-    width:230px;
     background:#10327e;
-    padding:25px;
-    border-radius:12px;
+
+    padding:30px 20px;
+
+    border-radius:15px;
+
     text-align:center;
+
     transition:.3s;
+
+    border:1px solid rgba(255,255,255,.08);
+}
+
+.feature i{
+    font-size:38px;
+    color:#ffcc00;
+    margin-bottom:15px;
 }
 
 .feature h3{
-    margin-bottom:12px;
+    margin-bottom:10px;
 }
 
 .feature p{
-    line-height:1.5;
+    color:#dce5ff;
 }
 
 .feature:hover{
-    background:#ffcc00;
-    color:black;
-    transform:translateY(-5px);
+    transform:translateY(-7px);
+    background:#0d2d75;
 }
 
 
@@ -286,41 +447,232 @@ section h2{
 ========================= */
 
 .steps{
-    display:flex;
-    justify-content:center;
-    gap:25px;
-    flex-wrap:wrap;
+    display:grid;
+
+    grid-template-columns:
+    repeat(auto-fit,minmax(200px,1fr));
+
+    gap:20px;
+
+    max-width:1000px;
+
+    margin:auto;
 }
 
 .step{
-    width:220px;
     background:#0d2d75;
-    padding:20px;
-    border-radius:10px;
+
+    padding:25px 18px;
+
+    border-radius:15px;
+
     text-align:center;
-    font-weight:bold;
+
     transition:.3s;
 }
 
-.step:hover{
+.step-number{
+    width:45px;
+    height:45px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    margin:0 auto 15px;
+
+    border-radius:50%;
+
     background:#ffcc00;
-    color:#000;
-    transform:translateY(-5px);
+    color:#071b4d;
+
+    font-size:20px;
+    font-weight:bold;
+}
+
+.step h3{
+    margin-bottom:8px;
+}
+
+.step:hover{
+    transform:translateY(-6px);
 }
 
 
 /* =========================
-   CUSTOMER REVIEWS
+   ORDER FORM
 ========================= */
 
-.review{
-    background:#10327e;
-    padding:20px;
-    border-radius:12px;
-    margin:15px auto;
-    max-width:600px;
+.order-section{
+    background:#061640;
+}
+
+.order-box{
+    max-width:700px;
+    margin:auto;
+
+    background:white;
+    color:#071b4d;
+
+    padding:35px;
+
+    border-radius:18px;
+
+    box-shadow:0 12px 35px rgba(0,0,0,.3);
+}
+
+.form-group{
+    margin-bottom:18px;
+}
+
+.form-group label{
+    display:block;
+    font-weight:bold;
+    margin-bottom:7px;
+}
+
+.form-group input,
+.form-group select{
+
+    width:100%;
+
+    padding:13px;
+
+    border:1px solid #ccc;
+
+    border-radius:8px;
+
+    font-size:16px;
+
+    outline:none;
+}
+
+.form-group input:focus,
+.form-group select:focus{
+    border-color:#ffcc00;
+}
+
+.submit-btn{
+
+    width:100%;
+
+    border:none;
+
+    padding:14px;
+
+    border-radius:8px;
+
+    background:#25D366;
+
+    color:white;
+
+    font-size:17px;
+
+    font-weight:bold;
+
+    cursor:pointer;
+
+    transition:.3s;
+}
+
+.submit-btn:hover{
+    transform:translateY(-3px);
+}
+
+.order-note{
     text-align:center;
-    line-height:1.5;
+    font-size:13px;
+    color:#666;
+    margin-top:12px;
+}
+
+
+/* =========================
+   PAYMENT
+========================= */
+
+.payment-box{
+
+    max-width:900px;
+
+    margin:auto;
+
+    display:grid;
+
+    grid-template-columns:
+    repeat(auto-fit,minmax(250px,1fr));
+
+    gap:25px;
+}
+
+.payment-card{
+
+    background:#10327e;
+
+    padding:30px;
+
+    border-radius:15px;
+
+    text-align:center;
+}
+
+.payment-card i{
+    font-size:40px;
+    color:#ffcc00;
+    margin-bottom:15px;
+}
+
+.payment-card h3{
+    margin-bottom:10px;
+}
+
+.payment-card p{
+    color:#dce5ff;
+}
+
+
+/* =========================
+   REVIEWS
+========================= */
+
+.reviews{
+
+    display:grid;
+
+    grid-template-columns:
+    repeat(auto-fit,minmax(260px,1fr));
+
+    gap:20px;
+
+    max-width:1000px;
+
+    margin:auto;
+}
+
+.review{
+
+    background:#10327e;
+
+    padding:25px;
+
+    border-radius:15px;
+
+    text-align:center;
+}
+
+.stars{
+    color:#ffcc00;
+    font-size:20px;
+    margin-bottom:10px;
+}
+
+.review p{
+    color:#e7edff;
+}
+
+.review strong{
+    display:block;
+    margin-top:15px;
 }
 
 
@@ -328,10 +680,43 @@ section h2{
    CONTACT
 ========================= */
 
-.contact{
+.contact-container{
+
+    display:grid;
+
+    grid-template-columns:
+    repeat(auto-fit,minmax(250px,1fr));
+
+    gap:25px;
+
+    max-width:900px;
+
+    margin:auto;
+}
+
+.contact-card{
+
+    background:#10327e;
+
+    padding:30px;
+
+    border-radius:15px;
+
     text-align:center;
-    font-size:20px;
-    line-height:2;
+}
+
+.contact-card i{
+    color:#ffcc00;
+    font-size:35px;
+    margin-bottom:12px;
+}
+
+.contact-card a{
+    color:white;
+}
+
+.contact-card a:hover{
+    color:#ffcc00;
 }
 
 
@@ -340,11 +725,46 @@ section h2{
 ========================= */
 
 footer{
+
     background:#04153b;
-    padding:25px;
+
+    padding:40px 7%;
+
     text-align:center;
-    margin-top:50px;
-    line-height:1.8;
+
+    margin-top:30px;
+}
+
+.footer-logo{
+    color:#ffcc00;
+    font-size:25px;
+    font-weight:bold;
+    margin-bottom:10px;
+}
+
+.footer-links{
+    margin:20px 0;
+
+    display:flex;
+
+    justify-content:center;
+
+    gap:20px;
+
+    flex-wrap:wrap;
+}
+
+.footer-links a{
+    color:white;
+}
+
+.footer-links a:hover{
+    color:#ffcc00;
+}
+
+.footer-copy{
+    color:#aebbdc;
+    font-size:14px;
 }
 
 
@@ -353,6 +773,7 @@ footer{
 ========================= */
 
 .whatsapp{
+
     position:fixed;
 
     right:20px;
@@ -361,15 +782,19 @@ footer{
     background:#25D366;
     color:white;
 
-    padding:15px 20px;
+    width:58px;
+    height:58px;
 
-    border-radius:50px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
 
-    text-decoration:none;
+    border-radius:50%;
 
-    font-weight:bold;
+    font-size:27px;
 
-    box-shadow:0 5px 15px rgba(0,0,0,.4);
+    box-shadow:
+    0 5px 18px rgba(0,0,0,.4);
 
     z-index:999;
 
@@ -377,74 +802,72 @@ footer{
 }
 
 .whatsapp:hover{
-    transform:scale(1.08);
+    transform:scale(1.1);
 }
 
 
 /* =========================
-   TABLET
+   MOBILE
 ========================= */
 
 @media(max-width:768px){
 
     nav{
-        padding:15px 5%;
+        padding:14px 5%;
+    }
+
+    .menu-btn{
+        display:block;
+    }
+
+    .nav-links{
+
+        position:absolute;
+
+        top:65px;
+        left:0;
+
+        width:100%;
+
+        background:#04153b;
+
+        display:none;
+
         flex-direction:column;
-        gap:15px;
+
+        padding:20px;
+
+        gap:18px;
+
+        box-shadow:0 5px 12px rgba(0,0,0,.3);
     }
 
-    nav ul{
-        gap:15px;
-        flex-wrap:wrap;
-        justify-content:center;
-    }
-
-    .logo{
-        font-size:25px;
-    }
-
-    .banner{
-        font-size:16px;
-        padding:12px 8px;
+    .nav-links.active{
+        display:flex;
     }
 
     .hero{
-        height:38vh;
-        min-height:280px;
-        padding:20px 15px;
+        min-height:500px;
     }
 
     .hero h1{
-        font-size:40px;
-        margin-bottom:10px;
+        font-size:42px;
     }
 
     .hero p{
         font-size:17px;
-        margin-bottom:18px;
     }
 
     section{
-        padding:55px 5%;
+        padding:60px 5%;
     }
 
-    section h2{
-        font-size:32px;
+    .section-title h2{
+        font-size:31px;
     }
 
-    .card{
-        width:100%;
-        max-width:350px;
-    }
-
-    .feature{
-        width:100%;
-        max-width:350px;
-    }
-
-    .step{
-        width:100%;
-        max-width:350px;
+    .order-box{
+        padding:25px 20px;
     }
 
 }
@@ -456,40 +879,51 @@ footer{
 
 @media(max-width:480px){
 
+    .logo{
+        font-size:21px;
+    }
+
+    .banner{
+        font-size:14px;
+    }
+
     .hero{
-        height:38vh;
-        min-height:280px;
+        min-height:480px;
+        padding:45px 15px;
     }
 
     .hero h1{
-        font-size:32px;
+        font-size:34px;
     }
 
     .hero p{
         font-size:15px;
-        max-width:340px;
-        margin-bottom:18px;
     }
 
     .buttons{
-        gap:10px;
+        width:100%;
     }
 
     .btn{
         width:100%;
-        max-width:260px;
-        padding:12px 20px;
+        max-width:280px;
+    }
+
+    .card{
+        width:100%;
     }
 
     .whatsapp{
+        width:52px;
+        height:52px;
         right:15px;
         bottom:15px;
-        padding:13px 17px;
     }
 
 }
 
 </style>
+
 </head>
 
 
@@ -502,32 +936,58 @@ footer{
 
 <nav>
 
-    <div class="logo">
+    <a href="#home" class="logo">
+
+        <i class="fa-solid fa-signal"></i>
+
         MTN DATA
+
+    </a>
+
+
+    <div
+        class="menu-btn"
+        onclick="toggleMenu()"
+    >
+
+        <i class="fa-solid fa-bars"></i>
+
     </div>
 
-    <ul>
+
+    <ul class="nav-links" id="navLinks">
 
         <li>
             <a href="#home">
+                <i class="fa-solid fa-house"></i>
                 Home
             </a>
         </li>
 
         <li>
             <a href="#offers">
+                <i class="fa-solid fa-tags"></i>
                 Offers
             </a>
         </li>
 
         <li>
+            <a href="#order">
+                <i class="fa-solid fa-cart-shopping"></i>
+                Order
+            </a>
+        </li>
+
+        <li>
             <a href="#about">
+                <i class="fa-solid fa-circle-info"></i>
                 About
             </a>
         </li>
 
         <li>
             <a href="#contact">
+                <i class="fa-solid fa-phone"></i>
                 Contact
             </a>
         </li>
@@ -543,7 +1003,16 @@ footer{
 
 <div class="banner">
 
-    🔥 35GB for R250 • 50GB for R350 • Valid for 30 Days 🔥
+    <div class="banner-text">
+
+        🔥 SPECIAL OFFER:
+        35GB for R250
+        •
+        50GB for R350
+        •
+        Valid for 30 Days 🔥
+
+    </div>
 
 </div>
 
@@ -554,15 +1023,37 @@ footer{
 
 <section class="hero" id="home">
 
+    <div class="hero-badge">
+
+        <i class="fa-solid fa-bolt"></i>
+
+        Affordable Data. Easy Ordering.
+
+    </div>
+
+
     <h1>
+
         Stay Connected.
+        <span>Pay Less.</span>
+
     </h1>
 
+
     <p>
+
         Why pay more for your data?
-        We offer affordable MTN Anytime Data bundles
-        to keep you connected wherever you go.
+
+        Get affordable
+        <span class="hero-highlight">
+            MTN Anytime Data
+        </span>
+
+        bundles and stay connected
+        wherever you go.
+
     </p>
+
 
     <div class="buttons">
 
@@ -570,15 +1061,24 @@ footer{
             href="#offers"
             class="btn primary"
         >
+
+            <i class="fa-solid fa-tags"></i>
+
             View Offers
+
         </a>
+
 
         <a
             href="https://wa.me/27730916623"
             class="btn secondary"
             target="_blank"
         >
+
+            <i class="fa-brands fa-whatsapp"></i>
+
             Order on WhatsApp
+
         </a>
 
     </div>
@@ -592,62 +1092,178 @@ footer{
 
 <section id="offers">
 
-    <h2>
-        Our Offers
-    </h2>
+    <div class="section-title">
+
+        <h2>
+            Our Data Offers
+        </h2>
+
+        <p>
+            Choose the bundle that suits your needs
+            and place your order through WhatsApp.
+        </p>
+
+    </div>
+
 
     <div class="offers">
 
 
-        <!-- 35GB PACKAGE -->
+        <!-- 10GB -->
 
         <div class="card">
 
-            <h3>
-                35GB Anytime
-            </h3>
-
-            <div class="price">
-                R250
+            <div class="card-icon">
+                <i class="fa-solid fa-wifi"></i>
             </div>
 
-            <p>
+            <h3>
+                10GB Anytime
+            </h3>
+
+            <div class="data-size">
+                MTN Anytime Data
+            </div>
+
+            <div class="price">
+                R100
+            </div>
+
+            <span class="validity">
                 30 Days Validity
-            </p>
+            </span>
 
             <a
                 class="order"
-                href="https://wa.me/27730916623?text=Hi%20I%20want%2035GB"
+                href="https://wa.me/27730916623?text=Hi%20I%20want%20the%2010GB%20Anytime%20Data%20bundle"
                 target="_blank"
             >
+
+                <i class="fa-brands fa-whatsapp"></i>
+
                 Order Now
+
             </a>
 
         </div>
 
 
-        <!-- 50GB PACKAGE -->
+        <!-- 20GB -->
 
         <div class="card">
+
+            <div class="card-icon">
+                <i class="fa-solid fa-wifi"></i>
+            </div>
+
+            <h3>
+                20GB Anytime
+            </h3>
+
+            <div class="data-size">
+                MTN Anytime Data
+            </div>
+
+            <div class="price">
+                R150
+            </div>
+
+            <span class="validity">
+                30 Days Validity
+            </span>
+
+            <a
+                class="order"
+                href="https://wa.me/27730916623?text=Hi%20I%20want%20the%2020GB%20Anytime%20Data%20bundle"
+                target="_blank"
+            >
+
+                <i class="fa-brands fa-whatsapp"></i>
+
+                Order Now
+
+            </a>
+
+        </div>
+
+
+        <!-- 35GB -->
+
+        <div class="card popular">
+
+            <div class="popular-badge">
+                MOST POPULAR
+            </div>
+
+            <div class="card-icon">
+                <i class="fa-solid fa-fire"></i>
+            </div>
+
+            <h3>
+                35GB Anytime
+            </h3>
+
+            <div class="data-size">
+                MTN Anytime Data
+            </div>
+
+            <div class="price">
+                R250
+            </div>
+
+            <span class="validity">
+                30 Days Validity
+            </span>
+
+            <a
+                class="order"
+                href="https://wa.me/27730916623?text=Hi%20I%20want%20the%2035GB%20Anytime%20Data%20bundle"
+                target="_blank"
+            >
+
+                <i class="fa-brands fa-whatsapp"></i>
+
+                Order Now
+
+            </a>
+
+        </div>
+
+
+        <!-- 50GB -->
+
+        <div class="card">
+
+            <div class="card-icon">
+                <i class="fa-solid fa-rocket"></i>
+            </div>
 
             <h3>
                 50GB Anytime
             </h3>
 
+            <div class="data-size">
+                MTN Anytime Data
+            </div>
+
             <div class="price">
                 R350
             </div>
 
-            <p>
+            <span class="validity">
                 30 Days Validity
-            </p>
+            </span>
 
             <a
                 class="order"
-                href="https://wa.me/27730916623?text=Hi%20I%20want%2050GB"
+                href="https://wa.me/27730916623?text=Hi%20I%20want%20the%2050GB%20Anytime%20Data%20bundle"
                 target="_blank"
             >
+
+                <i class="fa-brands fa-whatsapp"></i>
+
                 Order Now
+
             </a>
 
         </div>
@@ -655,30 +1271,40 @@ footer{
 
     </div>
 
-</section>
-
-
-<!-- =========================
+   </section><!-- =========================
      WHY CHOOSE US
 ========================= -->
 
 <section id="about">
 
-    <h2>
-        Why Choose Us
-    </h2>
+    <div class="section-title">
+
+        <h2>
+            Why Choose Us?
+        </h2>
+
+        <p>
+            We make it simple to get connected
+            with affordable data bundles.
+        </p>
+
+    </div>
+
 
     <div class="features">
 
 
         <div class="feature">
 
+            <i class="fa-solid fa-bolt"></i>
+
             <h3>
-                ⚡ Fast Activation
+                Fast Activation
             </h3>
 
             <p>
-                Quick turnaround after payment.
+                Quick turnaround after
+                your payment is confirmed.
             </p>
 
         </div>
@@ -686,12 +1312,15 @@ footer{
 
         <div class="feature">
 
+            <i class="fa-solid fa-signal"></i>
+
             <h3>
-                📶 Reliable Network
+                Reliable Network
             </h3>
 
             <p>
-                Enjoy reliable MTN network connectivity.
+                Stay connected using
+                MTN network services.
             </p>
 
         </div>
@@ -699,12 +1328,15 @@ footer{
 
         <div class="feature">
 
+            <i class="fa-solid fa-money-bill-wave"></i>
+
             <h3>
-                💰 Affordable Prices
+                Affordable Prices
             </h3>
 
             <p>
-                Competitive data bundle prices.
+                Competitive data bundle
+                prices for your budget.
             </p>
 
         </div>
@@ -712,12 +1344,15 @@ footer{
 
         <div class="feature">
 
+            <i class="fa-solid fa-calendar-days"></i>
+
             <h3>
-                📅 30-Day Validity
+                30-Day Validity
             </h3>
 
             <p>
-                Enjoy a full month of connectivity.
+                Enjoy your data bundle
+                throughout the validity period.
             </p>
 
         </div>
@@ -726,6 +1361,7 @@ footer{
     </div>
 
 </section>
+
 
 
 <!-- =========================
@@ -734,31 +1370,303 @@ footer{
 
 <section>
 
-    <h2>
-        How To Order
-    </h2>
+    <div class="section-title">
+
+        <h2>
+            How To Order
+        </h2>
+
+        <p>
+            Ordering your data bundle is simple.
+        </p>
+
+    </div>
+
 
     <div class="steps">
 
-        <div class="step">
-            1️⃣ Choose Your Bundle
-        </div>
 
         <div class="step">
-            2️⃣ WhatsApp Us
+
+            <div class="step-number">
+                1
+            </div>
+
+            <h3>
+                Choose Your Bundle
+            </h3>
+
+            <p>
+                Select the data package
+                you want.
+            </p>
+
         </div>
 
-        <div class="step">
-            3️⃣ Make Payment
-        </div>
 
         <div class="step">
-            4️⃣ Receive Your Data
+
+            <div class="step-number">
+                2
+            </div>
+
+            <h3>
+                Place Your Order
+            </h3>
+
+            <p>
+                Complete the order form
+                or WhatsApp us.
+            </p>
+
         </div>
+
+
+        <div class="step">
+
+            <div class="step-number">
+                3
+            </div>
+
+            <h3>
+                Make Payment
+            </h3>
+
+            <p>
+                Follow the payment
+                instructions provided.
+            </p>
+
+        </div>
+
+
+        <div class="step">
+
+            <div class="step-number">
+                4
+            </div>
+
+            <h3>
+                Receive Your Data
+            </h3>
+
+            <p>
+                Your data will be activated
+                after payment confirmation.
+            </p>
+
+        </div>
+
 
     </div>
 
 </section>
+
+
+
+<!-- =========================
+     ORDER FORM
+========================= -->
+
+<section
+    class="order-section"
+    id="order"
+>
+
+    <div class="section-title">
+
+        <h2>
+            Place Your Order
+        </h2>
+
+        <p>
+            Enter your details and we'll
+            prepare your WhatsApp order.
+        </p>
+
+    </div>
+
+
+    <div class="order-box">
+
+
+        <form id="orderForm">
+
+
+            <div class="form-group">
+
+                <label for="customerName">
+                    Full Name
+                </label>
+
+                <input
+                    type="text"
+                    id="customerName"
+                    placeholder="Enter your full name"
+                    required
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="phoneNumber">
+                    MTN Number
+                </label>
+
+                <input
+                    type="tel"
+                    id="phoneNumber"
+                    placeholder="e.g. 0781234567"
+                    required
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="bundle">
+                    Select Data Bundle
+                </label>
+
+                <select
+                    id="bundle"
+                    required
+                >
+
+                    <option value="">
+                        -- Select Bundle --
+                    </option>
+
+                    <option value="10GB - R100">
+                        10GB Anytime - R100
+                    </option>
+
+                    <option value="20GB - R150">
+                        20GB Anytime - R150
+                    </option>
+
+                    <option value="35GB - R250">
+                        35GB Anytime - R250
+                    </option>
+
+                    <option value="50GB - R350">
+                        50GB Anytime - R350
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <button
+                type="submit"
+                class="submit-btn"
+            >
+
+                <i class="fa-brands fa-whatsapp"></i>
+
+                Continue on WhatsApp
+
+            </button>
+
+
+            <p class="order-note">
+
+                You will be redirected to WhatsApp
+                to confirm your order.
+
+            </p>
+
+
+        </form>
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================
+     PAYMENT
+========================= -->
+
+<section>
+
+    <div class="section-title">
+
+        <h2>
+            Payment
+        </h2>
+
+        <p>
+            Choose your preferred payment
+            method when completing your order.
+        </p>
+
+    </div>
+
+
+    <div class="payment-box">
+
+
+        <div class="payment-card">
+
+            <i class="fa-solid fa-credit-card"></i>
+
+            <h3>
+                Yoco
+            </h3>
+
+            <p>
+                Secure card payment can be
+                made through our Yoco payment
+                option when available.
+            </p>
+
+        </div>
+
+
+        <div class="payment-card">
+
+            <i class="fa-brands fa-whatsapp"></i>
+
+            <h3>
+                WhatsApp Ordering
+            </h3>
+
+            <p>
+                Contact us on WhatsApp to
+                receive payment instructions
+                and confirm your order.
+            </p>
+
+        </div>
+
+
+        <div class="payment-card">
+
+            <i class="fa-solid fa-shield-halved"></i>
+
+            <h3>
+                Payment Confirmation
+            </h3>
+
+            <p>
+                Data activation takes place
+                after payment has been
+                confirmed.
+            </p>
+
+        </div>
+
+
+    </div>
+
+</section>
+
 
 
 <!-- =========================
@@ -767,34 +1675,82 @@ footer{
 
 <section>
 
-    <h2>
-        Customer Reviews
-    </h2>
+    <div class="section-title">
 
+        <h2>
+            Customer Reviews
+        </h2>
 
-    <div class="review">
-
-        ⭐⭐⭐⭐⭐
-
-        <br><br>
-
-        "Fast service and affordable prices!"
+        <p>
+            What our customers say.
+        </p>
 
     </div>
 
 
-    <div class="review">
+    <div class="reviews">
 
-        ⭐⭐⭐⭐⭐
 
-        <br><br>
+        <div class="review">
 
-        "My data was activated quickly.
-        Highly recommended."
+            <div class="stars">
+                ★★★★★
+            </div>
+
+            <p>
+                "Fast service and affordable
+                data prices. Very happy with
+                the service!"
+            </p>
+
+            <strong>
+                Happy Customer
+            </strong>
+
+        </div>
+
+
+        <div class="review">
+
+            <div class="stars">
+                ★★★★★
+            </div>
+
+            <p>
+                "My data was activated quickly
+                and the ordering process was
+                very easy."
+            </p>
+
+            <strong>
+                Happy Customer
+            </strong>
+
+        </div>
+
+
+        <div class="review">
+
+            <div class="stars">
+                ★★★★★
+            </div>
+
+            <p>
+                "Good prices and convenient
+                WhatsApp ordering."
+            </p>
+
+            <strong>
+                Happy Customer
+            </strong>
+
+        </div>
+
 
     </div>
 
 </section>
+
 
 
 <!-- =========================
@@ -803,26 +1759,93 @@ footer{
 
 <section id="contact">
 
-    <h2>
-        Contact Us
-    </h2>
+    <div class="section-title">
 
-    <div class="contact">
+        <h2>
+            Contact Us
+        </h2>
 
-        📱 WhatsApp:
-        <strong>073 091 6623</strong>
+        <p>
+            Have a question?
+            We are ready to assist you.
+        </p>
 
-        <br>
+    </div>
 
-        Monday – Sunday
 
-        <br>
+    <div class="contact-container">
 
-        07:00 – 21:00
+
+        <div class="contact-card">
+
+            <i class="fa-brands fa-whatsapp"></i>
+
+            <h3>
+                WhatsApp
+            </h3>
+
+            <p>
+
+                <a
+                    href="https://wa.me/27730916623"
+                    target="_blank"
+                >
+
+                    073 091 6623
+
+                </a>
+
+            </p>
+
+        </div>
+
+
+        <div class="contact-card">
+
+            <i class="fa-solid fa-clock"></i>
+
+            <h3>
+                Business Hours
+            </h3>
+
+            <p>
+                Monday – Sunday
+            </p>
+
+            <p>
+                07:00 – 21:00
+            </p>
+
+        </div>
+
+
+        <div class="contact-card">
+
+            <i class="fa-solid fa-envelope"></i>
+
+            <h3>
+                Email
+            </h3>
+
+            <p>
+
+                <a
+                    href="mailto:bep.onlineprog@gmail.com"
+                >
+
+                    bep.onlineprog@gmail.com
+
+                </a>
+
+            </p>
+
+        </div>
+
 
     </div>
 
 </section>
+
 
 
 <!-- =========================
@@ -831,13 +1854,63 @@ footer{
 
 <footer>
 
-    © 2026 MTN Anytime Data
+    <div class="footer-logo">
 
-    <br>
+        <i class="fa-solid fa-signal"></i>
 
-    Stay Connected. Anytime. Anywhere.
+        MTN DATA
+
+    </div>
+
+
+    <p>
+        Stay Connected. Anytime. Anywhere.
+    </p>
+
+
+    <div class="footer-links">
+
+        <a href="#home">
+            Home
+        </a>
+
+        <a href="#offers">
+            Offers
+        </a>
+
+        <a href="#order">
+            Order
+        </a>
+
+        <a href="#about">
+            About
+        </a>
+
+        <a href="#contact">
+            Contact
+        </a>
+
+    </div>
+
+
+    <p class="footer-copy">
+
+        © 2026 MTN Anytime Data.
+        All rights reserved.
+
+    </p>
+
+
+    <p class="footer-copy">
+
+        Data bundle availability,
+        pricing and validity are subject
+        to confirmation at the time of order.
+
+    </p>
 
 </footer>
+
 
 
 <!-- =========================
@@ -848,9 +1921,145 @@ footer{
     class="whatsapp"
     href="https://wa.me/27730916623"
     target="_blank"
+    aria-label="Chat on WhatsApp"
 >
-    WhatsApp
+
+    <i class="fa-brands fa-whatsapp"></i>
+
 </a>
+
+
+
+<!-- =========================
+     JAVASCRIPT
+========================= -->
+
+<script>
+
+
+/* =========================
+   MOBILE MENU
+========================= */
+
+function toggleMenu(){
+
+    const menu =
+        document.getElementById("navLinks");
+
+    menu.classList.toggle("active");
+
+}
+
+
+/* =========================
+   CLOSE MOBILE MENU
+   AFTER CLICKING LINK
+========================= */
+
+document
+.querySelectorAll(".nav-links a")
+.forEach(function(link){
+
+    link.addEventListener(
+        "click",
+        function(){
+
+            document
+            .getElementById("navLinks")
+            .classList.remove("active");
+
+        }
+    );
+
+});
+
+
+/* =========================
+   ORDER FORM
+========================= */
+
+document
+.getElementById("orderForm")
+.addEventListener(
+    "submit",
+    function(event){
+
+        event.preventDefault();
+
+
+        const name =
+            document
+            .getElementById("customerName")
+            .value
+            .trim();
+
+
+        const phone =
+            document
+            .getElementById("phoneNumber")
+            .value
+            .trim();
+
+
+        const bundle =
+            document
+            .getElementById("bundle")
+            .value;
+
+
+        if(
+            name === "" ||
+            phone === "" ||
+            bundle === ""
+        ){
+
+            alert(
+                "Please complete all fields."
+            );
+
+            return;
+
+        }
+
+
+        const message =
+
+            "Hello MTN Data,%0A%0A" +
+
+            "I would like to place a data order.%0A%0A" +
+
+            "Name: " +
+            encodeURIComponent(name) +
+
+            "%0A" +
+
+            "MTN Number: " +
+            encodeURIComponent(phone) +
+
+            "%0A" +
+
+            "Bundle: " +
+            encodeURIComponent(bundle) +
+
+            "%0A%0A" +
+
+            "Please send me the payment instructions.";
+
+
+        const whatsappURL =
+            "https://wa.me/27730916623?text="
+            + message;
+
+
+        window.open(
+            whatsappURL,
+            "_blank"
+        );
+
+    }
+);
+
+</script>
 
 
 </body>

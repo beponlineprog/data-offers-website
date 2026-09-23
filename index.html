@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 
 <meta charset="UTF-8">
@@ -8,14 +9,12 @@
 content="width=device-width, initial-scale=1.0">
 
 <meta name="description"
-content="Affordable MTN Anytime Data bundles. Stay connected with affordable data packages and fast WhatsApp ordering.">
+content="Affordable MTN Anytime Data bundles. Order online and pay securely through Yoco.">
 
-<title>MTN Anytime Data | Affordable Data Bundles</title>
+<title>MTN Anytime Data | Stay Connected</title>
 
 
-<!-- =========================
-     FONT AWESOME
-========================= -->
+<!-- FONT AWESOME -->
 
 <link rel="stylesheet"
 href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
@@ -31,22 +30,22 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
     margin:0;
     padding:0;
     box-sizing:border-box;
-    font-family:Arial, Helvetica, sans-serif;
+    font-family:Arial,Helvetica,sans-serif;
     scroll-behavior:smooth;
+}
+
+html{
+    scroll-padding-top:80px;
 }
 
 body{
     background:#071b4d;
-    color:white;
+    color:#fff;
     line-height:1.6;
 }
 
 a{
     text-decoration:none;
-}
-
-html{
-    scroll-padding-top:80px;
 }
 
 
@@ -57,23 +56,31 @@ html{
 nav{
     position:sticky;
     top:0;
-    width:100%;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    padding:15px 7%;
-    background:#04153b;
-    box-shadow:0 3px 15px rgba(0,0,0,.45);
     z-index:1000;
+
+    width:100%;
+
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+
+    padding:15px 7%;
+
+    background:#04153b;
+
+    box-shadow:
+    0 3px 15px rgba(0,0,0,.45);
 }
 
 .logo{
     display:flex;
     align-items:center;
     gap:10px;
+
+    color:#ffcc00;
+
     font-size:25px;
     font-weight:bold;
-    color:#ffcc00;
 }
 
 .logo i{
@@ -84,12 +91,14 @@ nav{
     display:flex;
     align-items:center;
     gap:25px;
+
     list-style:none;
 }
 
 .nav-links a{
     color:white;
     font-weight:bold;
+
     transition:.3s;
 }
 
@@ -99,8 +108,11 @@ nav{
 
 .menu-btn{
     display:none;
+
     color:#ffcc00;
+
     font-size:25px;
+
     cursor:pointer;
 }
 
@@ -112,27 +124,29 @@ nav{
 .banner{
     background:#ffcc00;
     color:#071b4d;
+
     padding:11px 15px;
+
     text-align:center;
+
     font-size:17px;
     font-weight:bold;
+
     overflow:hidden;
 }
 
 .banner-text{
-    animation:bannerMove 8s ease-in-out infinite;
+    animation:bannerAnimation 7s infinite;
 }
 
-@keyframes bannerMove{
+@keyframes bannerAnimation{
 
     0%,100%{
         opacity:1;
-        transform:scale(1);
     }
 
     50%{
-        opacity:.65;
-        transform:scale(1.03);
+        opacity:.55;
     }
 
 }
@@ -148,6 +162,7 @@ nav{
 
     display:flex;
     flex-direction:column;
+
     justify-content:center;
     align-items:center;
 
@@ -156,30 +171,47 @@ nav{
     padding:60px 20px;
 
     background:
+
     linear-gradient(
-        rgba(7,27,77,.88),
-        rgba(4,21,59,.95)
+        rgba(7,27,77,.90),
+        rgba(4,21,59,.96)
     ),
-    url("https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1600&q=80");
+
+    url(
+        "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1600&q=80"
+    );
 
     background-size:cover;
     background-position:center;
 }
 
 .hero-badge{
-    background:rgba(255,204,0,.15);
-    border:1px solid #ffcc00;
+
+    background:
+    rgba(255,204,0,.15);
+
+    border:
+    1px solid #ffcc00;
+
     color:#ffcc00;
+
     padding:8px 18px;
+
     border-radius:30px;
+
     font-weight:bold;
+
     margin-bottom:20px;
 }
 
 .hero h1{
+
     font-size:58px;
+
     color:#ffcc00;
+
     margin-bottom:15px;
+
     line-height:1.1;
 }
 
@@ -188,13 +220,17 @@ nav{
 }
 
 .hero p{
-    font-size:20px;
+
     max-width:750px;
+
     margin-bottom:30px;
-    color:#f4f4f4;
+
+    font-size:20px;
+
+    color:#f5f5f5;
 }
 
-.hero-highlight{
+.highlight{
     color:#ffcc00;
     font-weight:bold;
 }
@@ -205,16 +241,23 @@ nav{
 ========================= */
 
 .buttons{
+
     display:flex;
+
     gap:15px;
+
     flex-wrap:wrap;
+
     justify-content:center;
 }
 
 .btn{
+
     display:inline-flex;
+
     align-items:center;
     justify-content:center;
+
     gap:8px;
 
     padding:14px 27px;
@@ -224,32 +267,44 @@ nav{
     font-weight:bold;
 
     transition:.3s;
+
+    cursor:pointer;
 }
 
 .primary{
+
     background:#ffcc00;
+
     color:#071b4d;
 }
 
 .secondary{
+
     background:#25D366;
+
     color:white;
 }
 
 .dark-btn{
+
     background:#04153b;
+
     color:white;
+
     border:2px solid #ffcc00;
 }
 
 .btn:hover{
+
     transform:translateY(-4px);
-    box-shadow:0 8px 20px rgba(0,0,0,.3);
+
+    box-shadow:
+    0 8px 20px rgba(0,0,0,.3);
 }
 
 
 /* =========================
-   SECTION
+   SECTIONS
 ========================= */
 
 section{
@@ -257,42 +312,55 @@ section{
 }
 
 .section-title{
+
     text-align:center;
+
     margin-bottom:45px;
 }
 
 .section-title h2{
+
     color:#ffcc00;
+
     font-size:38px;
+
     margin-bottom:10px;
 }
 
 .section-title p{
-    max-width:650px;
+
+    max-width:680px;
+
     margin:auto;
+
     color:#dce5ff;
 }
 
 
 /* =========================
-   OFFERS
+   DATA OFFERS
 ========================= */
 
 .offers{
+
     display:grid;
+
     grid-template-columns:
-    repeat(auto-fit,minmax(260px,1fr));
+    repeat(auto-fit,minmax(250px,1fr));
 
     gap:25px;
 
     max-width:1100px;
+
     margin:auto;
 }
 
 .card{
+
     position:relative;
 
     background:white;
+
     color:#071b4d;
 
     padding:30px 25px;
@@ -308,77 +376,110 @@ section{
 }
 
 .card:hover{
+
     transform:translateY(-10px);
+
     box-shadow:
-    0 15px 35px rgba(255,204,0,.35);
+    0 15px 35px
+    rgba(255,204,0,.35);
 }
 
 .card.popular{
-    border:3px solid #ffcc00;
+
+    border:
+    3px solid #ffcc00;
 }
 
 .popular-badge{
+
     position:absolute;
+
     top:-13px;
+
     left:50%;
-    transform:translateX(-50%);
+
+    transform:
+    translateX(-50%);
 
     background:#ffcc00;
+
     color:#071b4d;
 
     padding:6px 18px;
 
     border-radius:20px;
 
-    font-size:13px;
+    font-size:12px;
+
     font-weight:bold;
+
+    white-space:nowrap;
 }
 
 .card-icon{
-    font-size:40px;
+
     color:#071b4d;
+
+    font-size:40px;
+
     margin-bottom:12px;
 }
 
 .card h3{
+
     font-size:23px;
+
     margin-bottom:8px;
 }
 
-.data-size{
-    font-size:17px;
-    font-weight:bold;
-    color:#555;
+.data-type{
+
+    color:#666;
+
+    font-size:15px;
 }
 
 .price{
-    font-size:43px;
-    font-weight:bold;
+
     color:#071b4d;
+
+    font-size:43px;
+
+    font-weight:bold;
+
     margin:15px 0;
 }
 
 .validity{
-    background:#eef2ff;
+
     display:inline-block;
+
+    background:#eef2ff;
+
     padding:5px 12px;
+
     border-radius:20px;
+
     font-size:14px;
 }
 
 .order{
-    display:inline-flex;
-    align-items:center;
-    justify-content:center;
-    gap:7px;
 
     width:100%;
+
+    display:inline-flex;
+
+    align-items:center;
+    justify-content:center;
+
+    gap:7px;
 
     margin-top:20px;
 
     padding:13px;
 
     background:#25D366;
+
     color:white;
 
     border-radius:8px;
@@ -389,26 +490,31 @@ section{
 }
 
 .order:hover{
+
     transform:scale(1.03);
 }
 
 
 /* =========================
-   WHY CHOOSE US
+   FEATURES
 ========================= */
 
 .features{
+
     display:grid;
+
     grid-template-columns:
     repeat(auto-fit,minmax(220px,1fr));
 
     gap:22px;
 
     max-width:1100px;
+
     margin:auto;
 }
 
 .feature{
+
     background:#10327e;
 
     padding:30px 20px;
@@ -418,26 +524,31 @@ section{
     text-align:center;
 
     transition:.3s;
-
-    border:1px solid rgba(255,255,255,.08);
 }
 
 .feature i{
+
     font-size:38px;
+
     color:#ffcc00;
+
     margin-bottom:15px;
 }
 
 .feature h3{
+
     margin-bottom:10px;
 }
 
 .feature p{
+
     color:#dce5ff;
 }
 
 .feature:hover{
+
     transform:translateY(-7px);
+
     background:#0d2d75;
 }
 
@@ -447,6 +558,7 @@ section{
 ========================= */
 
 .steps{
+
     display:grid;
 
     grid-template-columns:
@@ -460,6 +572,7 @@ section{
 }
 
 .step{
+
     background:#0d2d75;
 
     padding:25px 18px;
@@ -472,10 +585,12 @@ section{
 }
 
 .step-number{
+
     width:45px;
     height:45px;
 
     display:flex;
+
     align-items:center;
     justify-content:center;
 
@@ -484,50 +599,63 @@ section{
     border-radius:50%;
 
     background:#ffcc00;
+
     color:#071b4d;
 
     font-size:20px;
+
     font-weight:bold;
 }
 
 .step h3{
+
     margin-bottom:8px;
 }
 
 .step:hover{
+
     transform:translateY(-6px);
 }
 
 
 /* =========================
-   ORDER FORM
+   ORDER SECTION
 ========================= */
 
 .order-section{
+
     background:#061640;
 }
 
 .order-box{
+
     max-width:700px;
+
     margin:auto;
 
     background:white;
+
     color:#071b4d;
 
     padding:35px;
 
     border-radius:18px;
 
-    box-shadow:0 12px 35px rgba(0,0,0,.3);
+    box-shadow:
+    0 12px 35px rgba(0,0,0,.3);
 }
 
 .form-group{
+
     margin-bottom:18px;
 }
 
 .form-group label{
+
     display:block;
+
     font-weight:bold;
+
     margin-bottom:7px;
 }
 
@@ -549,6 +677,7 @@ section{
 
 .form-group input:focus,
 .form-group select:focus{
+
     border-color:#ffcc00;
 }
 
@@ -562,9 +691,9 @@ section{
 
     border-radius:8px;
 
-    background:#25D366;
+    background:#ffcc00;
 
-    color:white;
+    color:#071b4d;
 
     font-size:17px;
 
@@ -576,14 +705,55 @@ section{
 }
 
 .submit-btn:hover{
+
     transform:translateY(-3px);
 }
 
 .order-note{
+
     text-align:center;
-    font-size:13px;
+
     color:#666;
+
+    font-size:13px;
+
     margin-top:12px;
+}
+
+
+/* =========================
+   ORDER SUMMARY
+========================= */
+
+.order-summary{
+
+    display:none;
+
+    margin-top:25px;
+
+    padding:20px;
+
+    background:#eef2ff;
+
+    border-radius:10px;
+
+    text-align:center;
+}
+
+.order-summary h3{
+
+    margin-bottom:10px;
+}
+
+.summary-price{
+
+    color:#071b4d;
+
+    font-size:28px;
+
+    font-weight:bold;
+
+    margin:10px 0;
 }
 
 
@@ -591,11 +761,12 @@ section{
    PAYMENT
 ========================= */
 
+.payment-section{
+
+    background:#071b4d;
+}
+
 .payment-box{
-
-    max-width:900px;
-
-    margin:auto;
 
     display:grid;
 
@@ -603,6 +774,10 @@ section{
     repeat(auto-fit,minmax(250px,1fr));
 
     gap:25px;
+
+    max-width:1000px;
+
+    margin:auto;
 }
 
 .payment-card{
@@ -617,17 +792,51 @@ section{
 }
 
 .payment-card i{
-    font-size:40px;
+
     color:#ffcc00;
+
+    font-size:40px;
+
     margin-bottom:15px;
 }
 
 .payment-card h3{
+
     margin-bottom:10px;
 }
 
 .payment-card p{
+
     color:#dce5ff;
+
+    margin-bottom:15px;
+}
+
+.yoco-btn{
+
+    display:inline-flex;
+
+    align-items:center;
+    justify-content:center;
+
+    gap:8px;
+
+    padding:12px 20px;
+
+    border-radius:8px;
+
+    background:#ffcc00;
+
+    color:#071b4d;
+
+    font-weight:bold;
+
+    transition:.3s;
+}
+
+.yoco-btn:hover{
+
+    transform:translateY(-3px);
 }
 
 
@@ -661,17 +870,23 @@ section{
 }
 
 .stars{
+
     color:#ffcc00;
+
     font-size:20px;
+
     margin-bottom:10px;
 }
 
 .review p{
+
     color:#e7edff;
 }
 
 .review strong{
+
     display:block;
+
     margin-top:15px;
 }
 
@@ -706,16 +921,21 @@ section{
 }
 
 .contact-card i{
+
     color:#ffcc00;
+
     font-size:35px;
+
     margin-bottom:12px;
 }
 
 .contact-card a{
+
     color:white;
 }
 
 .contact-card a:hover{
+
     color:#ffcc00;
 }
 
@@ -731,18 +951,21 @@ footer{
     padding:40px 7%;
 
     text-align:center;
-
-    margin-top:30px;
 }
 
 .footer-logo{
+
     color:#ffcc00;
+
     font-size:25px;
+
     font-weight:bold;
+
     margin-bottom:10px;
 }
 
 .footer-links{
+
     margin:20px 0;
 
     display:flex;
@@ -755,16 +978,22 @@ footer{
 }
 
 .footer-links a{
+
     color:white;
 }
 
 .footer-links a:hover{
+
     color:#ffcc00;
 }
 
 .footer-copy{
+
     color:#aebbdc;
+
     font-size:14px;
+
+    margin-top:8px;
 }
 
 
@@ -779,17 +1008,19 @@ footer{
     right:20px;
     bottom:20px;
 
-    background:#25D366;
-    color:white;
-
     width:58px;
     height:58px;
 
     display:flex;
+
     align-items:center;
     justify-content:center;
 
     border-radius:50%;
+
+    background:#25D366;
+
+    color:white;
 
     font-size:27px;
 
@@ -802,6 +1033,7 @@ footer{
 }
 
 .whatsapp:hover{
+
     transform:scale(1.1);
 }
 
@@ -813,10 +1045,12 @@ footer{
 @media(max-width:768px){
 
     nav{
+
         padding:14px 5%;
     }
 
     .menu-btn{
+
         display:block;
     }
 
@@ -838,35 +1072,40 @@ footer{
         padding:20px;
 
         gap:18px;
-
-        box-shadow:0 5px 12px rgba(0,0,0,.3);
     }
 
     .nav-links.active{
+
         display:flex;
     }
 
     .hero{
+
         min-height:500px;
     }
 
     .hero h1{
+
         font-size:42px;
     }
 
     .hero p{
+
         font-size:17px;
     }
 
     section{
+
         padding:60px 5%;
     }
 
     .section-title h2{
+
         font-size:31px;
     }
 
     .order-box{
+
         padding:25px 20px;
     }
 
@@ -880,42 +1119,49 @@ footer{
 @media(max-width:480px){
 
     .logo{
+
         font-size:21px;
     }
 
     .banner{
+
         font-size:14px;
     }
 
     .hero{
+
         min-height:480px;
+
         padding:45px 15px;
     }
 
     .hero h1{
+
         font-size:34px;
     }
 
     .hero p{
+
         font-size:15px;
     }
 
     .buttons{
+
         width:100%;
     }
 
     .btn{
+
         width:100%;
+
         max-width:280px;
     }
 
-    .card{
-        width:100%;
-    }
-
     .whatsapp{
+
         width:52px;
         height:52px;
+
         right:15px;
         bottom:15px;
     }
@@ -936,7 +1182,10 @@ footer{
 
 <nav>
 
-    <a href="#home" class="logo">
+    <a
+        href="#home"
+        class="logo"
+    >
 
         <i class="fa-solid fa-signal"></i>
 
@@ -955,7 +1204,10 @@ footer{
     </div>
 
 
-    <ul class="nav-links" id="navLinks">
+    <ul
+        class="nav-links"
+        id="navLinks"
+    >
 
         <li>
             <a href="#home">
@@ -979,9 +1231,9 @@ footer{
         </li>
 
         <li>
-            <a href="#about">
-                <i class="fa-solid fa-circle-info"></i>
-                About
+            <a href="#payment">
+                <i class="fa-solid fa-credit-card"></i>
+                Payment
             </a>
         </li>
 
@@ -1010,7 +1262,7 @@ footer{
         •
         50GB for R350
         •
-        Valid for 30 Days 🔥
+        30 DAYS 🔥
 
     </div>
 
@@ -1021,7 +1273,10 @@ footer{
      HERO
 ========================= -->
 
-<section class="hero" id="home">
+<section
+    class="hero"
+    id="home"
+>
 
     <div class="hero-badge">
 
@@ -1045,7 +1300,7 @@ footer{
         Why pay more for your data?
 
         Get affordable
-        <span class="hero-highlight">
+        <span class="highlight">
             MTN Anytime Data
         </span>
 
@@ -1073,6 +1328,7 @@ footer{
             href="https://wa.me/27730916623"
             class="btn secondary"
             target="_blank"
+            rel="noopener noreferrer"
         >
 
             <i class="fa-brands fa-whatsapp"></i>
@@ -1099,8 +1355,8 @@ footer{
         </h2>
 
         <p>
-            Choose the bundle that suits your needs
-            and place your order through WhatsApp.
+            Choose your bundle and continue
+            to the order section.
         </p>
 
     </div>
@@ -1121,7 +1377,7 @@ footer{
                 10GB Anytime
             </h3>
 
-            <div class="data-size">
+            <div class="data-type">
                 MTN Anytime Data
             </div>
 
@@ -1130,16 +1386,16 @@ footer{
             </div>
 
             <span class="validity">
-                30 Days Validity
+                30 Days
             </span>
 
             <a
                 class="order"
-                href="https://wa.me/27730916623?text=Hi%20I%20want%20the%2010GB%20Anytime%20Data%20bundle"
-                target="_blank"
+                href="#order"
+                onclick="selectBundle('10GB Anytime','100')"
             >
 
-                <i class="fa-brands fa-whatsapp"></i>
+                <i class="fa-solid fa-cart-shopping"></i>
 
                 Order Now
 
@@ -1160,7 +1416,7 @@ footer{
                 20GB Anytime
             </h3>
 
-            <div class="data-size">
+            <div class="data-type">
                 MTN Anytime Data
             </div>
 
@@ -1169,16 +1425,16 @@ footer{
             </div>
 
             <span class="validity">
-                30 Days Validity
+                30 Days
             </span>
 
             <a
                 class="order"
-                href="https://wa.me/27730916623?text=Hi%20I%20want%20the%2020GB%20Anytime%20Data%20bundle"
-                target="_blank"
+                href="#order"
+                onclick="selectBundle('20GB Anytime','150')"
             >
 
-                <i class="fa-brands fa-whatsapp"></i>
+                <i class="fa-solid fa-cart-shopping"></i>
 
                 Order Now
 
@@ -1203,7 +1459,7 @@ footer{
                 35GB Anytime
             </h3>
 
-            <div class="data-size">
+            <div class="data-type">
                 MTN Anytime Data
             </div>
 
@@ -1212,16 +1468,16 @@ footer{
             </div>
 
             <span class="validity">
-                30 Days Validity
+                30 Days
             </span>
 
             <a
                 class="order"
-                href="https://wa.me/27730916623?text=Hi%20I%20want%20the%2035GB%20Anytime%20Data%20bundle"
-                target="_blank"
+                href="#order"
+                onclick="selectBundle('35GB Anytime','250')"
             >
 
-                <i class="fa-brands fa-whatsapp"></i>
+                <i class="fa-solid fa-cart-shopping"></i>
 
                 Order Now
 
@@ -1242,7 +1498,7 @@ footer{
                 50GB Anytime
             </h3>
 
-            <div class="data-size">
+            <div class="data-type">
                 MTN Anytime Data
             </div>
 
@@ -1251,16 +1507,16 @@ footer{
             </div>
 
             <span class="validity">
-                30 Days Validity
+                30 Days
             </span>
 
             <a
                 class="order"
-                href="https://wa.me/27730916623?text=Hi%20I%20want%20the%2050GB%20Anytime%20Data%20bundle"
-                target="_blank"
+                href="#order"
+                onclick="selectBundle('50GB Anytime','350')"
             >
 
-                <i class="fa-brands fa-whatsapp"></i>
+                <i class="fa-solid fa-cart-shopping"></i>
 
                 Order Now
 
@@ -1271,7 +1527,7 @@ footer{
 
     </div>
 
-   </section><!-- =========================
+</section><!-- =========================
      WHY CHOOSE US
 ========================= -->
 
@@ -1284,8 +1540,8 @@ footer{
         </h2>
 
         <p>
-            We make it simple to get connected
-            with affordable data bundles.
+            Simple ordering, affordable bundles
+            and convenient customer support.
         </p>
 
     </div>
@@ -1303,8 +1559,8 @@ footer{
             </h3>
 
             <p>
-                Quick turnaround after
-                your payment is confirmed.
+                Quick turnaround after payment
+                has been confirmed.
             </p>
 
         </div>
@@ -1335,8 +1591,8 @@ footer{
             </h3>
 
             <p>
-                Competitive data bundle
-                prices for your budget.
+                Competitive data bundle prices
+                for your budget.
             </p>
 
         </div>
@@ -1351,8 +1607,8 @@ footer{
             </h3>
 
             <p>
-                Enjoy your data bundle
-                throughout the validity period.
+                Enjoy your data throughout
+                the validity period.
             </p>
 
         </div>
@@ -1377,7 +1633,8 @@ footer{
         </h2>
 
         <p>
-            Ordering your data bundle is simple.
+            Ordering your data bundle
+            is simple.
         </p>
 
     </div>
@@ -1393,7 +1650,7 @@ footer{
             </div>
 
             <h3>
-                Choose Your Bundle
+                Choose Bundle
             </h3>
 
             <p>
@@ -1411,12 +1668,12 @@ footer{
             </div>
 
             <h3>
-                Place Your Order
+                Enter Details
             </h3>
 
             <p>
-                Complete the order form
-                or WhatsApp us.
+                Enter your name and
+                MTN number.
             </p>
 
         </div>
@@ -1429,12 +1686,12 @@ footer{
             </div>
 
             <h3>
-                Make Payment
+                Pay with Yoco
             </h3>
 
             <p>
-                Follow the payment
-                instructions provided.
+                Complete your payment
+                through Yoco.
             </p>
 
         </div>
@@ -1447,12 +1704,12 @@ footer{
             </div>
 
             <h3>
-                Receive Your Data
+                Confirm
             </h3>
 
             <p>
-                Your data will be activated
-                after payment confirmation.
+                Send your payment
+                confirmation on WhatsApp.
             </p>
 
         </div>
@@ -1480,8 +1737,8 @@ footer{
         </h2>
 
         <p>
-            Enter your details and we'll
-            prepare your WhatsApp order.
+            Enter your details before
+            proceeding to payment.
         </p>
 
     </div>
@@ -1519,6 +1776,8 @@ footer{
                     type="tel"
                     id="phoneNumber"
                     placeholder="e.g. 0781234567"
+                    pattern="[0-9]{10}"
+                    maxlength="10"
                     required
                 >
 
@@ -1540,23 +1799,52 @@ footer{
                         -- Select Bundle --
                     </option>
 
-                    <option value="10GB - R100">
+                    <option value="10GB Anytime|100">
                         10GB Anytime - R100
                     </option>
 
-                    <option value="20GB - R150">
+                    <option value="20GB Anytime|150">
                         20GB Anytime - R150
                     </option>
 
-                    <option value="35GB - R250">
+                    <option value="35GB Anytime|250">
                         35GB Anytime - R250
                     </option>
 
-                    <option value="50GB - R350">
+                    <option value="50GB Anytime|350">
                         50GB Anytime - R350
                     </option>
 
                 </select>
+
+            </div>
+
+
+            <!-- ORDER SUMMARY -->
+
+            <div
+                class="order-summary"
+                id="orderSummary"
+            >
+
+                <h3>
+                    Order Summary
+                </h3>
+
+                <p id="summaryBundle">
+                    Bundle
+                </p>
+
+                <div
+                    class="summary-price"
+                    id="summaryPrice"
+                >
+                    R0
+                </div>
+
+                <p>
+                    30 Days Validity
+                </p>
 
             </div>
 
@@ -1566,17 +1854,18 @@ footer{
                 class="submit-btn"
             >
 
-                <i class="fa-brands fa-whatsapp"></i>
+                <i class="fa-solid fa-credit-card"></i>
 
-                Continue on WhatsApp
+                Continue to Payment
 
             </button>
 
 
             <p class="order-note">
 
-                You will be redirected to WhatsApp
-                to confirm your order.
+                You will be taken to the Yoco
+                payment page after submitting
+                your order.
 
             </p>
 
@@ -1590,20 +1879,23 @@ footer{
 
 
 <!-- =========================
-     PAYMENT
+     YOCO PAYMENT
 ========================= -->
 
-<section>
+<section
+    class="payment-section"
+    id="payment"
+>
 
     <div class="section-title">
 
         <h2>
-            Payment
+            Secure Yoco Payment
         </h2>
 
         <p>
-            Choose your preferred payment
-            method when completing your order.
+            Complete your payment using
+            our secure Yoco payment page.
         </p>
 
     </div>
@@ -1612,52 +1904,85 @@ footer{
     <div class="payment-box">
 
 
+        <!-- YOCO -->
+
         <div class="payment-card">
 
             <i class="fa-solid fa-credit-card"></i>
 
             <h3>
-                Yoco
+                Pay with Yoco
             </h3>
 
             <p>
-                Secure card payment can be
-                made through our Yoco payment
-                option when available.
+                Click below to open the
+                secure Yoco checkout.
             </p>
+
+            <a
+                href="https://pay.yoco.com/r/7vELMB"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="yoco-btn"
+            >
+
+                <i class="fa-solid fa-lock"></i>
+
+                Pay with Yoco
+
+            </a>
 
         </div>
 
+
+        <!-- WHATSAPP -->
 
         <div class="payment-card">
 
             <i class="fa-brands fa-whatsapp"></i>
 
             <h3>
-                WhatsApp Ordering
+                Confirm Payment
             </h3>
 
             <p>
-                Contact us on WhatsApp to
-                receive payment instructions
-                and confirm your order.
+                After paying, send your
+                payment confirmation to us.
             </p>
+
+            <a
+                href="#"
+                id="whatsappConfirm"
+                class="yoco-btn"
+                style="
+                    background:#25D366;
+                    color:white;
+                "
+            >
+
+                <i class="fa-brands fa-whatsapp"></i>
+
+                Confirm on WhatsApp
+
+            </a>
 
         </div>
 
+
+        <!-- SECURITY -->
 
         <div class="payment-card">
 
             <i class="fa-solid fa-shield-halved"></i>
 
             <h3>
-                Payment Confirmation
+                Secure Checkout
             </h3>
 
             <p>
-                Data activation takes place
-                after payment has been
-                confirmed.
+                Your card information is
+                entered directly on Yoco's
+                secure checkout page.
             </p>
 
         </div>
@@ -1699,8 +2024,7 @@ footer{
 
             <p>
                 "Fast service and affordable
-                data prices. Very happy with
-                the service!"
+                data prices!"
             </p>
 
             <strong>
@@ -1719,7 +2043,7 @@ footer{
             <p>
                 "My data was activated quickly
                 and the ordering process was
-                very easy."
+                easy."
             </p>
 
             <strong>
@@ -1766,8 +2090,8 @@ footer{
         </h2>
 
         <p>
-            Have a question?
-            We are ready to assist you.
+            Need assistance?
+            Contact us directly.
         </p>
 
     </div>
@@ -1789,6 +2113,7 @@ footer{
                 <a
                     href="https://wa.me/27730916623"
                     target="_blank"
+                    rel="noopener noreferrer"
                 >
 
                     073 091 6623
@@ -1882,8 +2207,8 @@ footer{
             Order
         </a>
 
-        <a href="#about">
-            About
+        <a href="#payment">
+            Payment
         </a>
 
         <a href="#contact">
@@ -1903,9 +2228,8 @@ footer{
 
     <p class="footer-copy">
 
-        Data bundle availability,
-        pricing and validity are subject
-        to confirmation at the time of order.
+        Bundle availability, pricing and
+        validity are subject to confirmation.
 
     </p>
 
@@ -1921,6 +2245,7 @@ footer{
     class="whatsapp"
     href="https://wa.me/27730916623"
     target="_blank"
+    rel="noopener noreferrer"
     aria-label="Chat on WhatsApp"
 >
 
@@ -1944,20 +2269,25 @@ footer{
 function toggleMenu(){
 
     const menu =
-        document.getElementById("navLinks");
+        document.getElementById(
+            "navLinks"
+        );
 
-    menu.classList.toggle("active");
+    menu.classList.toggle(
+        "active"
+    );
 
 }
 
 
 /* =========================
    CLOSE MOBILE MENU
-   AFTER CLICKING LINK
 ========================= */
 
 document
-.querySelectorAll(".nav-links a")
+.querySelectorAll(
+    ".nav-links a"
+)
 .forEach(function(link){
 
     link.addEventListener(
@@ -1965,13 +2295,127 @@ document
         function(){
 
             document
-            .getElementById("navLinks")
-            .classList.remove("active");
+            .getElementById(
+                "navLinks"
+            )
+            .classList.remove(
+                "active"
+            );
 
         }
     );
 
 });
+
+
+/* =========================
+   SELECT BUNDLE
+========================= */
+
+function selectBundle(
+    bundleName,
+    price
+){
+
+    const bundleSelect =
+        document.getElementById(
+            "bundle"
+        );
+
+
+    const value =
+        bundleName + "|" + price;
+
+
+    bundleSelect.value =
+        value;
+
+
+    updateSummary();
+
+
+    document
+    .getElementById(
+        "order"
+    )
+    .scrollIntoView({
+        behavior:"smooth"
+    });
+
+}
+
+
+/* =========================
+   UPDATE ORDER SUMMARY
+========================= */
+
+function updateSummary(){
+
+    const select =
+        document.getElementById(
+            "bundle"
+        );
+
+    const summary =
+        document.getElementById(
+            "orderSummary"
+        );
+
+    const bundleText =
+        document.getElementById(
+            "summaryBundle"
+        );
+
+    const priceText =
+        document.getElementById(
+            "summaryPrice"
+        );
+
+
+    if(!select.value){
+
+        summary.style.display =
+            "none";
+
+        return;
+
+    }
+
+
+    const parts =
+        select.value.split("|");
+
+
+    const bundle =
+        parts[0];
+
+    const price =
+        parts[1];
+
+
+    bundleText.textContent =
+        bundle;
+
+    priceText.textContent =
+        "R" + price;
+
+
+    summary.style.display =
+        "block";
+
+}
+
+
+/* =========================
+   BUNDLE SELECT CHANGE
+========================= */
+
+document
+.getElementById("bundle")
+.addEventListener(
+    "change",
+    updateSummary
+);
 
 
 /* =========================
@@ -1989,28 +2433,34 @@ document
 
         const name =
             document
-            .getElementById("customerName")
+            .getElementById(
+                "customerName"
+            )
             .value
             .trim();
 
 
         const phone =
             document
-            .getElementById("phoneNumber")
+            .getElementById(
+                "phoneNumber"
+            )
             .value
             .trim();
 
 
-        const bundle =
+        const bundleValue =
             document
-            .getElementById("bundle")
+            .getElementById(
+                "bundle"
+            )
             .value;
 
 
         if(
             name === "" ||
             phone === "" ||
-            bundle === ""
+            bundleValue === ""
         ){
 
             alert(
@@ -2022,11 +2472,64 @@ document
         }
 
 
+        if(
+            !/^[0-9]{10}$/.test(phone)
+        ){
+
+            alert(
+                "Please enter a valid 10-digit MTN number."
+            );
+
+            return;
+
+        }
+
+
+        const parts =
+            bundleValue.split("|");
+
+
+        const bundle =
+            parts[0];
+
+        const price =
+            parts[1];
+
+
+        /*
+        Store order information.
+        */
+
+        localStorage.setItem(
+            "customerName",
+            name
+        );
+
+        localStorage.setItem(
+            "customerPhone",
+            phone
+        );
+
+        localStorage.setItem(
+            "customerBundle",
+            bundle
+        );
+
+        localStorage.setItem(
+            "customerPrice",
+            price
+        );
+
+
+        /*
+        Prepare WhatsApp confirmation.
+        */
+
         const message =
 
             "Hello MTN Data,%0A%0A" +
 
-            "I would like to place a data order.%0A%0A" +
+            "I have completed my Yoco payment.%0A%0A" +
 
             "Name: " +
             encodeURIComponent(name) +
@@ -2041,26 +2544,160 @@ document
             "Bundle: " +
             encodeURIComponent(bundle) +
 
+            "%0A" +
+
+            "Amount: R" +
+            encodeURIComponent(price) +
+
             "%0A%0A" +
 
-            "Please send me the payment instructions.";
+            "Please confirm my data order.";
 
 
-        const whatsappURL =
-            "https://wa.me/27730916623?text="
-            + message;
+        localStorage.setItem(
+            "whatsappMessage",
+            message
+        );
+
+
+        /*
+        Open Yoco payment page.
+        */
+
+        window.open(
+            "https://pay.yoco.com/r/7vELMB",
+            "_blank"
+        );
+
+
+        /*
+        Scroll customer to payment
+        instructions.
+        */
+
+        setTimeout(function(){
+
+            document
+            .getElementById(
+                "payment"
+            )
+            .scrollIntoView({
+                behavior:"smooth"
+            });
+
+        },500);
+
+    }
+);
+
+
+/* =========================
+   WHATSAPP CONFIRMATION
+========================= */
+
+document
+.getElementById(
+    "whatsappConfirm"
+)
+.addEventListener(
+    "click",
+    function(event){
+
+        event.preventDefault();
+
+
+        const name =
+            localStorage.getItem(
+                "customerName"
+            ) || "";
+
+
+        const phone =
+            localStorage.getItem(
+                "customerPhone"
+            ) || "";
+
+
+        const bundle =
+            localStorage.getItem(
+                "customerBundle"
+            ) || "";
+
+
+        const price =
+            localStorage.getItem(
+                "customerPrice"
+            ) || "";
+
+
+        if(
+            name === "" ||
+            phone === "" ||
+            bundle === ""
+        ){
+
+            alert(
+                "Please complete an order first."
+            );
+
+            document
+            .getElementById(
+                "order"
+            )
+            .scrollIntoView({
+                behavior:"smooth"
+            });
+
+            return;
+
+        }
+
+
+        const message =
+
+            "Hello MTN Data,%0A%0A" +
+
+            "I have completed my Yoco payment.%0A%0A" +
+
+            "Name: " +
+            encodeURIComponent(name) +
+
+            "%0A" +
+
+            "MTN Number: " +
+            encodeURIComponent(phone) +
+
+            "%0A" +
+
+            "Bundle: " +
+            encodeURIComponent(bundle) +
+
+            "%0A" +
+
+            "Amount: R" +
+            encodeURIComponent(price) +
+
+            "%0A%0A" +
+
+            "Please confirm my data order.";
 
 
         window.open(
-            whatsappURL,
+
+            "https://wa.me/27730916623?text="
+            + message,
+
             "_blank"
+
         );
 
     }
 );
 
+
 </script>
 
 
 </body>
+
 </html>

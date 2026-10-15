@@ -93,10 +93,13 @@ footer{background:var(--navy2);color:white;padding:32px 7%;text-align:center}foo
       </div>
       <div class="summary" aria-live="polite">
         <h3><i class="fas fa-receipt"></i> Order Summary</h3>
+        <div class="summary-row"><span>Full name</span><strong id="summaryName">Not entered</strong></div>
+        <div class="summary-row"><span>Contact number</span><strong id="summaryContact">Not entered</strong></div>
+        <div class="summary-row"><span>MTN number receiving data</span><strong id="summaryPhone">Not entered</strong></div>
+        <div class="summary-row"><span>Email address</span><strong id="summaryEmail">Not provided</strong></div>
         <div class="summary-row"><span>Bundle</span><strong id="summaryBundle">Not selected</strong></div>
-        <div class="summary-row"><span>Data recipient</span><strong id="summaryPhone">Not entered</strong></div>
         <div class="summary-row summary-total"><span>Total to confirm</span><strong id="summaryPrice">R0</strong></div>
-        <p class="hint" style="margin-top:8px">The total is based on the bundle selected. Please wait for us to confirm your order and payment instructions before paying.</p>
+        <p class="hint" style="margin-top:8px">Check all details carefully before sending your order. Please wait for us to confirm your order and payment instructions before paying.</p>
       </div>
       <button class="btn btn-whatsapp" type="submit" style="width:100%;font-size:16px"><i class="fab fa-whatsapp"></i> Send Order on WhatsApp</button>
     </form>
@@ -146,14 +149,18 @@ document.querySelectorAll(".choose").forEach(button => button.addEventListener("
 }));
 function updateSummary() {
   const value = document.getElementById("bundle").value;
-  const phone = document.getElementById("phoneNumber").value.trim();
   const parts = value ? value.split("|") : [];
+  document.getElementById("summaryName").textContent = document.getElementById("customerName").value.trim() || "Not entered";
+  document.getElementById("summaryContact").textContent = document.getElementById("contactPhone").value.trim() || "Not entered";
+  document.getElementById("summaryPhone").textContent = document.getElementById("phoneNumber").value.trim() || "Not entered";
+  document.getElementById("summaryEmail").textContent = document.getElementById("customerEmail").value.trim() || "Not provided";
   document.getElementById("summaryBundle").textContent = parts[0] || "Not selected";
   document.getElementById("summaryPrice").textContent = parts[1] ? "R" + parts[1] : "R0";
-  document.getElementById("summaryPhone").textContent = phone || "Not entered";
 }
-document.getElementById("bundle").addEventListener("change", updateSummary);
-document.getElementById("phoneNumber").addEventListener("input", updateSummary);
+["customerName", "contactPhone", "phoneNumber", "customerEmail", "bundle"].forEach(id => {
+  document.getElementById(id).addEventListener("input", updateSummary);
+  document.getElementById(id).addEventListener("change", updateSummary);
+});
 document.getElementById("orderForm").addEventListener("submit", event => {
   event.preventDefault();
   const name = document.getElementById("customerName").value.trim();

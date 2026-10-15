@@ -242,7 +242,7 @@ document.getElementById("modalOrderForm").addEventListener("submit", event => {
     "Total: R" + activeOffer.price,
     "",
     "Please confirm availability and send me the payment instructions. I understand that my order will be processed only after payment is received and confirmed."
-  ].join("\\n");
+  ].join("\n");
   window.open("https://wa.me/" + WHATSAPP_NUMBER + "?text=" + encodeURIComponent(message), "_blank", "noopener");
 });
 

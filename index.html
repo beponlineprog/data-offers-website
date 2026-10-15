@@ -1,1416 +1,184 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>MTN Anytime Data</title>
-
-<link rel="stylesheet"
-href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#071b4d">
+<meta name="description" content="Choose affordable MTN Anytime Data bundles and order through WhatsApp.">
+<title>MTN Anytime Data | Affordable Data Offers</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 <style>
-
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:Arial, Helvetica, sans-serif;
-}
-
-html{
-    scroll-behavior:smooth;
-}
-
-body{
-    background:#f5f7fb;
-    color:#111;
-}
-
-/* NAVIGATION */
-
-nav{
-    background:#071b4d;
-    color:white;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    padding:15px 7%;
-    position:sticky;
-    top:0;
-    z-index:1000;
-}
-
-.logo{
-    font-size:22px;
-    font-weight:bold;
-    color:#ffcc00;
-}
-
-.logo span{
-    color:white;
-}
-
-.nav-links{
-    display:flex;
-    gap:25px;
-    list-style:none;
-}
-
-.nav-links a{
-    color:white;
-    text-decoration:none;
-    font-weight:bold;
-}
-
-.nav-links a:hover{
-    color:#ffcc00;
-}
-
-.menu-btn{
-    display:none;
-    font-size:25px;
-    cursor:pointer;
-}
-
-/* PROMO BANNER */
-
-.banner{
-    background:#ffcc00;
-    color:#071b4d;
-    text-align:center;
-    padding:10px;
-    font-weight:bold;
-}
-
-/* HERO */
-
-.hero{
-    background:linear-gradient(
-        rgba(4,21,59,.9),
-        rgba(7,27,77,.9)
-    );
-    color:white;
-    text-align:center;
-    padding:80px 20px;
-}
-
-.hero h1{
-    font-size:42px;
-    margin-bottom:15px;
-}
-
-.hero h1 span{
-    color:#ffcc00;
-}
-
-.hero p{
-    font-size:18px;
-    max-width:700px;
-    margin:auto;
-    line-height:1.7;
-}
-
-.hero-buttons{
-    margin-top:30px;
-}
-
-.btn{
-    display:inline-block;
-    padding:14px 25px;
-    border-radius:7px;
-    text-decoration:none;
-    font-weight:bold;
-    margin:5px;
-    cursor:pointer;
-    border:none;
-}
-
-.btn-primary{
-    background:#ffcc00;
-    color:#071b4d;
-}
-
-.btn-primary:hover{
-    background:#e6b800;
-}
-
-.btn-whatsapp{
-    background:#25D366;
-    color:white;
-}
-
-/* SECTION */
-
-section{
-    padding:60px 7%;
-}
-
-.section-title{
-    text-align:center;
-    margin-bottom:35px;
-}
-
-.section-title h2{
-    color:#071b4d;
-    font-size:32px;
-}
-
-.section-title p{
-    margin-top:10px;
-    color:#666;
-}
-
-/* OFFERS */
-
-.offers{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-    gap:25px;
-}
-
-.offer-card{
-    background:white;
-    border-radius:12px;
-    padding:30px 20px;
-    text-align:center;
-    box-shadow:0 5px 20px rgba(0,0,0,.08);
-    border-top:5px solid #ffcc00;
-}
-
-.offer-card i{
-    font-size:40px;
-    color:#071b4d;
-    margin-bottom:15px;
-}
-
-.offer-card h3{
-    color:#071b4d;
-    font-size:25px;
-    margin-bottom:10px;
-}
-
-.offer-card .price{
-    font-size:32px;
-    font-weight:bold;
-    color:#071b4d;
-    margin:15px 0;
-}
-
-.offer-card p{
-    color:#666;
-    margin-bottom:20px;
-}
-
-.offer-card button{
-    width:100%;
-    padding:13px;
-    border:none;
-    background:#071b4d;
-    color:white;
-    border-radius:6px;
-    font-weight:bold;
-    cursor:pointer;
-}
-
-.offer-card button:hover{
-    background:#ffcc00;
-    color:#071b4d;
-}
-
+:root{--navy:#071b4d;--navy2:#04153b;--gold:#ffcc00;--green:#25D366;--ink:#172033;--muted:#647084;--paper:#f5f7fb}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:82px}
+body{font-family:Arial,Helvetica,sans-serif;background:var(--paper);color:var(--ink);line-height:1.6}
+a{color:inherit}
+nav{position:sticky;top:0;z-index:1000;display:flex;align-items:center;justify-content:space-between;gap:18px;padding:14px 7%;background:var(--navy);color:white;box-shadow:0 4px 18px #071b4d22}
+.logo{font-size:21px;font-weight:800;color:var(--gold);white-space:nowrap}.logo span{color:#fff}
+.nav-links{display:flex;gap:20px;align-items:center;list-style:none}.nav-links a{text-decoration:none;font-weight:700}.nav-links a:hover{color:var(--gold)}
+.menu-btn{display:none;background:none;color:white;border:0;font-size:24px}
+.banner{background:var(--gold);color:var(--navy);padding:9px 15px;text-align:center;font-weight:800}
+.hero{background:radial-gradient(circle at 80% 20%,#17448b 0,transparent 35%),linear-gradient(135deg,var(--navy2),var(--navy));color:white;text-align:center;padding:76px 20px 82px}
+.hero h1{font-size:clamp(30px,5vw,48px);line-height:1.15;margin-bottom:17px}.hero h1 span{color:var(--gold)}
+.hero p{max-width:720px;margin:auto;color:#e5ebf8;font-size:18px}
+.hero-buttons{margin-top:28px;display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;padding:13px 20px;border:0;border-radius:8px;text-decoration:none;font-weight:800;cursor:pointer;font-size:15px}
+.btn-primary{background:var(--gold);color:var(--navy)}.btn-primary:hover{background:#f0bd00}
+.btn-whatsapp{background:var(--green);color:#063d22}.btn-whatsapp:hover{filter:brightness(.96)}
+section{padding:56px 7%}
+.section-title{text-align:center;margin:0 auto 30px}.section-title h2{color:var(--navy);font-size:clamp(25px,3vw,33px)}.section-title p{margin-top:7px;color:var(--muted)}
+.offers{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:20px}
+.offer-card{background:white;border:1px solid #e6eaf2;border-top:5px solid var(--gold);border-radius:13px;padding:26px 20px;text-align:center;box-shadow:0 7px 22px #071b4d0b}
+.offer-card>i{font-size:35px;color:var(--navy);margin-bottom:12px}.offer-card h3{color:var(--navy);font-size:22px}.offer-card p{color:var(--muted);margin:8px 0 14px}.price{font-size:32px;font-weight:900;color:var(--navy);margin:12px 0 17px}
+.offer-card button{width:100%}
+.order-wrap{max-width:760px;margin:auto;background:white;border:1px solid #e5e9f1;border-radius:14px;padding:clamp(20px,4vw,34px);box-shadow:0 8px 28px #071b4d0d}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}.field{display:flex;flex-direction:column;gap:6px}.field.full{grid-column:1/-1}
+label{font-weight:800;color:var(--navy);font-size:14px}
+input,select{width:100%;padding:13px 12px;border:1px solid #cfd6e2;border-radius:7px;font:inherit;background:#fff;color:var(--ink)}
+input:focus,select:focus{outline:3px solid #ffcc0055;border-color:#b18d00}
+.hint{font-size:12px;color:var(--muted)}
+.summary{margin:22px 0;padding:18px;border-radius:10px;background:#f0f4fb;border:1px solid #dce5f3}
+.summary h3{color:var(--navy);margin-bottom:10px}.summary-row{display:flex;justify-content:space-between;gap:12px;padding:4px 0}.summary-total{border-top:1px solid #ccd7e8;margin-top:8px;padding-top:10px;font-size:20px;font-weight:900;color:var(--navy)}
+.notice{padding:16px;border-radius:9px;background:#fff8d6;border-left:5px solid var(--gold);margin-top:18px}.notice strong{color:var(--navy)}.notice p{margin-top:5px}
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:18px}.step{background:white;border-radius:12px;padding:22px;text-align:center;border:1px solid #e5e9f1}.step i{font-size:28px;color:var(--navy);margin-bottom:9px}.step h3{color:var(--navy);font-size:18px}
+.contact-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px}
+.contact-card{background:white;border-radius:12px;padding:24px;text-align:center;border:1px solid #e5e9f1}.contact-card i{font-size:30px;color:var(--navy);margin-bottom:8px}
+footer{background:var(--navy2);color:white;padding:32px 7%;text-align:center}footer h2{color:var(--gold)}footer p{margin-top:8px;color:#e1e8f5}
+.floating-wa{position:fixed;right:18px;bottom:18px;width:56px;height:56px;border-radius:50%;background:var(--green);color:#063d22;display:flex;align-items:center;justify-content:center;font-size:29px;text-decoration:none;z-index:999;box-shadow:0 5px 20px #0003}
+@media(max-width:760px){nav{padding:13px 5%}.menu-btn{display:block}.nav-links{display:none;position:absolute;top:100%;left:0;width:100%;background:var(--navy);padding:18px;flex-direction:column;align-items:stretch;text-align:center}.nav-links.show{display:flex}.nav-links li{padding:6px}.hero{padding:58px 17px}.hero p{font-size:16px}section{padding:43px 5%}.form-grid{grid-template-columns:1fr}.field.full{grid-column:auto}}
 </style>
-
 </head>
-
 <body>
-
-<!-- NAVIGATION -->
-
 <nav>
-
-<div class="logo">
-MTN <span>Anytime Data</span>
-</div>
-
-<div class="menu-btn" onclick="toggleMenu()">
-<i class="fas fa-bars"></i>
-</div>
-
-<ul class="nav-links" id="navLinks">
-
-<li>
-<a href="#home">
-<i class="fas fa-home"></i> Home
-</a>
-</li>
-
-<li>
-<a href="#offers">
-<i class="fas fa-wifi"></i> Offers
-</a>
-</li>
-
-<li>
-<a href="#order">
-<i class="fas fa-cart-shopping"></i> Order
-</a>
-</li>
-
-<li>
-<a href="#payment">
-<i class="fas fa-credit-card"></i> Payment
-</a>
-</li>
-
-<li>
-<a href="#contact">
-<i class="fas fa-phone"></i> Contact
-</a>
-</li>
-
-</ul>
-
+  <a class="logo" href="#home" style="text-decoration:none">MTN <span>Anytime Data</span></a>
+  <button class="menu-btn" id="menuBtn" aria-label="Open navigation" aria-expanded="false"><i class="fas fa-bars"></i></button>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#home"><i class="fas fa-house"></i> Home</a></li>
+    <li><a href="#offers"><i class="fas fa-wifi"></i> Offers</a></li>
+    <li><a href="#order"><i class="fas fa-cart-shopping"></i> Order</a></li>
+    <li><a href="#payment"><i class="fas fa-wallet"></i> Payment</a></li>
+    <li><a href="#contact"><i class="fas fa-phone"></i> Contact</a></li>
+  </ul>
 </nav>
-
-
-<!-- PROMO -->
-
-<div class="banner">
-
-<i class="fas fa-bolt"></i>
-
-Why pay more for your data?
-
-Get affordable MTN Anytime Data.
-
-<i class="fas fa-bolt"></i>
-
-</div>
-
-
-<!-- HERO -->
-
-<section class="hero" id="home">
-
-<h1>
-Affordable <span>MTN Anytime Data</span>
-</h1>
-
-<p>
-Stay connected with affordable Anytime Data bundles.
-Choose your package, place your order and pay securely through Yoco.
-</p>
-
-<div class="hero-buttons">
-
-<a href="#offers" class="btn btn-primary">
-<i class="fas fa-database"></i>
-View Data Offers
-</a>
-
-<a href="https://wa.me/27730916623"
-target="_blank"
-class="btn btn-whatsapp">
-
-<i class="fab fa-whatsapp"></i>
-WhatsApp Us
-
-</a>
-
-</div>
-
-</section>
-
-
-<!-- OFFERS -->
+<div class="banner"><i class="fas fa-bolt"></i> Affordable MTN Anytime Data • Simple WhatsApp ordering <i class="fas fa-bolt"></i></div>
+<header class="hero" id="home">
+  <h1>Stay Connected with <span>Affordable Data</span></h1>
+  <p>Choose your bundle, enter your details and send your order directly to us on WhatsApp. We'll confirm the payment instructions with you.</p>
+  <div class="hero-buttons">
+    <a class="btn btn-primary" href="#offers"><i class="fas fa-database"></i> View Data Offers</a>
+    <a class="btn btn-whatsapp" href="https://wa.me/27730916623" target="_blank" rel="noopener"><i class="fab fa-whatsapp"></i> WhatsApp Us</a>
+  </div>
+</header>
 
 <section id="offers">
-
-<div class="section-title">
-
-<h2>
-<i class="fas fa-wifi"></i>
-Data Offers
-</h2>
-
-<p>
-Choose the package that suits you.
-</p>
-
-</div>
-
-
-<div class="offers">
-
-
-<!-- 10GB -->
-
-<div class="offer-card">
-
-<i class="fas fa-signal"></i>
-
-<h3>10GB Anytime</h3>
-
-<p>Valid for 30 Days</p>
-
-<div class="price">
-R100
-</div>
-
-<button onclick="selectBundle('10GB Anytime','100')">
-
-<i class="fas fa-cart-plus"></i>
-Order Now
-
-</button>
-
-</div>
-
-
-<!-- 20GB -->
-
-<div class="offer-card">
-
-<i class="fas fa-signal"></i>
-
-<h3>20GB Anytime</h3>
-
-<p>Valid for 30 Days</p>
-
-<div class="price">
-R150
-</div>
-
-<button onclick="selectBundle('20GB Anytime','150')">
-
-<i class="fas fa-cart-plus"></i>
-Order Now
-
-</button>
-
-</div>
-
-
-<!-- 35GB -->
-
-<div class="offer-card">
-
-<i class="fas fa-signal"></i>
-
-<h3>35GB Anytime</h3>
-
-<p>Valid for 30 Days</p>
-
-<div class="price">
-R250
-</div>
-
-<button onclick="selectBundle('35GB Anytime','250')">
-
-<i class="fas fa-cart-plus"></i>
-Order Now
-
-</button>
-
-</div>
-
-
-<!-- 50GB -->
-
-<div class="offer-card">
-
-<i class="fas fa-signal"></i>
-
-<h3>50GB Anytime</h3>
-
-<p>Valid for 30 Days</p>
-
-<div class="price">
-R350
-</div>
-
-<button onclick="selectBundle('50GB Anytime','350')">
-
-<i class="fas fa-cart-plus"></i>
-Order Now
-
-</button>
-
-</div>
-
-</div>
-
+  <div class="section-title"><h2><i class="fas fa-wifi"></i> Data Offers</h2><p>Select a bundle to fill in your order.</p></div>
+  <div class="offers">
+    <article class="offer-card"><i class="fas fa-signal"></i><h3>10GB Anytime</h3><p>Valid for 30 days</p><div class="price">R100</div><button class="btn btn-primary choose" data-bundle="10GB Anytime" data-price="100"> <i class="fas fa-cart-plus"></i> Choose Bundle</button></article>
+    <article class="offer-card"><i class="fas fa-signal"></i><h3>20GB Anytime</h3><p>Valid for 30 days</p><div class="price">R150</div><button class="btn btn-primary choose" data-bundle="20GB Anytime" data-price="150"><i class="fas fa-cart-plus"></i> Choose Bundle</button></article>
+    <article class="offer-card"><i class="fas fa-signal"></i><h3>35GB Anytime</h3><p>Valid for 30 days</p><div class="price">R250</div><button class="btn btn-primary choose" data-bundle="35GB Anytime" data-price="250"><i class="fas fa-cart-plus"></i> Choose Bundle</button></article>
+    <article class="offer-card"><i class="fas fa-signal"></i><h3>50GB Anytime</h3><p>Valid for 30 days</p><div class="price">R350</div><button class="btn btn-primary choose" data-bundle="50GB Anytime" data-price="350"><i class="fas fa-cart-plus"></i> Choose Bundle</button></article>
+  </div>
 </section>
-<!-- WHY CHOOSE US -->
-
-<section>
-
-<div class="section-title">
-
-<h2>
-<i class="fas fa-star"></i>
-Why Choose Us?
-</h2>
-
-<p>
-Simple, affordable and convenient.
-</p>
-
-</div>
-
-<div class="offers">
-
-<div class="offer-card">
-
-<i class="fas fa-money-bill-wave"></i>
-
-<h3>Affordable</h3>
-
-<p>
-Competitive data packages for everyday use.
-</p>
-
-</div>
-
-
-<div class="offer-card">
-
-<i class="fas fa-bolt"></i>
-
-<h3>Fast Service</h3>
-
-<p>
-Place your order quickly and conveniently.
-</p>
-
-</div>
-
-
-<div class="offer-card">
-
-<i class="fas fa-lock"></i>
-
-<h3>Secure Payment</h3>
-
-<p>
-Pay securely through our Yoco payment page.
-</p>
-
-</div>
-
-
-<div class="offer-card">
-
-<i class="fab fa-whatsapp"></i>
-
-<h3>WhatsApp Support</h3>
-
-<p>
-Contact us directly for assistance.
-</p>
-
-</div>
-
-</div>
-
-</section>
-
-
-<!-- HOW TO ORDER -->
-
-<section>
-
-<div class="section-title">
-
-<h2>
-<i class="fas fa-list-check"></i>
-How To Order
-</h2>
-
-</div>
-
-<div class="offers">
-
-<div class="offer-card">
-
-<i class="fas fa-database"></i>
-
-<h3>1. Choose</h3>
-
-<p>
-Select your preferred data package.
-</p>
-
-</div>
-
-
-<div class="offer-card">
-
-<i class="fas fa-user"></i>
-
-<h3>2. Enter Details</h3>
-
-<p>
-Enter your name and MTN number.
-</p>
-
-</div>
-
-
-<div class="offer-card">
-
-<i class="fas fa-credit-card"></i>
-
-<h3>3. Pay</h3>
-
-<p>
-Continue to our secure Yoco payment page.
-</p>
-
-</div>
-
-
-<div class="offer-card">
-
-<i class="fab fa-whatsapp"></i>
-
-<h3>4. Confirm</h3>
-
-<p>
-After payment, send your order confirmation on WhatsApp.
-</p>
-
-</div>
-
-</div>
-
-</section>
-
-
-<!-- ORDER -->
 
 <section id="order">
-
-<div class="section-title">
-
-<h2>
-<i class="fas fa-cart-shopping"></i>
-Place Your Order
-</h2>
-
-<p>
-Complete your details before proceeding to payment.
-</p>
-
-</div>
-
-
-<div style="
-max-width:650px;
-margin:auto;
-background:white;
-padding:30px;
-border-radius:12px;
-box-shadow:0 5px 20px rgba(0,0,0,.08);
-">
-
-
-<form id="orderForm">
-
-
-<label>
-<strong>Full Name</strong>
-</label>
-
-<input
-type="text"
-id="customerName"
-placeholder="Enter your full name"
-required
-style="
-width:100%;
-padding:14px;
-margin:8px 0 20px;
-border:1px solid #ddd;
-border-radius:6px;
-">
-
-
-<label>
-<strong>MTN Number</strong>
-</label>
-
-<input
-type="tel"
-id="phoneNumber"
-placeholder="e.g. 0730916623"
-maxlength="10"
-pattern="[0-9]{10}"
-required
-style="
-width:100%;
-padding:14px;
-margin:8px 0 20px;
-border:1px solid #ddd;
-border-radius:6px;
-">
-
-
-<label>
-<strong>Select Data Bundle</strong>
-</label>
-
-<select
-id="bundle"
-required
-style="
-width:100%;
-padding:14px;
-margin:8px 0 20px;
-border:1px solid #ddd;
-border-radius:6px;
-">
-
-<option value="">
--- Select Bundle --
-</option>
-
-<option value="10GB Anytime|100">
-10GB Anytime — R100
-</option>
-
-<option value="20GB Anytime|150">
-20GB Anytime — R150
-</option>
-
-<option value="35GB Anytime|250">
-35GB Anytime — R250
-</option>
-
-<option value="50GB Anytime|350">
-50GB Anytime — R350
-</option>
-
-</select>
-
-
-<!-- ORDER SUMMARY -->
-
-<div
-id="orderSummary"
-style="
-background:#f1f5fb;
-padding:18px;
-border-radius:8px;
-margin-bottom:20px;
-">
-
-<h3 style="color:#071b4d;margin-bottom:10px;">
-Order Summary
-</h3>
-
-<p>
-Bundle:
-<strong id="summaryBundle">Not selected</strong>
-</p>
-
-<p>
-Price:
-<strong id="summaryPrice">R0</strong>
-</p>
-
-</div>
-
-
-<button
-type="submit"
-class="btn btn-primary"
-style="width:100%;">
-
-<i class="fas fa-credit-card"></i>
-
-Continue to Payment
-
-</button>
-
-</form>
-
-</div>
-
+  <div class="section-title"><h2><i class="fas fa-cart-shopping"></i> Place Your Order</h2><p>Complete the fields below. Your order will be sent to WhatsApp for confirmation.</p></div>
+  <div class="order-wrap">
+    <form id="orderForm">
+      <div class="form-grid">
+        <div class="field"><label for="customerName">Full name *</label><input id="customerName" name="customerName" autocomplete="name" placeholder="Your full name" required maxlength="100"></div>
+        <div class="field"><label for="contactPhone">Your contact number *</label><input id="contactPhone" name="contactPhone" type="tel" autocomplete="tel" inputmode="tel" placeholder="e.g. 0821234567" pattern="[0-9+() -]{7,20}" required><span class="hint">Number we can use to contact you about the order.</span></div>
+        <div class="field"><label for="phoneNumber">MTN number to receive data *</label><input id="phoneNumber" name="phoneNumber" type="tel" inputmode="numeric" autocomplete="tel-national" placeholder="e.g. 0730916623" maxlength="10" pattern="[0-9]{10}" required><span class="hint">Enter the 10-digit MTN number receiving the bundle.</span></div>
+        <div class="field"><label for="customerEmail">Email address (optional)</label><input id="customerEmail" name="customerEmail" type="email" autocomplete="email" placeholder="you@example.com" maxlength="120"></div>
+        <div class="field full"><label for="bundle">Choose your data bundle *</label><select id="bundle" name="bundle" required><option value="">-- Select a bundle --</option><option value="10GB Anytime|100">10GB Anytime — R100</option><option value="20GB Anytime|150">20GB Anytime — R150</option><option value="35GB Anytime|250">35GB Anytime — R250</option><option value="50GB Anytime|350">50GB Anytime — R350</option></select></div>
+      </div>
+      <div class="summary" aria-live="polite">
+        <h3><i class="fas fa-receipt"></i> Order Summary</h3>
+        <div class="summary-row"><span>Bundle</span><strong id="summaryBundle">Not selected</strong></div>
+        <div class="summary-row"><span>Data recipient</span><strong id="summaryPhone">Not entered</strong></div>
+        <div class="summary-row summary-total"><span>Total to confirm</span><strong id="summaryPrice">R0</strong></div>
+        <p class="hint" style="margin-top:8px">The total is based on the bundle selected. Please wait for us to confirm your order and payment instructions before paying.</p>
+      </div>
+      <button class="btn btn-whatsapp" type="submit" style="width:100%;font-size:16px"><i class="fab fa-whatsapp"></i> Send Order on WhatsApp</button>
+    </form>
+    <div class="notice"><strong><i class="fas fa-circle-info"></i> Important payment notice</strong><p>Sending an order does not mean payment has been made. We will confirm the payment method and instructions with you on WhatsApp. Your data order is processed only after payment has been received and confirmed in our account. A payment screenshot or proof of payment alone is not confirmation.</p></div>
+  </div>
 </section>
-
-
-<!-- PAYMENT -->
 
 <section id="payment">
-
-<div class="section-title">
-
-<h2>
-<i class="fas fa-credit-card"></i>
-Payment
-</h2>
-
-<p>
-Pay securely using our Yoco payment page.
-</p>
-
-</div>
-
-
-<div style="
-max-width:700px;
-margin:auto;
-">
-
-
-<div class="offer-card">
-
-<i class="fas fa-shield-halved"></i>
-
-<h3>Secure Yoco Payment</h3>
-
-<p>
-You will be redirected to our official Yoco payment page to complete your payment securely.
-</p>
-
-
-<a
-href="https://pay.yoco.com/vanyamatsi"
-target="_blank"
-class="btn btn-primary"
-style="width:100%;">
-
-<i class="fas fa-credit-card"></i>
-
-Open Yoco Payment Page
-
-</a>
-
-</div>
-
-
-<div class="offer-card" style="margin-top:25px;">
-
-<i class="fab fa-whatsapp"></i>
-
-<h3>Payment Confirmation</h3>
-
-<p>
-After completing your payment on Yoco, send your order details to us on WhatsApp.
-</p>
-
-<button
-id="whatsappConfirm"
-class="btn btn-whatsapp"
-style="width:100%;">
-
-<i class="fab fa-whatsapp"></i>
-
-Confirm Payment on WhatsApp
-
-</button>
-
-</div>
-
-
-<div
-style="
-background:#fff8d6;
-border-left:5px solid #ffcc00;
-padding:15px;
-margin-top:20px;
-border-radius:6px;
-">
-
-<strong>
-<i class="fas fa-circle-info"></i>
-Important:
-</strong>
-
-<p style="margin-top:7px;line-height:1.6;">
-
-This website redirects you to Yoco for payment.
-Payment status is handled by Yoco. After payment, please send your order confirmation on WhatsApp.
-
-</p>
-
-</div>
-
-</div>
-
+  <div class="section-title"><h2><i class="fas fa-shield-halved"></i> Payment Instructions</h2><p>A simple, low-cost ordering process while the online payment gateway is being set up.</p></div>
+  <div class="steps">
+    <article class="step"><i class="fas fa-clipboard-list"></i><h3>1. Send your order</h3><p>Submit the form and check the order details in WhatsApp.</p></article>
+    <article class="step"><i class="fas fa-comments"></i><h3>2. Get instructions</h3><p>We'll confirm the bundle, total and available payment method before you pay.</p></article>
+    <article class="step"><i class="fas fa-money-bill-transfer"></i><h3>3. Make payment</h3><p>Pay only using the payment details or method confirmed by us directly.</p></article>
+    <article class="step"><i class="fas fa-circle-check"></i><h3>4. Payment confirmed</h3><p>We process the data order only after we confirm the funds have arrived.</p></article>
+  </div>
+  <div class="notice" style="max-width:850px;margin:22px auto 0"><strong>Stay safe:</strong><p>Never share your banking PIN, password or one-time PIN (OTP). Do not pay to changed or unfamiliar details without confirming them with us first. This website does not automatically collect or verify payments.</p></div>
 </section>
-
-
-<!-- REVIEWS -->
-
-<section>
-
-<div class="section-title">
-
-<h2>
-<i class="fas fa-comments"></i>
-Customer Reviews
-</h2>
-
-<p>
-We value our customers and their experience.
-</p>
-
-</div>
-
-
-<div class="offers">
-
-<div class="offer-card">
-
-<i class="fas fa-quote-left"></i>
-
-<p>
-"Easy ordering process and convenient payment."
-</p>
-
-<strong>Customer</strong>
-
-</div>
-
-
-<div class="offer-card">
-
-<i class="fas fa-quote-left"></i>
-
-<p>
-"The WhatsApp support makes communication easy."
-</p>
-
-<strong>Customer</strong>
-
-</div>
-
-
-<div class="offer-card">
-
-<i class="fas fa-quote-left"></i>
-
-<p>
-"Affordable data packages and simple ordering."
-</p>
-
-<strong>Customer</strong>
-
-</div>
-
-</div>
-
-</section>
-
-
-<!-- CONTACT -->
 
 <section id="contact">
-
-<div class="section-title">
-
-<h2>
-<i class="fas fa-phone"></i>
-Contact Us
-</h2>
-
-<p>
-We are available to assist you.
-</p>
-
-</div>
-
-
-<div class="offers">
-
-
-<div class="offer-card">
-
-<i class="fab fa-whatsapp"></i>
-
-<h3>WhatsApp</h3>
-
-<p>
-073 091 6623
-</p>
-
-<a
-href="https://wa.me/27730916623"
-target="_blank"
-class="btn btn-whatsapp">
-
-<i class="fab fa-whatsapp"></i>
-Chat on WhatsApp
-
-</a>
-
-</div>
-
-
-<div class="offer-card">
-
-<i class="fas fa-envelope"></i>
-
-<h3>Email</h3>
-
-<p>
-bep.onlineprog@gmail.com
-</p>
-
-<a
-href="mailto:bep.onlineprog@gmail.com"
-class="btn btn-primary">
-
-<i class="fas fa-envelope"></i>
-Email Us
-
-</a>
-
-</div>
-
-
-<div class="offer-card">
-
-<i class="fas fa-clock"></i>
-
-<h3>Business Hours</h3>
-
-<p>
-Monday – Sunday
-</p>
-
-<p>
-07:00 – 21:00
-</p>
-
-</div>
-
-</div>
-
+  <div class="section-title"><h2><i class="fas fa-headset"></i> Contact Us</h2><p>Contact us if you have a question about a bundle or order.</p></div>
+  <div class="contact-grid">
+    <div class="contact-card"><i class="fab fa-whatsapp"></i><h3>WhatsApp</h3><p>073 091 6623</p><a class="btn btn-whatsapp" href="https://wa.me/27730916623" target="_blank" rel="noopener"><i class="fab fa-whatsapp"></i> Chat with us</a></div>
+    <div class="contact-card"><i class="fas fa-envelope"></i><h3>Email</h3><p>bep.onlineprog@gmail.com</p><a class="btn btn-primary" href="mailto:bep.onlineprog@gmail.com"><i class="fas fa-envelope"></i> Email us</a></div>
+    <div class="contact-card"><i class="fas fa-clock"></i><h3>Business Hours</h3><p>Monday – Sunday</p><p>07:00 – 21:00</p></div>
+  </div>
 </section>
-
-
-<!-- FOOTER -->
-
-<footer
-style="
-background:#04153b;
-color:white;
-padding:40px 7%;
-text-align:center;
-">
-
-<h2 style="color:#ffcc00;">
-MTN Anytime Data
-</h2>
-
-<p style="margin:15px 0;">
-Affordable data. Simple ordering. Secure payment.
-</p>
-
-<p>
-&copy; 2026 MTN Anytime Data. All Rights Reserved.
-</p>
-
-</footer>
-
-
-<!-- FLOATING WHATSAPP -->
-
-<a
-href="https://wa.me/27730916623"
-target="_blank"
-style="
-position:fixed;
-right:20px;
-bottom:20px;
-width:58px;
-height:58px;
-border-radius:50%;
-background:#25D366;
-color:white;
-display:flex;
-align-items:center;
-justify-content:center;
-font-size:30px;
-text-decoration:none;
-z-index:9999;
-box-shadow:0 4px 15px rgba(0,0,0,.3);
-">
-
-<i class="fab fa-whatsapp"></i>
-
-</a>
-
+<footer><h2>MTN Anytime Data</h2><p>Affordable data. Simple ordering. Clear payment instructions.</p><p>© 2026 MTN Anytime Data. All rights reserved.</p></footer>
+<a class="floating-wa" href="https://wa.me/27730916623" target="_blank" rel="noopener" aria-label="Chat with us on WhatsApp"><i class="fab fa-whatsapp"></i></a>
 
 <script>
-
-/* YOCO PAYMENT PAGE */
-
-const YOCO_PAYMENT_URL =
-"https://pay.yoco.com/vanyamatsi";
-
-
-/* MOBILE MENU */
-
-function toggleMenu(){
-
-const nav =
-document.getElementById("navLinks");
-
-nav.classList.toggle("show");
-
+const WHATSAPP_NUMBER = "27730916623";
+const menuBtn = document.getElementById("menuBtn");
+const navLinks = document.getElementById("navLinks");
+menuBtn.addEventListener("click", () => {
+  const isOpen = navLinks.classList.toggle("show");
+  menuBtn.setAttribute("aria-expanded", String(isOpen));
+  menuBtn.setAttribute("aria-label", isOpen ? "Close navigation" : "Open navigation");
+});
+document.querySelectorAll(".nav-links a").forEach(link => link.addEventListener("click", () => {
+  navLinks.classList.remove("show");
+  menuBtn.setAttribute("aria-expanded", "false");
+}));
+document.querySelectorAll(".choose").forEach(button => button.addEventListener("click", () => {
+  document.getElementById("bundle").value = button.dataset.bundle + "|" + button.dataset.price;
+  updateSummary();
+  document.getElementById("order").scrollIntoView({behavior:"smooth"});
+}));
+function updateSummary() {
+  const value = document.getElementById("bundle").value;
+  const phone = document.getElementById("phoneNumber").value.trim();
+  const parts = value ? value.split("|") : [];
+  document.getElementById("summaryBundle").textContent = parts[0] || "Not selected";
+  document.getElementById("summaryPrice").textContent = parts[1] ? "R" + parts[1] : "R0";
+  document.getElementById("summaryPhone").textContent = phone || "Not entered";
 }
-
-
-/* CLOSE MENU AFTER CLICK */
-
-document.querySelectorAll(".nav-links a")
-.forEach(function(link){
-
-link.addEventListener("click",function(){
-
-document
-.getElementById("navLinks")
-.classList.remove("show");
-
+document.getElementById("bundle").addEventListener("change", updateSummary);
+document.getElementById("phoneNumber").addEventListener("input", updateSummary);
+document.getElementById("orderForm").addEventListener("submit", event => {
+  event.preventDefault();
+  const name = document.getElementById("customerName").value.trim();
+  const contactPhone = document.getElementById("contactPhone").value.trim();
+  const recipientPhone = document.getElementById("phoneNumber").value.trim();
+  const email = document.getElementById("customerEmail").value.trim();
+  const value = document.getElementById("bundle").value;
+  if (!value) { alert("Please select a data bundle."); return; }
+  if (!/^[0-9]{10}$/.test(recipientPhone)) { alert("Please enter the 10-digit MTN number that will receive the data."); return; }
+  const [bundle, price] = value.split("|");
+  const message = [
+    "Hello, I would like to place an MTN Anytime Data order.",
+    "",
+    "Name: " + name,
+    "Contact number: " + contactPhone,
+    "MTN number receiving data: " + recipientPhone,
+    "Email: " + (email || "Not provided"),
+    "Bundle: " + bundle,
+    "Total: R" + price,
+    "",
+    "Please confirm availability and send me the payment instructions. I understand that my order will be processed only after payment is received and confirmed."
+  ].join("\n");
+  window.open("https://wa.me/" + WHATSAPP_NUMBER + "?text=" + encodeURIComponent(message), "_blank", "noopener");
 });
-
-});
-
-
-/* SELECT BUNDLE */
-
-function selectBundle(bundleName,price){
-
-const bundle =
-document.getElementById("bundle");
-
-bundle.value =
-bundleName + "|" + price;
-
 updateSummary();
-
-document
-.getElementById("order")
-.scrollIntoView({
-behavior:"smooth"
-});
-
-}
-
-
-/* UPDATE ORDER SUMMARY */
-
-function updateSummary(){
-
-const value =
-document.getElementById("bundle").value;
-
-const summaryBundle =
-document.getElementById("summaryBundle");
-
-const summaryPrice =
-document.getElementById("summaryPrice");
-
-
-if(!value){
-
-summaryBundle.textContent =
-"Not selected";
-
-summaryPrice.textContent =
-"R0";
-
-return;
-
-}
-
-
-const parts =
-value.split("|");
-
-summaryBundle.textContent =
-parts[0];
-
-summaryPrice.textContent =
-"R" + parts[1];
-
-}
-
-
-/* BUNDLE CHANGE */
-
-document
-.getElementById("bundle")
-.addEventListener(
-"change",
-updateSummary
-);
-
-
-/* ORDER FORM */
-
-document
-.getElementById("orderForm")
-.addEventListener(
-"submit",
-function(event){
-
-event.preventDefault();
-
-
-const name =
-document
-.getElementById("customerName")
-.value
-.trim();
-
-
-const phone =
-document
-.getElementById("phoneNumber")
-.value
-.trim();
-
-
-const bundleValue =
-document
-.getElementById("bundle")
-.value;
-
-
-if(!name){
-
-alert("Please enter your full name.");
-
-return;
-
-}
-
-
-if(!/^[0-9]{10}$/.test(phone)){
-
-alert(
-"Please enter a valid 10-digit MTN number."
-);
-
-return;
-
-}
-
-
-if(!bundleValue){
-
-alert(
-"Please select a data bundle."
-);
-
-return;
-
-}
-
-
-const parts =
-bundleValue.split("|");
-
-const bundleName =
-parts[0];
-
-const price =
-parts[1];
-
-
-/* SAVE ORDER */
-
-localStorage.setItem(
-"customerName",
-name
-);
-
-localStorage.setItem(
-"phoneNumber",
-phone
-);
-
-localStorage.setItem(
-"bundleName",
-bundleName
-);
-
-localStorage.setItem(
-"bundlePrice",
-price
-);
-
-
-/* OPEN YOCO */
-
-window.open(
-YOCO_PAYMENT_URL,
-"_blank"
-);
-
-
-/* SCROLL TO PAYMENT */
-
-document
-.getElementById("payment")
-.scrollIntoView({
-behavior:"smooth"
-});
-
-});
-
-
-/* WHATSAPP CONFIRMATION */
-
-document
-.getElementById("whatsappConfirm")
-.addEventListener(
-"click",
-function(){
-
-const name =
-localStorage.getItem(
-"customerName"
-) || "";
-
-
-const phone =
-localStorage.getItem(
-"phoneNumber"
-) || "";
-
-
-const bundle =
-localStorage.getItem(
-"bundleName"
-) || "";
-
-
-const price =
-localStorage.getItem(
-"bundlePrice"
-) || "";
-
-
-if(!name || !phone || !bundle){
-
-alert(
-"Please complete an order first."
-);
-
-document
-.getElementById("order")
-.scrollIntoView({
-behavior:"smooth"
-});
-
-return;
-
-}
-
-
-const message =
-"Hello, I have completed my data order/payment.%0A%0A" +
-
-"Name: " + encodeURIComponent(name) +
-"%0A" +
-
-"MTN Number: " + encodeURIComponent(phone) +
-"%0A" +
-
-"Bundle: " + encodeURIComponent(bundle) +
-"%0A" +
-
-"Amount: R" + encodeURIComponent(price) +
-"%0A%0A" +
-
-"Please confirm my order. Thank you.";
-
-
-window.open(
-"https://wa.me/27730916623?text=" +
-message,
-"_blank"
-);
-
-});
-
 </script>
-
-
-<style>
-
-/* MOBILE NAVIGATION */
-
-@media(max-width:768px){
-
-.nav-links{
-
-display:none;
-
-position:absolute;
-
-top:65px;
-left:0;
-width:100%;
-
-background:#071b4d;
-
-flex-direction:column;
-
-padding:20px;
-
-text-align:center;
-
-}
-
-.nav-links.show{
-display:flex;
-}
-
-.menu-btn{
-display:block;
-}
-
-.hero h1{
-font-size:32px;
-}
-
-section{
-padding:45px 5%;
-}
-
-}
-
-/* MOBILE HERO */
-
-@media(max-width:480px){
-
-.hero{
-padding:60px 15px;
-}
-
-.hero h1{
-font-size:28px;
-}
-
-.hero p{
-font-size:16px;
-}
-
-.offer-card{
-padding:25px 18px;
-}
-
-}
-
-</style>
-
 </body>
 </html>

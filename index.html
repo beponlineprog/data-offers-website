@@ -27,10 +27,10 @@ nav{position:sticky;top:0;z-index:1000;display:flex;align-items:center;justify-c
 .btn-whatsapp{background:var(--green);color:#063d22}.btn-whatsapp:hover{filter:brightness(.96)}
 section{padding:56px 7%}
 .section-title{text-align:center;margin:0 auto 30px}.section-title h2{color:var(--navy);font-size:clamp(25px,3vw,33px)}.section-title p{margin-top:7px;color:var(--muted)}
-.offers{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:20px}
-.offer-card{background:white;border:1px solid #e6eaf2;border-top:5px solid var(--gold);border-radius:13px;padding:26px 20px;text-align:center;box-shadow:0 7px 22px #071b4d0b}
-.offer-card>i{font-size:35px;color:var(--navy);margin-bottom:12px}.offer-card h3{color:var(--navy);font-size:22px}.offer-card p{color:var(--muted);margin:8px 0 14px}.price{font-size:32px;font-weight:900;color:var(--navy);margin:12px 0 17px}
-.offer-card button{width:100%}
+.offers{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.offer-card{min-width:0;background:white;border:1px solid #e6eaf2;border-top:4px solid var(--gold);border-radius:11px;padding:19px 12px;text-align:center;box-shadow:0 7px 22px #071b4d0b}
+.offer-card>i{font-size:28px;color:var(--navy);margin-bottom:8px}.offer-card h3{color:var(--navy);font-size:18px;line-height:1.25}.offer-card p{color:var(--muted);margin:7px 0 10px;font-size:13px}.price{font-size:27px;font-weight:900;color:var(--navy);margin:9px 0 13px}
+.offer-card button{width:100%;padding:10px 7px;font-size:12px}
 .order-wrap{max-width:760px;margin:auto;background:white;border:1px solid #e5e9f1;border-radius:14px;padding:clamp(20px,4vw,34px);box-shadow:0 8px 28px #071b4d0d}
 .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}.field{display:flex;flex-direction:column;gap:6px}.field.full{grid-column:1/-1}
 label{font-weight:800;color:var(--navy);font-size:14px}
@@ -45,7 +45,7 @@ input:focus,select:focus{outline:3px solid #ffcc0055;border-color:#b18d00}
 .contact-card{background:white;border-radius:12px;padding:24px;text-align:center;border:1px solid #e5e9f1}.contact-card i{font-size:30px;color:var(--navy);margin-bottom:8px}
 footer{background:var(--navy2);color:white;padding:32px 7%;text-align:center}footer h2{color:var(--gold)}footer p{margin-top:8px;color:#e1e8f5}
 .floating-wa{position:fixed;right:18px;bottom:18px;width:56px;height:56px;border-radius:50%;background:var(--green);color:#063d22;display:flex;align-items:center;justify-content:center;font-size:29px;text-decoration:none;z-index:999;box-shadow:0 5px 20px #0003}
-@media(max-width:760px){nav{padding:13px 5%}.menu-btn{display:block}.nav-links{display:none;position:absolute;top:100%;left:0;width:100%;background:var(--navy);padding:18px;flex-direction:column;align-items:stretch;text-align:center}.nav-links.show{display:flex}.nav-links li{padding:6px}.hero{padding:58px 17px}.hero p{font-size:16px}section{padding:43px 5%}.form-grid{grid-template-columns:1fr}.field.full{grid-column:auto}}
+@media(max-width:760px){nav{padding:13px 5%}.menu-btn{display:block}.nav-links{display:none;position:absolute;top:100%;left:0;width:100%;background:var(--navy);padding:18px;flex-direction:column;align-items:stretch;text-align:center}.nav-links.show{display:flex}.nav-links li{padding:6px}.hero{padding:58px 17px}.hero p{font-size:16px}section{padding:43px 5%}.offers{grid-template-columns:repeat(4,minmax(145px,1fr));overflow-x:auto;gap:10px;padding:0 0 10px;scroll-snap-type:x proximity}.offer-card{padding:16px 10px;scroll-snap-align:start}.offer-card h3{font-size:16px}.offer-card>i{font-size:24px}.price{font-size:24px}.offer-card button{font-size:11px;padding:9px 5px}.form-grid{grid-template-columns:1fr}.field.full{grid-column:auto}}
 </style>
 </head>
 <body>

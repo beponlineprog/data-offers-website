@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#071b4d">
+<meta name="description" content="Complete your MTN Anytime Data order and review the order summary.">
+<title>Place Your Data Order | MTN Anytime Data</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+<style>
+:root{--navy:#071b4d;--navy2:#04153b;--gold:#ffcc00;--green:#25D366;--ink:#172033;--muted:#647084;--paper:#f5f7fb}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Arial,Helvetica,sans-serif;background:var(--paper);color:var(--ink);line-height:1.6}
+nav{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 7%;background:var(--navy);color:white}
+.logo{font-size:21px;font-weight:800;color:var(--gold);text-decoration:none;white-space:nowrap}.logo span{color:white}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;padding:12px 18px;border:0;border-radius:8px;text-decoration:none;font-weight:800;cursor:pointer;font-size:15px}
+.btn-primary{background:var(--gold);color:var(--navy)}.btn-whatsapp{background:var(--green);color:#063d22}
+main{width:min(100% - 28px,760px);margin:32px auto 50px}
+.back{display:inline-block;color:var(--navy);font-weight:800;text-decoration:none;margin:0 0 16px}
+.panel{background:white;border:1px solid #e5e9f1;border-radius:15px;padding:clamp(20px,4vw,34px);box-shadow:0 8px 28px #071b4d0d}
+.heading{margin-bottom:20px}.heading h1{color:var(--navy);font-size:clamp(25px,4vw,34px);line-height:1.2}.heading p{color:var(--muted);margin-top:8px}
+.selected{display:flex;justify-content:space-between;align-items:center;gap:12px;background:#fff8d6;border:1px solid #f0d86b;border-left:5px solid var(--gold);border-radius:10px;padding:15px 16px;margin-bottom:22px;color:var(--navy)}
+.selected span{display:block;font-size:13px;color:var(--muted)}.selected strong{font-size:20px}.selected .selected-price{font-size:27px;font-weight:900;white-space:nowrap}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}.field{display:flex;flex-direction:column;gap:6px}.field.full{grid-column:1/-1}
+label{font-weight:800;color:var(--navy);font-size:14px}
+input{width:100%;padding:13px 12px;border:1px solid #cfd6e2;border-radius:7px;font:inherit;background:white;color:var(--ink)}
+input:focus{outline:3px solid #ffcc0055;border-color:#b18d00}
+.hint{font-size:12px;color:var(--muted)}
+.summary{margin:22px 0;padding:18px;border-radius:10px;background:#f0f4fb;border:1px solid #dce5f3}
+.summary h2{color:var(--navy);font-size:20px;margin-bottom:10px}.summary-row{display:flex;justify-content:space-between;gap:14px;padding:6px 0;overflow-wrap:anywhere}.summary-row strong{text-align:right;overflow-wrap:anywhere}.summary-total{border-top:1px solid #ccd7e8;margin-top:8px;padding-top:12px;font-size:21px;font-weight:900;color:var(--navy)}
+.notice{padding:15px;border-radius:9px;background:#fff8d6;border-left:5px solid var(--gold);margin-top:18px}.notice strong{color:var(--navy)}.notice p{margin-top:5px}
+footer{background:var(--navy2);color:white;padding:26px 7%;text-align:center}footer h2{color:var(--gold)}footer p{margin-top:7px;color:#e1e8f5}
+@media(max-width:600px){nav{padding:13px 5%}.form-grid{grid-template-columns:1fr}.field.full{grid-column:auto}.selected .selected-price{font-size:24px}.summary{padding:14px}.summary-row{font-size:14px}}
+</style>
+</head>
+<body>
+<nav><a class="logo" href="index.html">MTN <span>Anytime Data</span></a><a class="btn btn-primary" href="index.html#offers"><i class="fas fa-arrow-left"></i> All Offers</a></nav>
+<main>
+<a class="back" href="index.html#offers"><i class="fas fa-arrow-left"></i> Back to data offers</a>
+<div class="panel">
+  <div class="heading"><h1><i class="fas fa-cart-shopping"></i> Complete Your Order</h1><p>You're ordering the data plan shown below. Enter your details and check the summary before sending your order.</p></div>
+  <div class="selected"><div><span>Your selected data plan</span><strong id="bundleName">Loading plan…</strong><span>Validity: 30 days</span></div><div class="selected-price" id="bundlePrice">R0</div></div>
+  <form id="orderForm">
+    <div class="form-grid">
+      <div class="field"><label for="customerName">Full name *</label><input id="customerName" autocomplete="name" placeholder="Your full name" required maxlength="100"></div>
+      <div class="field"><label for="contactPhone">Your contact number *</label><input id="contactPhone" type="tel" autocomplete="tel" inputmode="tel" placeholder="e.g. 0821234567" pattern="[0-9+() -]{7,20}" required><span class="hint">Number we can use to contact you.</span></div>
+      <div class="field"><label for="recipientPhone">MTN number to receive data *</label><input id="recipientPhone" type="tel" inputmode="numeric" autocomplete="tel-national" placeholder="e.g. 0730916623" maxlength="10" pattern="[0-9]{10}" required><span class="hint">Enter the 10-digit MTN number receiving the bundle.</span></div>
+      <div class="field"><label for="customerEmail">Email address (optional)</label><input id="customerEmail" type="email" autocomplete="email" placeholder="you@example.com" maxlength="120"></div>
+    </div>
+    <div class="summary" aria-live="polite">
+      <h2><i class="fas fa-receipt"></i> Order Summary</h2>
+      <div class="summary-row"><span>Full name</span><strong id="summaryName">Not entered</strong></div>
+      <div class="summary-row"><span>Contact number</span><strong id="summaryContact">Not entered</strong></div>
+      <div class="summary-row"><span>MTN number receiving data</span><strong id="summaryPhone">Not entered</strong></div>
+      <div class="summary-row"><span>Email address</span><strong id="summaryEmail">Not provided</strong></div>
+      <div class="summary-row"><span>Selected bundle</span><strong id="summaryBundle">Not selected</strong></div>
+      <div class="summary-row summary-total"><span>Total</span><strong id="summaryPrice">R0</strong></div>
+      <p class="hint" style="margin-top:9px">Please check every detail before sending your order.</p>
+    </div>
+    <button class="btn btn-whatsapp" type="submit" style="width:100%;font-size:16px"><i class="fab fa-whatsapp"></i> Send Order on WhatsApp</button>
+  </form>
+  <div class="notice"><strong><i class="fas fa-circle-info"></i> Payment reminder</strong><p>Wait for us to confirm availability and send payment instructions. Your data order is processed only after payment has been received and confirmed in our account. A payment screenshot alone is not confirmation.</p></div>
+</div>
+</main>
+<footer><h2>MTN Anytime Data</h2><p>Affordable data. Simple ordering. Clear payment instructions.</p><p>© 2026 MTN Anytime Data. All rights reserved.</p></footer>
+<script>
+const WHATSAPP_NUMBER = "27730916623";
+const plans = {
+  "10GB Anytime": "100",
+  "20GB Anytime": "150",
+  "35GB Anytime": "250",
+  "50GB Anytime": "350"
+};
+const params = new URLSearchParams(window.location.search);
+const requestedBundle = params.get("bundle") || "";
+const requestedPrice = params.get("price") || "";
+const bundle = Object.prototype.hasOwnProperty.call(plans, requestedBundle) && plans[requestedBundle] === requestedPrice ? requestedBundle : "";
+const price = bundle ? plans[bundle] : "";
+if (!bundle) {
+  document.getElementById("bundleName").textContent = "No valid plan selected";
+  document.getElementById("bundlePrice").textContent = "—";
+  document.getElementById("summaryBundle").textContent = "Please return to the offers page";
+  document.getElementById("summaryPrice").textContent = "—";
+  document.getElementById("orderForm").querySelector("button[type=submit]").disabled = true;
+  document.getElementById("orderForm").querySelector("button[type=submit]").style.opacity = ".5";
+} else {
+  document.getElementById("bundleName").textContent = bundle;
+  document.getElementById("bundlePrice").textContent = "R" + price;
+  document.getElementById("summaryBundle").textContent = bundle;
+  document.getElementById("summaryPrice").textContent = "R" + price;
+}
+function updateSummary() {
+  document.getElementById("summaryName").textContent = document.getElementById("customerName").value.trim() || "Not entered";
+  document.getElementById("summaryContact").textContent = document.getElementById("contactPhone").value.trim() || "Not entered";
+  document.getElementById("summaryPhone").textContent = document.getElementById("recipientPhone").value.trim() || "Not entered";
+  document.getElementById("summaryEmail").textContent = document.getElementById("customerEmail").value.trim() || "Not provided";
+}
+["customerName","contactPhone","recipientPhone","customerEmail"].forEach(id => {
+  document.getElementById(id).addEventListener("input", updateSummary);
+});
+document.getElementById("orderForm").addEventListener("submit", event => {
+  event.preventDefault();
+  if (!bundle) { alert("Please return to the offers page and choose a valid data plan."); return; }
+  const name = document.getElementById("customerName").value.trim();
+  const contactPhone = document.getElementById("contactPhone").value.trim();
+  const recipientPhone = document.getElementById("recipientPhone").value.trim();
+  const email = document.getElementById("customerEmail").value.trim();
+  if (!/^[0-9]{10}$/.test(recipientPhone)) { alert("Please enter the 10-digit MTN number that will receive the data."); return; }
+  const message = [
+    "Hello, I would like to place an MTN Anytime Data order.",
+    "",
+    "Name: " + name,
+    "Contact number: " + contactPhone,
+    "MTN number receiving data: " + recipientPhone,
+    "Email: " + (email || "Not provided"),
+    "Bundle: " + bundle,
+    "Total: R" + price,
+    "",
+    "Please confirm availability and send me the payment instructions. I understand that my order will be processed only after payment is received and confirmed."
+  ].join("\n");
+  window.location.href = "https://wa.me/" + WHATSAPP_NUMBER + "?text=" + encodeURIComponent(message);
+});
+updateSummary();
+</script>
+</body>
+</html>

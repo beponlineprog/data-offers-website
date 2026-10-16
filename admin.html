@@ -185,13 +185,15 @@ function renderFilteredOrders() {
       '<td>' + escapeHtml(order.recipientNumber) + '</td>' +
       '<td><span class="' + badgeClass(payment) + '">Payment: ' + escapeHtml(payment) + '</span><label class="small" for="pay-' + id + '">Update payment</label><select class="status-control" id="pay-' + id + '">' + paymentOptions + '</select></td>' +
       '<td><span class="' + badgeClass(status) + '">Order: ' + escapeHtml(status) + '</span><label class="small" for="status-' + id + '">Update order</label><select class="status-control" id="status-' + id + '">' + statusOptions + '</select></td>' +
-      '<td><div style="display:flex;gap:8px;flex-wrap:wrap">' + (payment === "Paid" ? '<button class="receipt-button print-payment-receipt" data-id="' + id + '"><i class="fas fa-receipt"></i> Payment receipt</button>' : '') + '<button class="primary save-status" data-id="' + id + '"><i class="fas fa-floppy-disk"></i> Save</button><button class="danger delete-order" data-id="' + id + '"><i class="fas fa-trash"></i> Delete</button></div></td>' +
+      '<td><div style="display:flex;gap:8px;flex-wrap:wrap">' + (payment === "Paid" ? '<button class="receipt-button print-payment-receipt" data-id="' + id + '"><i class="fas fa-receipt"></i> Payment receipt</button><button class="receipt-button share-payment-whatsapp" data-id="' + id + '" style="background:#25D366;color:#063d22"><i class="fab fa-whatsapp"></i> Send receipt on WhatsApp</button><button class="receipt-button share-payment-email" data-id="' + id + '" style="background:#ffcc00;color:#071b4d"><i class="fas fa-envelope"></i> Send receipt by Email</button>' : '') + '<button class="primary save-status" data-id="' + id + '"><i class="fas fa-floppy-disk"></i> Save</button><button class="danger delete-order" data-id="' + id + '"><i class="fas fa-trash"></i> Delete</button></div></td>' +
       '</tr>';
   }).join("");
   document.getElementById("ordersContainer").innerHTML = '<table><thead><tr><th>Order number / bundle</th><th>Customer</th><th>MTN recipient</th><th>Payment</th><th>Order fulfilment</th><th>Actions</th></tr></thead><tbody>' + rows + '</tbody></table>';
   document.querySelectorAll(".save-status").forEach(button => button.addEventListener("click", saveOrderStatus));
   document.querySelectorAll(".delete-order").forEach(button => button.addEventListener("click", deleteOrder));
   document.querySelectorAll(".print-payment-receipt").forEach(button => button.addEventListener("click", printPaymentReceipt));
+  document.querySelectorAll(".share-payment-whatsapp").forEach(button => button.addEventListener("click", sharePaymentReceiptWhatsApp));
+  document.querySelectorAll(".share-payment-email").forEach(button => button.addEventListener("click", sharePaymentReceiptEmail));
 }
 ["orderSearch","paymentFilter","orderFilter"].forEach(id => {
   document.getElementById(id).addEventListener(id === "orderSearch" ? "input" : "change", renderFilteredOrders);
@@ -230,6 +232,58 @@ async function deleteOrder(event) {
   }
 }
 
+function paymentReceiptMessage(order) {
+  let confirmedDate = "Payment confirmation date not recorded";
+  try { if (order.paymentConfirmedAt && order.paymentConfirmedAt.toDate) confirmedDate = order.paymentConfirmedAt.toDate().toLocaleString("en-ZA"); } catch (_) {}
+  return [
+    "MTN ANYTIME DATA — PAYMENT RECEIPT",
+    "Receipt / order number: " + order.id,
+    "Order date: " + dateText(order.createdAt),
+    "Payment confirmed: " + confirmedDate,
+    "Payment status: PAID (manually confirmed by administrator)",
+    "Customer: " + (order.customerName || "—"),
+    "Contact number: " + (order.customerPhone || "—"),
+    "MTN number receiving data: " + (order.recipientNumber || "—"),
+    "Email: " + (order.email || "—"),
+    "Bundle: " + (order.bundle || "—") + " (30-day validity)",
+    "Amount received: R" + Number(order.price || 0).toFixed(2),
+    "Note: This confirms payment status only. Data delivery/fulfilment is tracked separately.",
+    "MTN Anytime Data · WhatsApp 073 091 6623 · bep.onlineprog@gmail.com"
+  ].join("\n");
+}
+function sharePaymentReceiptWhatsApp(event) {
+  const id = event.currentTarget.dataset.id;
+  const order = currentOrders.find(item => item.id === id);
+  if (!order || order.paymentStatus !== "Paid") {
+    showMessage(dashboardMessage, "A payment receipt can be shared only after payment is marked Paid.", "error");
+    return;
+  }
+  const phone = String(order.customerPhone || "").replace(/[^0-9]/g, "").replace(/^0/, "27");
+  if (phone.length < 10) {
+    showMessage(dashboardMessage, "This order does not have a valid customer contact number.", "error");
+    return;
+  }
+  const url = "https://wa.me/" + phone + "?text=" + encodeURIComponent(paymentReceiptMessage(order));
+  const win = window.open(url, "_blank", "noopener");
+  if (!win) showMessage(dashboardMessage, "Your browser blocked the WhatsApp window. Allow pop-ups and try again.", "error");
+}
+function sharePaymentReceiptEmail(event) {
+  const id = event.currentTarget.dataset.id;
+  const order = currentOrders.find(item => item.id === id);
+  if (!order || order.paymentStatus !== "Paid") {
+    showMessage(dashboardMessage, "A payment receipt can be shared only after payment is marked Paid.", "error");
+    return;
+  }
+  if (!String(order.email || "").trim()) {
+    showMessage(dashboardMessage, "This customer did not provide an email address.", "error");
+    return;
+  }
+  const subject = "MTN Data Payment Receipt " + order.id;
+  const mailto = "mailto:" + encodeURIComponent(String(order.email).trim()) +
+    "?subject=" + encodeURIComponent(subject) +
+    "&body=" + encodeURIComponent(paymentReceiptMessage(order));
+  window.location.href = mailto;
+}
 function printPaymentReceipt(event) {
   const id = event.currentTarget.dataset.id;
   const order = currentOrders.find(item => item.id === id);

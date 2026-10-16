@@ -31,6 +31,7 @@ input:focus{outline:3px solid #ffcc0055;border-color:#b18d00}
 .notice{padding:15px;border-radius:9px;background:#fff8d6;border-left:5px solid var(--gold);margin-top:18px}.notice strong{color:var(--navy)}.notice p{margin-top:5px}
 .success-panel{display:none;margin:20px 0;padding:22px;border:1px solid #86d6a7;border-left:5px solid #16834a;border-radius:12px;background:#effcf3}
 .success-panel h2{color:#166534;font-size:23px;margin-bottom:8px}.success-panel p{margin:8px 0}.success-order-id{display:block;margin:12px 0;padding:12px;background:white;border:1px dashed #86d6a7;border-radius:8px;overflow-wrap:anywhere;font-weight:800;color:var(--navy)}
+.order-id-copy-row{display:flex;align-items:stretch;gap:8px;margin:12px 0;flex-wrap:wrap}.order-id-copy-row .success-order-id{flex:1;margin:0;min-width:180px}.copy-order-btn{white-space:nowrap}.copy-order-btn.copied{background:#dcfce7;color:#166534}
 .success-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px}.success-actions .btn{flex:1 1 200px}
 .btn:disabled{opacity:.55;cursor:not-allowed}
 footer{background:var(--navy2);color:white;padding:26px 7%;text-align:center}footer h2{color:var(--gold)}footer p{margin-top:7px;color:#e1e8f5}
@@ -68,7 +69,7 @@ footer{background:var(--navy2);color:white;padding:26px 7%;text-align:center}foo
     <h2><i class="fas fa-circle-check"></i> Your order has been saved</h2>
     <p>Your order is recorded with status <strong>Pending</strong>. Send the details to us on WhatsApp so we can confirm availability and provide payment instructions.</p>
     <span class="hint">Keep this order number for your records:</span>
-    <span id="successOrderId" class="success-order-id"></span>
+    <div class="order-id-copy-row"><span id="successOrderId" class="success-order-id"></span><button type="button" id="copyOrderIdBtn" class="btn btn-primary copy-order-btn"><i class="fas fa-copy"></i> Copy order number</button></div><p id="copyOrderIdMessage" class="hint" role="status" aria-live="polite"></p>
     <p><strong>Important:</strong> Do not make payment until you receive the payment instructions. Your order is processed only after payment reaches our account and is confirmed. A screenshot alone is not proof of payment.</p>
     <div class="success-actions">
       <a id="sendSavedOrderWhatsApp" class="btn btn-whatsapp" href="#" target="_blank" rel="noopener"><i class="fab fa-whatsapp"></i> Send order on WhatsApp</a>
@@ -119,6 +120,36 @@ if (!bundle) {
   document.getElementById("summaryBundle").textContent = bundle;
   document.getElementById("summaryPrice").textContent = "R" + price;
 }
+document.getElementById("copyOrderIdBtn").addEventListener("click", async () => {
+  const orderId = document.getElementById("successOrderId").textContent.trim();
+  const message = document.getElementById("copyOrderIdMessage");
+  const button = document.getElementById("copyOrderIdBtn");
+  if (!orderId) {
+    message.textContent = "Your order number is not available yet.";
+    return;
+  }
+  try {
+    if (navigator.clipboard && window.isSecureContext) {
+      await navigator.clipboard.writeText(orderId);
+    } else {
+      const temporaryInput = document.createElement("textarea");
+      temporaryInput.value = orderId;
+      temporaryInput.setAttribute("readonly", "");
+      temporaryInput.style.position = "fixed";
+      temporaryInput.style.opacity = "0";
+      document.body.appendChild(temporaryInput);
+      temporaryInput.select();
+      const copied = document.execCommand("copy");
+      temporaryInput.remove();
+      if (!copied) throw new Error("Copy command was not successful");
+    }
+    button.innerHTML = '<i class="fas fa-check"></i> Copied!';
+    button.classList.add("copied");
+    message.textContent = "Order number copied. You can paste it into a message or save it.";
+  } catch (_) {
+    message.textContent = "Copy was not available on this browser. Press and hold the order number to copy it manually.";
+  }
+});
 function updateSummary() {
   document.getElementById("summaryName").textContent = document.getElementById("customerName").value.trim() || "Not entered";
   document.getElementById("summaryContact").textContent = document.getElementById("contactPhone").value.trim() || "Not entered";

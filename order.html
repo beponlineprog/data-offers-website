@@ -29,6 +29,10 @@ input:focus{outline:3px solid #ffcc0055;border-color:#b18d00}
 .summary{margin:22px 0;padding:18px;border-radius:10px;background:#f0f4fb;border:1px solid #dce5f3}
 .summary h2{color:var(--navy);font-size:20px;margin-bottom:10px}.summary-row{display:flex;justify-content:space-between;gap:14px;padding:6px 0;overflow-wrap:anywhere}.summary-row strong{text-align:right;overflow-wrap:anywhere}.summary-total{border-top:1px solid #ccd7e8;margin-top:8px;padding-top:12px;font-size:21px;font-weight:900;color:var(--navy)}
 .notice{padding:15px;border-radius:9px;background:#fff8d6;border-left:5px solid var(--gold);margin-top:18px}.notice strong{color:var(--navy)}.notice p{margin-top:5px}
+.success-panel{display:none;margin:20px 0;padding:22px;border:1px solid #86d6a7;border-left:5px solid #16834a;border-radius:12px;background:#effcf3}
+.success-panel h2{color:#166534;font-size:23px;margin-bottom:8px}.success-panel p{margin:8px 0}.success-order-id{display:block;margin:12px 0;padding:12px;background:white;border:1px dashed #86d6a7;border-radius:8px;overflow-wrap:anywhere;font-weight:800;color:var(--navy)}
+.success-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px}.success-actions .btn{flex:1 1 200px}
+.btn:disabled{opacity:.55;cursor:not-allowed}
 footer{background:var(--navy2);color:white;padding:26px 7%;text-align:center}footer h2{color:var(--gold)}footer p{margin-top:7px;color:#e1e8f5}
 @media(max-width:600px){nav{padding:13px 5%}.form-grid{grid-template-columns:1fr}.field.full{grid-column:auto}.selected .selected-price{font-size:24px}.summary{padding:14px}.summary-row{font-size:14px}}
 </style>
@@ -60,6 +64,17 @@ footer{background:var(--navy2);color:white;padding:26px 7%;text-align:center}foo
     <button class="btn btn-whatsapp" type="submit" style="width:100%;font-size:16px"><i class="fab fa-whatsapp"></i> Send Order on WhatsApp</button>
   </form>
   <div class="notice"><strong><i class="fas fa-circle-info"></i> Payment reminder</strong><p>Wait for us to confirm availability and send payment instructions. Your data order is processed only after payment has been received and confirmed in our account. A payment screenshot alone is not confirmation.</p></div>
+  <section id="orderSuccess" class="success-panel" role="status" aria-live="polite">
+    <h2><i class="fas fa-circle-check"></i> Your order has been saved</h2>
+    <p>Your order is recorded with status <strong>Pending</strong>. Send the details to us on WhatsApp so we can confirm availability and provide payment instructions.</p>
+    <span class="hint">Keep this order number for your records:</span>
+    <span id="successOrderId" class="success-order-id"></span>
+    <p><strong>Important:</strong> Do not make payment until you receive the payment instructions. Your order is processed only after payment reaches our account and is confirmed. A screenshot alone is not proof of payment.</p>
+    <div class="success-actions">
+      <a id="sendSavedOrderWhatsApp" class="btn btn-whatsapp" href="#" target="_blank" rel="noopener"><i class="fab fa-whatsapp"></i> Send order on WhatsApp</a>
+      <a class="btn btn-primary" href="index.html#offers"><i class="fas fa-arrow-left"></i> Back to offers</a>
+    </div>
+  </section>
 </div>
 </main>
 <footer><h2>MTN Anytime Data</h2><p>Affordable data. Simple ordering. Clear payment instructions.</p><p>© 2026 MTN Anytime Data. All rights reserved.</p></footer>
@@ -154,8 +169,13 @@ document.getElementById("orderForm").addEventListener("submit", async event => {
       "",
       "Please confirm availability and send me the payment instructions. I understand that my order will be processed only after payment is received and confirmed."
     ].join("\n");
-    alert("Your order has been saved. WhatsApp will now open so you can send the order details.");
-    window.location.href = "https://wa.me/" + WHATSAPP_NUMBER + "?text=" + encodeURIComponent(message);
+    document.getElementById("successOrderId").textContent = orderRef.id;
+    document.getElementById("sendSavedOrderWhatsApp").href = "https://wa.me/" + WHATSAPP_NUMBER + "?text=" + encodeURIComponent(message);
+    document.getElementById("orderForm").hidden = true;
+    document.querySelector(".selected").hidden = true;
+    document.querySelector(".notice").hidden = true;
+    document.getElementById("orderSuccess").style.display = "block";
+    document.querySelector(".heading").scrollIntoView({ behavior: "smooth", block: "start" });
   } catch (error) {
     console.error("Could not save order:", error);
     alert("We could not save your order, so WhatsApp has not been opened. Please check your internet connection and try again. If this continues, contact us on WhatsApp 073 091 6623.");

@@ -76,6 +76,7 @@ button,.btn{display:inline-flex;align-items:center;justify-content:center;gap:8p
 <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore-compat.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script>
 const firebaseConfig = {
   apiKey: "AIzaSyBcUuzyOSX73fbYqQB8Y0XyJNttUKEFGX0",
@@ -251,39 +252,71 @@ function paymentReceiptMessage(order) {
     "MTN Anytime Data · WhatsApp 073 091 6623 · bep.onlineprog@gmail.com"
   ].join("\n");
 }
-function sharePaymentReceiptWhatsApp(event) {
-  const id = event.currentTarget.dataset.id;
-  const order = currentOrders.find(item => item.id === id);
-  if (!order || order.paymentStatus !== "Paid") {
-    showMessage(dashboardMessage, "A payment receipt can be shared only after payment is marked Paid.", "error");
-    return;
-  }
-  const phone = String(order.customerPhone || "").replace(/[^0-9]/g, "").replace(/^0/, "27");
-  if (phone.length < 10) {
-    showMessage(dashboardMessage, "This order does not have a valid customer contact number.", "error");
-    return;
-  }
-  const url = "https://wa.me/" + phone + "?text=" + encodeURIComponent(paymentReceiptMessage(order));
-  const win = window.open(url, "_blank", "noopener");
-  if (!win) showMessage(dashboardMessage, "Your browser blocked the WhatsApp window. Allow pop-ups and try again.", "error");
+function createPaymentReceiptPdf(order) {
+  if (!window.jspdf || !window.jspdf.jsPDF) throw new Error("PDF library is not available. Check your internet connection and retry.");
+  const pdf = new window.jspdf.jsPDF({unit:"mm",format:"a4"});
+  let y = 18;
+  pdf.setFont("helvetica","bold"); pdf.setFontSize(17); pdf.setTextColor(7,27,77);
+  pdf.text("MTN ANYTIME DATA", 15, y); y += 9;
+  pdf.setFontSize(14); pdf.text("PAYMENT RECEIPT", 15, y); y += 8;
+  pdf.setFontSize(10); pdf.setTextColor(22,101,52);
+  pdf.text("PAYMENT STATUS: PAID", 15, y); y += 9;
+  pdf.setFont("helvetica","normal"); pdf.setFontSize(10); pdf.setTextColor(23,32,51);
+  const lines = paymentReceiptMessage(order).split("\n");
+  lines.forEach((line, index) => {
+    if (index === 0) return;
+    const wrapped = pdf.splitTextToSize(line, 178);
+    if (y + wrapped.length * 5 > 280) { pdf.addPage(); y = 18; }
+    pdf.text(wrapped, 15, y); y += wrapped.length * 5 + 2;
+  });
+  return pdf;
 }
-function sharePaymentReceiptEmail(event) {
+async function sharePaymentReceiptPdf(event, channel) {
   const id = event.currentTarget.dataset.id;
   const order = currentOrders.find(item => item.id === id);
   if (!order || order.paymentStatus !== "Paid") {
     showMessage(dashboardMessage, "A payment receipt can be shared only after payment is marked Paid.", "error");
     return;
   }
-  if (!String(order.email || "").trim()) {
+  if (channel === "email" && !String(order.email || "").trim()) {
     showMessage(dashboardMessage, "This customer did not provide an email address.", "error");
     return;
   }
-  const subject = "MTN Data Payment Receipt " + order.id;
-  const mailto = "mailto:" + encodeURIComponent(String(order.email).trim()) +
-    "?subject=" + encodeURIComponent(subject) +
-    "&body=" + encodeURIComponent(paymentReceiptMessage(order));
-  window.location.href = mailto;
+  if (channel === "whatsapp" && String(order.customerPhone || "").replace(/[^0-9]/g, "").length < 10) {
+    showMessage(dashboardMessage, "This order does not have a valid customer contact number.", "error");
+    return;
+  }
+  try {
+    const pdf = createPaymentReceiptPdf(order);
+    const file = new File([pdf.output("blob")], "MTN-Payment-Receipt-" + order.id + ".pdf", {type:"application/pdf"});
+    const message = "MTN Anytime Data payment receipt for order " + order.id + ". Payment was manually confirmed.";
+    if (navigator.share && navigator.canShare && navigator.canShare({files:[file]})) {
+      try {
+        await navigator.share({files:[file], title:"Payment Receipt " + order.id, text:message});
+        showMessage(dashboardMessage, "PDF share opened. Choose WhatsApp or your email app, then choose the customer and send the attached PDF.", "success");
+        return;
+      } catch (error) {
+        if (error && error.name === "AbortError") return;
+      }
+    }
+    pdf.save(file.name);
+    if (channel === "whatsapp") {
+      const phone = String(order.customerPhone).replace(/[^0-9]/g, "").replace(/^0/, "27");
+      window.open("https://wa.me/" + phone + "?text=" + encodeURIComponent(message), "_blank", "noopener");
+      showMessage(dashboardMessage, "Payment receipt PDF downloaded. In the customer's WhatsApp chat, tap the attachment icon and select the downloaded PDF before sending.", "success");
+    } else {
+      const mailto = "mailto:" + encodeURIComponent(String(order.email).trim()) +
+        "?subject=" + encodeURIComponent("MTN Data Payment Receipt " + order.id) +
+        "&body=" + encodeURIComponent(message + "\n\nPlease find the payment receipt PDF attached.");
+      window.location.href = mailto;
+      showMessage(dashboardMessage, "Payment receipt PDF downloaded. Attach the downloaded PDF to the email before sending.", "success");
+    }
+  } catch (error) {
+    showMessage(dashboardMessage, "Could not create the PDF receipt: " + (error.message || "Please try again."), "error");
+  }
 }
+function sharePaymentReceiptWhatsApp(event) { return sharePaymentReceiptPdf(event, "whatsapp"); }
+function sharePaymentReceiptEmail(event) { return sharePaymentReceiptPdf(event, "email"); }
 function printPaymentReceipt(event) {
   const id = event.currentTarget.dataset.id;
   const order = currentOrders.find(item => item.id === id);

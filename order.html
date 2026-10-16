@@ -36,6 +36,13 @@ input:focus{outline:3px solid #ffcc0055;border-color:#b18d00}
 .btn:disabled{opacity:.55;cursor:not-allowed}
 footer{background:var(--navy2);color:white;padding:26px 7%;text-align:center}footer h2{color:var(--gold)}footer p{margin-top:7px;color:#e1e8f5}
 @media(max-width:600px){nav{padding:13px 5%}.form-grid{grid-template-columns:1fr}.field.full{grid-column:auto}.selected .selected-price{font-size:24px}.summary{padding:14px}.summary-row{font-size:14px}}
+
+.receipt-card{background:#fff;border:1px solid #d8dfeb;border-radius:10px;padding:18px;margin-top:18px;color:var(--ink)}
+.receipt-card h3{color:var(--navy);font-size:20px;margin-bottom:4px}.receipt-label{font-size:12px;font-weight:900;letter-spacing:1px;color:#8a5b00}
+.receipt-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px 16px;margin:14px 0}.receipt-item{padding:7px 0;border-bottom:1px solid #edf0f5;overflow-wrap:anywhere}.receipt-item span{display:block;color:var(--muted);font-size:12px}.receipt-item strong{overflow-wrap:anywhere}
+.receipt-total{display:flex;justify-content:space-between;gap:12px;padding-top:12px;border-top:2px solid var(--navy);font-size:22px;font-weight:900;color:var(--navy)}
+@media print{body *{visibility:hidden!important}#receiptDocument,#receiptDocument *{visibility:visible!important}#receiptDocument{display:block!important;position:absolute;left:0;top:0;width:100%;margin:0;border:0;box-shadow:none;padding:24px}.receipt-card{border:0}.no-print{display:none!important}}
+@media(max-width:520px){.receipt-grid{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -70,6 +77,27 @@ footer{background:var(--navy2);color:white;padding:26px 7%;text-align:center}foo
     <p>Your order is recorded with status <strong>Pending</strong>. Send the details to us on WhatsApp so we can confirm availability and provide payment instructions.</p>
     <span class="hint" style="display:block;font-weight:900;font-size:15px;letter-spacing:1px;color:var(--navy);margin-top:12px">ORDER NUMBER</span>
     <div class="order-id-copy-row"><span id="successOrderId" class="success-order-id"></span><button type="button" id="copyOrderIdBtn" class="btn btn-primary copy-order-btn"><i class="fas fa-copy"></i> Copy order number</button></div><p id="copyOrderIdMessage" class="hint" role="status" aria-live="polite"></p>
+
+    <section id="receiptDocument" class="receipt-card" aria-label="Order confirmation receipt">
+      <div class="receipt-label">ORDER CONFIRMATION · NOT A PAYMENT RECEIPT</div>
+      <h3>MTN Anytime Data</h3>
+      <p class="hint">Order confirmation — payment has not yet been confirmed.</p>
+      <div style="margin-top:12px"><span class="hint">ORDER NUMBER</span><br><strong id="receiptOrderNumber" style="overflow-wrap:anywhere;color:var(--navy)"></strong></div>
+      <div class="receipt-grid">
+        <div class="receipt-item"><span>Order date</span><strong id="receiptOrderDate"></strong></div>
+        <div class="receipt-item"><span>Payment status</span><strong>Pending — unpaid</strong></div>
+        <div class="receipt-item"><span>Customer</span><strong id="receiptCustomer"></strong></div>
+        <div class="receipt-item"><span>Contact number</span><strong id="receiptContact"></strong></div>
+        <div class="receipt-item"><span>MTN number receiving data</span><strong id="receiptRecipient"></strong></div>
+        <div class="receipt-item"><span>Email</span><strong id="receiptEmail"></strong></div>
+        <div class="receipt-item"><span>Data bundle</span><strong id="receiptBundle"></strong></div>
+        <div class="receipt-item"><span>Validity</span><strong>30 days</strong></div>
+      </div>
+      <div class="receipt-total"><span>Total due</span><span id="receiptTotal"></span></div>
+      <p style="margin-top:14px;font-size:13px">This confirms that your order was recorded only. It does not confirm payment or data delivery. Please wait for payment instructions. The order will be processed only after payment is received and confirmed in the business account.</p>
+      <p style="margin-top:12px;font-size:12px;color:var(--muted)">Contact: WhatsApp 073 091 6623 · bep.onlineprog@gmail.com</p>
+    </section>
+    <div class="success-actions no-print"><button type="button" id="printOrderConfirmation" class="btn btn-primary"><i class="fas fa-print"></i> Print / Save order confirmation</button></div>
     <p><strong>Important:</strong> Do not make payment until you receive the payment instructions. Your order is processed only after payment reaches our account and is confirmed. A screenshot alone is not proof of payment.</p>
     <div class="success-actions">
       <a id="sendSavedOrderWhatsApp" class="btn btn-whatsapp" href="#" target="_blank" rel="noopener"><i class="fab fa-whatsapp"></i> Send order on WhatsApp</a>
@@ -150,6 +178,18 @@ document.getElementById("copyOrderIdBtn").addEventListener("click", async () => 
     message.textContent = "Copy was not available on this browser. Press and hold the order number to copy it manually.";
   }
 });
+
+document.getElementById("printOrderConfirmation").addEventListener("click", () => window.print());
+function populateOrderConfirmation(orderId, orderDate, name, contactPhone, recipientPhone, email, bundleName, total) {
+  document.getElementById("receiptOrderNumber").textContent = orderId;
+  document.getElementById("receiptOrderDate").textContent = orderDate;
+  document.getElementById("receiptCustomer").textContent = name;
+  document.getElementById("receiptContact").textContent = contactPhone;
+  document.getElementById("receiptRecipient").textContent = recipientPhone;
+  document.getElementById("receiptEmail").textContent = email || "Not provided";
+  document.getElementById("receiptBundle").textContent = bundleName;
+  document.getElementById("receiptTotal").textContent = "R" + total;
+}
 function updateSummary() {
   document.getElementById("summaryName").textContent = document.getElementById("customerName").value.trim() || "Not entered";
   document.getElementById("summaryContact").textContent = document.getElementById("contactPhone").value.trim() || "Not entered";
@@ -201,6 +241,7 @@ document.getElementById("orderForm").addEventListener("submit", async event => {
       "Please confirm availability and send me the payment instructions. I understand that my order will be processed only after payment is received and confirmed."
     ].join("\n");
     document.getElementById("successOrderId").textContent = orderRef.id;
+    populateOrderConfirmation(orderRef.id, new Date().toLocaleString("en-ZA"), name, contactPhone, recipientPhone, email, bundle, price);
     document.getElementById("sendSavedOrderWhatsApp").href = "https://wa.me/" + WHATSAPP_NUMBER + "?text=" + encodeURIComponent(message);
     document.getElementById("orderForm").hidden = true;
     document.querySelector(".selected").hidden = true;

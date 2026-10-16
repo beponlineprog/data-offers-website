@@ -109,6 +109,7 @@ footer{background:var(--navy2);color:white;padding:26px 7%;text-align:center}foo
 <footer><h2>MTN Anytime Data</h2><p>Affordable data. Simple ordering. Clear payment instructions.</p><p>© 2026 MTN Anytime Data. All rights reserved.</p></footer>
 <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore-compat.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script>
 const firebaseConfig = {
   apiKey: "AIzaSyBcUuzyOSX73fbYqQB8Y0XyJNttUKEFGX0",
@@ -134,6 +135,7 @@ const requestedBundle = params.get("bundle") || "";
 const requestedPrice = Number(params.get("price") || 0);
 const bundle = Object.prototype.hasOwnProperty.call(plans, requestedBundle) && plans[requestedBundle] === requestedPrice ? requestedBundle : "";
 const price = bundle ? plans[bundle] : 0;
+let savedOrderForReceipt = null;
 
 if (!bundle) {
   document.getElementById("bundleName").textContent = "No valid plan selected";
@@ -180,6 +182,71 @@ document.getElementById("copyOrderIdBtn").addEventListener("click", async () => 
 });
 
 document.getElementById("printOrderConfirmation").addEventListener("click", () => window.print());
+document.getElementById("shareOrderWhatsApp").addEventListener("click", event => shareOrderPdf(event, "whatsapp"));
+document.getElementById("shareOrderEmail").addEventListener("click", event => shareOrderPdf(event, "email"));
+function createOrderConfirmationPdf(order) {
+  if (!window.jspdf || !window.jspdf.jsPDF) throw new Error("PDF library is not available. Check your internet connection and retry.");
+  const pdf = new window.jspdf.jsPDF({unit:"mm",format:"a4"});
+  let y = 18;
+  pdf.setFont("helvetica","bold"); pdf.setFontSize(17); pdf.setTextColor(7,27,77);
+  pdf.text("MTN ANYTIME DATA", 15, y); y += 9;
+  pdf.setFontSize(14); pdf.text("ORDER CONFIRMATION", 15, y); y += 7;
+  pdf.setFontSize(9); pdf.setTextColor(138,91,0);
+  pdf.text("NOT A PAYMENT RECEIPT — PAYMENT NOT CONFIRMED", 15, y); y += 10;
+  pdf.setFont("helvetica","normal"); pdf.setFontSize(10); pdf.setTextColor(23,32,51);
+  const lines = [
+    "Order number: " + order.id,
+    "Order date: " + order.date,
+    "Payment status: Pending — unpaid",
+    "Customer: " + order.name,
+    "Contact number: " + order.contactPhone,
+    "MTN number receiving data: " + order.recipientPhone,
+    "Email: " + (order.email || "Not provided"),
+    "Data bundle: " + order.bundle + " (30-day validity)",
+    "Total due: R" + Number(order.price).toFixed(2),
+    "",
+    "This confirms that your order was recorded only. It does not confirm payment or data delivery.",
+    "The order will be processed only after payment is received and confirmed in the business account.",
+    "",
+    "Business contact: WhatsApp 073 091 6623",
+    "Email: bep.onlineprog@gmail.com"
+  ];
+  lines.forEach(line => {
+    const wrapped = pdf.splitTextToSize(line, 178);
+    if (y + wrapped.length * 5 > 280) { pdf.addPage(); y = 18; }
+    pdf.text(wrapped, 15, y); y += wrapped.length * 5 + 2;
+  });
+  return pdf;
+}
+async function shareOrderPdf(event, channel) {
+  event.preventDefault();
+  if (!savedOrderForReceipt) { alert("Please save your order before sharing its confirmation."); return; }
+  const order = savedOrderForReceipt;
+  const pdf = createOrderConfirmationPdf(order);
+  const file = new File([pdf.output("blob")], "MTN-Order-Confirmation-" + order.id + ".pdf", {type:"application/pdf"});
+  const message = "MTN Anytime Data order confirmation " + order.id + ". This is not a payment receipt.";
+  if (navigator.share && navigator.canShare && navigator.canShare({files:[file]})) {
+    try {
+      await navigator.share({files:[file], title:"Order Confirmation " + order.id, text:message});
+      return;
+    } catch (error) {
+      if (error && error.name === "AbortError") return;
+    }
+  }
+  pdf.save(file.name);
+  if (channel === "whatsapp") {
+    const phone = String(order.contactPhone || "").replace(/[^0-9]/g,"").replace(/^0/,"27");
+    window.open("https://wa.me/" + phone + "?text=" + encodeURIComponent(message), "_blank", "noopener");
+    alert("Your PDF has been downloaded. In WhatsApp, tap the attachment icon and select the downloaded PDF before sending.");
+  } else {
+    if (!order.email) {
+      alert("Your PDF has been downloaded, but this order has no email address. Attach the PDF to an email addressed to the customer.");
+      return;
+    }
+    window.location.href = "mailto:" + encodeURIComponent(order.email) + "?subject=" + encodeURIComponent("MTN Data Order Confirmation " + order.id) + "&body=" + encodeURIComponent(message + "\n\nPlease find the order confirmation PDF attached.");
+    alert("Your PDF has been downloaded. Attach it to the email before sending.");
+  }
+}
 function populateOrderConfirmation(orderId, orderDate, name, contactPhone, recipientPhone, email, bundleName, total) {
   document.getElementById("receiptOrderNumber").textContent = orderId;
   document.getElementById("receiptOrderDate").textContent = orderDate;
@@ -240,6 +307,7 @@ document.getElementById("orderForm").addEventListener("submit", async event => {
       "",
       "Please confirm availability and send me the payment instructions. I understand that my order will be processed only after payment is received and confirmed."
     ].join("\n");
+    savedOrderForReceipt = { id: orderRef.id, date: new Date().toLocaleString("en-ZA"), name, contactPhone, recipientPhone, email, bundle, price }; 
     document.getElementById("successOrderId").textContent = orderRef.id;
     populateOrderConfirmation(orderRef.id, new Date().toLocaleString("en-ZA"), name, contactPhone, recipientPhone, email, bundle, price);
     document.getElementById("sendSavedOrderWhatsApp").href = "https://wa.me/" + WHATSAPP_NUMBER + "?text=" + encodeURIComponent(message);

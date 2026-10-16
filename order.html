@@ -63,19 +63,34 @@ footer{background:var(--navy2);color:white;padding:26px 7%;text-align:center}foo
 </div>
 </main>
 <footer><h2>MTN Anytime Data</h2><p>Affordable data. Simple ordering. Clear payment instructions.</p><p>© 2026 MTN Anytime Data. All rights reserved.</p></footer>
+<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore-compat.js"></script>
 <script>
+const firebaseConfig = {
+  apiKey: "AIzaSyBcUuzyOSX73fbYqQB8Y0XyJNttUKEFGX0",
+  authDomain: "data-mtn.firebaseapp.com",
+  projectId: "data-mtn",
+  storageBucket: "data-mtn.firebasestorage.app",
+  messagingSenderId: "404391475217",
+  appId: "1:404391475217:web:1af70626d13def144c59b0",
+  measurementId: "G-7P605HTFNZ"
+};
+if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
+const db = firebase.firestore();
+
 const WHATSAPP_NUMBER = "27730916623";
 const plans = {
-  "10GB Anytime": "100",
-  "20GB Anytime": "150",
-  "35GB Anytime": "250",
-  "50GB Anytime": "350"
+  "10GB Anytime": 100,
+  "20GB Anytime": 150,
+  "35GB Anytime": 250,
+  "50GB Anytime": 350
 };
 const params = new URLSearchParams(window.location.search);
 const requestedBundle = params.get("bundle") || "";
-const requestedPrice = params.get("price") || "";
+const requestedPrice = Number(params.get("price") || 0);
 const bundle = Object.prototype.hasOwnProperty.call(plans, requestedBundle) && plans[requestedBundle] === requestedPrice ? requestedBundle : "";
-const price = bundle ? plans[bundle] : "";
+const price = bundle ? plans[bundle] : 0;
+
 if (!bundle) {
   document.getElementById("bundleName").textContent = "No valid plan selected";
   document.getElementById("bundlePrice").textContent = "—";
@@ -98,27 +113,55 @@ function updateSummary() {
 ["customerName","contactPhone","recipientPhone","customerEmail"].forEach(id => {
   document.getElementById(id).addEventListener("input", updateSummary);
 });
-document.getElementById("orderForm").addEventListener("submit", event => {
+document.getElementById("orderForm").addEventListener("submit", async event => {
   event.preventDefault();
   if (!bundle) { alert("Please return to the offers page and choose a valid data plan."); return; }
   const name = document.getElementById("customerName").value.trim();
   const contactPhone = document.getElementById("contactPhone").value.trim();
   const recipientPhone = document.getElementById("recipientPhone").value.trim();
   const email = document.getElementById("customerEmail").value.trim();
+  if (name.length < 2) { alert("Please enter your full name."); return; }
+  if (contactPhone.replace(/[^0-9]/g, "").length < 10) { alert("Please enter a valid contact number."); return; }
   if (!/^[0-9]{10}$/.test(recipientPhone)) { alert("Please enter the 10-digit MTN number that will receive the data."); return; }
-  const message = [
-    "Hello, I would like to place an MTN Anytime Data order.",
-    "",
-    "Name: " + name,
-    "Contact number: " + contactPhone,
-    "MTN number receiving data: " + recipientPhone,
-    "Email: " + (email || "Not provided"),
-    "Bundle: " + bundle,
-    "Total: R" + price,
-    "",
-    "Please confirm availability and send me the payment instructions. I understand that my order will be processed only after payment is received and confirmed."
-  ].join("\n");
-  window.location.href = "https://wa.me/" + WHATSAPP_NUMBER + "?text=" + encodeURIComponent(message);
+
+  const submitButton = event.currentTarget.querySelector('button[type="submit"]');
+  submitButton.disabled = true;
+  submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Saving your order…';
+  try {
+    const orderRef = await db.collection("orders").add({
+      customerName: name,
+      customerPhone: contactPhone,
+      recipientNumber: recipientPhone,
+      email: email,
+      bundle: bundle,
+      price: price,
+      paymentStatus: "Pending",
+      orderStatus: "Pending",
+      createdAt: firebase.firestore.FieldValue.serverTimestamp()
+    });
+
+    const message = [
+      "Hello, I have placed an MTN Anytime Data order.",
+      "",
+      "Order number: " + orderRef.id,
+      "Name: " + name,
+      "Contact number: " + contactPhone,
+      "MTN number receiving data: " + recipientPhone,
+      "Email: " + (email || "Not provided"),
+      "Bundle: " + bundle,
+      "Total: R" + price,
+      "Order status: Pending",
+      "",
+      "Please confirm availability and send me the payment instructions. I understand that my order will be processed only after payment is received and confirmed."
+    ].join("\n");
+    alert("Your order has been saved. WhatsApp will now open so you can send the order details.");
+    window.location.href = "https://wa.me/" + WHATSAPP_NUMBER + "?text=" + encodeURIComponent(message);
+  } catch (error) {
+    console.error("Could not save order:", error);
+    alert("We could not save your order, so WhatsApp has not been opened. Please check your internet connection and try again. If this continues, contact us on WhatsApp 073 091 6623.");
+    submitButton.disabled = false;
+    submitButton.innerHTML = '<i class="fab fa-whatsapp"></i> Send Order on WhatsApp';
+  }
 });
 updateSummary();
 </script>

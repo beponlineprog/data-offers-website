@@ -297,7 +297,7 @@ async function sharePaymentReceiptPdf(event, channel) {
         return;
       }
       pdf.save(file.name);
-      window.location.href = "https://wa.me/" + phone + "?text=" + encodeURIComponent(message + " I will attach the payment receipt PDF to this chat.");
+      window.location.href = "https://api.whatsapp.com/send?phone=" + phone + "&text=" + encodeURIComponent(message + " I will attach the payment receipt PDF to this chat.");
       showMessage(dashboardMessage, "The payment receipt PDF has been downloaded and the customer's WhatsApp chat is opening. In that chat, tap the attachment icon, choose Document, select MTN-Payment-Receipt-" + order.id + ".pdf, then send.", "success");
       return;
     }
@@ -313,7 +313,7 @@ async function sharePaymentReceiptPdf(event, channel) {
     pdf.save(file.name);
     if (channel === "whatsapp") {
       const phone = String(order.customerPhone).replace(/[^0-9]/g, "").replace(/^0/, "27");
-      window.open("https://wa.me/" + phone + "?text=" + encodeURIComponent(message), "_blank", "noopener");
+      window.open("https://api.whatsapp.com/send?phone=" + phone + "&text=" + encodeURIComponent(message), "_blank", "noopener");
       showMessage(dashboardMessage, "Payment receipt PDF downloaded. In the customer's WhatsApp chat, tap the attachment icon and select the downloaded PDF before sending.", "success");
     } else {
       const mailto = "mailto:" + encodeURIComponent(String(order.email).trim()) +

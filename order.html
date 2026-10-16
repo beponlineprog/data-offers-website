@@ -232,7 +232,7 @@ async function shareOrderPdf(event, channel) {
       return;
     }
     pdf.save(file.name);
-    window.location.href = "https://wa.me/" + phone + "?text=" + encodeURIComponent(message + " Please see the order confirmation PDF. I will attach it to this chat.");
+    window.location.href = "https://api.whatsapp.com/send?phone=" + phone + "&text=" + encodeURIComponent(message + " Please see the order confirmation PDF. I will attach it to this chat.");
     alert("The PDF has been downloaded and the customer's WhatsApp chat is opening. In that chat, tap the attachment icon, choose Document, select MTN-Order-Confirmation-" + order.id + ".pdf, then send.");
     return;
   }
@@ -247,7 +247,7 @@ async function shareOrderPdf(event, channel) {
   pdf.save(file.name);
   if (channel === "whatsapp") {
     const phone = String(order.contactPhone || "").replace(/[^0-9]/g,"").replace(/^0/,"27");
-    window.open("https://wa.me/" + phone + "?text=" + encodeURIComponent(message), "_blank", "noopener");
+    window.open("https://api.whatsapp.com/send?phone=" + phone + "&text=" + encodeURIComponent(message), "_blank", "noopener");
     alert("Your PDF has been downloaded. In WhatsApp, tap the attachment icon and select the downloaded PDF before sending.");
   } else {
     if (!order.email) {
@@ -336,7 +336,7 @@ document.getElementById("orderForm").addEventListener("submit", async event => {
       "This confirms the order was recorded only. It does not confirm payment or data delivery. The order is processed only after payment is received and confirmed.",
       "Business contact: WhatsApp 073 091 6623 · bep.onlineprog@gmail.com"
     ].join("\n");
-    document.getElementById("shareOrderWhatsApp").href = "https://wa.me/" + customerWhatsApp + "?text=" + encodeURIComponent(confirmationMessage);
+    document.getElementById("shareOrderWhatsApp").href = "https://api.whatsapp.com/send?phone=" + customerWhatsApp + "&text=" + encodeURIComponent(confirmationMessage);
     document.getElementById("shareOrderEmail").href = email
       ? "mailto:" + encodeURIComponent(email) + "?subject=" + encodeURIComponent("MTN Data Order Confirmation " + orderRef.id) + "&body=" + encodeURIComponent(confirmationMessage)
       : "#";

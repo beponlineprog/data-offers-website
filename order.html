@@ -97,7 +97,7 @@ footer{background:var(--navy2);color:white;padding:26px 7%;text-align:center}foo
       <p style="margin-top:14px;font-size:13px">This confirms that your order was recorded only. It does not confirm payment or data delivery. Please wait for payment instructions. The order will be processed only after payment is received and confirmed in the business account.</p>
       <p style="margin-top:12px;font-size:12px;color:var(--muted)">Contact: WhatsApp 073 091 6623 · bep.onlineprog@gmail.com</p>
     </section>
-    <div class="success-actions no-print"><button type="button" id="printOrderConfirmation" class="btn btn-primary"><i class="fas fa-print"></i> Print / Save order confirmation</button></div>
+    <div class="success-actions no-print"><button type="button" id="printOrderConfirmation" class="btn btn-primary"><i class="fas fa-print"></i> Print / Save order confirmation</button><a id="shareOrderWhatsApp" class="btn btn-whatsapp" href="#" target="_blank" rel="noopener"><i class="fab fa-whatsapp"></i> Share on WhatsApp</a><a id="shareOrderEmail" class="btn btn-primary" href="#"><i class="fas fa-envelope"></i> Share by Email</a></div>
     <p><strong>Important:</strong> Do not make payment until you receive the payment instructions. Your order is processed only after payment reaches our account and is confirmed. A screenshot alone is not proof of payment.</p>
     <div class="success-actions">
       <a id="sendSavedOrderWhatsApp" class="btn btn-whatsapp" href="#" target="_blank" rel="noopener"><i class="fab fa-whatsapp"></i> Send order on WhatsApp</a>
@@ -243,6 +243,25 @@ document.getElementById("orderForm").addEventListener("submit", async event => {
     document.getElementById("successOrderId").textContent = orderRef.id;
     populateOrderConfirmation(orderRef.id, new Date().toLocaleString("en-ZA"), name, contactPhone, recipientPhone, email, bundle, price);
     document.getElementById("sendSavedOrderWhatsApp").href = "https://wa.me/" + WHATSAPP_NUMBER + "?text=" + encodeURIComponent(message);
+    const customerWhatsApp = contactPhone.replace(/[^0-9]/g, "").replace(/^0/, "27");
+    const confirmationMessage = [
+      "MTN Anytime Data — ORDER CONFIRMATION (NOT A PAYMENT RECEIPT)",
+      "Order number: " + orderRef.id,
+      "Customer: " + name,
+      "Contact number: " + contactPhone,
+      "MTN number receiving data: " + recipientPhone,
+      "Email: " + (email || "Not provided"),
+      "Bundle: " + bundle + " (30-day validity)",
+      "Total due: R" + price,
+      "Payment status: Pending — unpaid",
+      "This confirms the order was recorded only. It does not confirm payment or data delivery. The order is processed only after payment is received and confirmed.",
+      "Business contact: WhatsApp 073 091 6623 · bep.onlineprog@gmail.com"
+    ].join("\n");
+    document.getElementById("shareOrderWhatsApp").href = "https://wa.me/" + customerWhatsApp + "?text=" + encodeURIComponent(confirmationMessage);
+    document.getElementById("shareOrderEmail").href = email
+      ? "mailto:" + encodeURIComponent(email) + "?subject=" + encodeURIComponent("MTN Data Order Confirmation " + orderRef.id) + "&body=" + encodeURIComponent(confirmationMessage)
+      : "#";
+    document.getElementById("shareOrderEmail").onclick = email ? null : event => { event.preventDefault(); alert("No email address was entered for this order."); };
     document.getElementById("orderForm").hidden = true;
     document.querySelector(".selected").hidden = true;
     document.querySelector(".notice").hidden = true;

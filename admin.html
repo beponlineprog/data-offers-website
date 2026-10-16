@@ -290,10 +290,21 @@ async function sharePaymentReceiptPdf(event, channel) {
     const pdf = createPaymentReceiptPdf(order);
     const file = new File([pdf.output("blob")], "MTN-Payment-Receipt-" + order.id + ".pdf", {type:"application/pdf"});
     const message = "MTN Anytime Data payment receipt for order " + order.id + ". Payment was manually confirmed.";
+    if (channel === "whatsapp") {
+      const phone = String(order.customerPhone || "").replace(/[^0-9]/g, "").replace(/^0/, "27");
+      if (phone.length < 11) {
+        showMessage(dashboardMessage, "This order does not have a valid customer contact number.", "error");
+        return;
+      }
+      pdf.save(file.name);
+      window.location.href = "https://wa.me/" + phone + "?text=" + encodeURIComponent(message + " I will attach the payment receipt PDF to this chat.");
+      showMessage(dashboardMessage, "The payment receipt PDF has been downloaded and the customer's WhatsApp chat is opening. In that chat, tap the attachment icon, choose Document, select MTN-Payment-Receipt-" + order.id + ".pdf, then send.", "success");
+      return;
+    }
     if (navigator.share && navigator.canShare && navigator.canShare({files:[file]})) {
       try {
         await navigator.share({files:[file], title:"Payment Receipt " + order.id, text:message});
-        showMessage(dashboardMessage, "PDF share opened. Choose WhatsApp or your email app, then choose the customer and send the attached PDF.", "success");
+        showMessage(dashboardMessage, "PDF share opened. Choose your email app, then choose the customer and send the attached PDF.", "success");
         return;
       } catch (error) {
         if (error && error.name === "AbortError") return;

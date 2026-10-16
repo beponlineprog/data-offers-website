@@ -128,11 +128,36 @@ function renderOrders(snapshot) {
       '<td>' + escapeHtml(order.recipientNumber) + '</td>' +
       '<td><label class="small" for="pay-' + id + '">Payment</label><select class="status-control payment-select" id="pay-' + id + '" data-id="' + id + '">' + paymentOptions + '</select></td>' +
       '<td><label class="small" for="status-' + id + '">Order</label><select class="status-control order-select" id="status-' + id + '" data-id="' + id + '">' + statusOptions + '</select></td>' +
-      '<td><button class="primary save-status" data-id="' + id + '"><i class="fas fa-floppy-disk"></i> Save</button></td>' +
+      '<td style="display:flex;gap:8px;flex-wrap:wrap"><button class="primary save-status" data-id="' + id + '"><i class="fas fa-floppy-disk"></i> Save</button><button class="danger delete-order" data-id="' + id + '"><i class="fas fa-trash"></i> Delete</button></td>' +
       '</tr>';
   }).join("");
-  document.getElementById("ordersContainer").innerHTML = '<table><thead><tr><th>Order</th><th>Customer</th><th>MTN recipient</th><th>Payment status</th><th>Order status</th><th>Action</th></tr></thead><tbody>' + rows + '</tbody></table>';
+  document.getElementById("ordersContainer").innerHTML = '<table><thead><tr><th>Order</th><th>Customer</th><th>MTN recipient</th><th>Payment status</th><th>Order status</th><th>Actions</th></tr></thead><tbody>' + rows + '</tbody></table>';
   document.querySelectorAll(".save-status").forEach(button => button.addEventListener("click", saveOrderStatus));
+  document.querySelectorAll(".delete-order").forEach(button => button.addEventListener("click", deleteOrder));
+}
+async function deleteOrder(event) {
+  const button = event.currentTarget;
+  const id = button.dataset.id;
+  const order = currentOrders.find(item => item.id === id);
+  if (!order) {
+    showMessage(dashboardMessage, "Could not find this order. Refresh the dashboard and try again.", "error");
+    return;
+  }
+  const label = (order.bundle || "order") + " for " + (order.customerName || "this customer");
+  const confirmed = window.confirm(
+    "PERMANENTLY DELETE this order?\n\n" + label +
+    "\nOrder ID: " + id +
+    "\n\nThis cannot be undone. Only delete test, duplicate, or unwanted orders."
+  );
+  if (!confirmed) return;
+  button.disabled = true;
+  try {
+    await db.collection("orders").doc(id).delete();
+    showMessage(dashboardMessage, "Order deleted successfully.", "success");
+  } catch (error) {
+    showMessage(dashboardMessage, "Could not delete order. Check administrator access and Firestore rules. " + (error.message || ""), "error");
+    button.disabled = false;
+  }
 }
 async function saveOrderStatus(event) {
   const id = event.currentTarget.dataset.id;

@@ -290,17 +290,34 @@ async function sharePaymentReceiptPdf(event, channel) {
     const pdf = createPaymentReceiptPdf(order);
     const file = new File([pdf.output("blob")], "MTN-Payment-Receipt-" + order.id + ".pdf", {type:"application/pdf"});
     const message = "MTN Anytime Data payment receipt for order " + order.id + ". Payment was manually confirmed.";
+
     if (channel === "whatsapp") {
       const phone = String(order.customerPhone || "").replace(/[^0-9]/g, "").replace(/^0/, "27");
       if (phone.length < 11) {
         showMessage(dashboardMessage, "This order does not have a valid customer contact number.", "error");
         return;
       }
-      pdf.save(file.name);
-      window.location.href = "https://api.whatsapp.com/send?phone=" + phone + "&text=" + encodeURIComponent(message + " I will attach the payment receipt PDF to this chat.");
-      showMessage(dashboardMessage, "The payment receipt PDF has been downloaded and the customer's WhatsApp chat is opening. In that chat, tap the attachment icon, choose Document, select MTN-Payment-Receipt-" + order.id + ".pdf, then send.", "success");
+
+      // Start the PDF download first, then wait briefly before opening WhatsApp.
+      const blobUrl = URL.createObjectURL(file);
+      const downloadLink = document.createElement("a");
+      downloadLink.href = blobUrl;
+      downloadLink.download = file.name;
+      downloadLink.style.display = "none";
+      document.body.appendChild(downloadLink);
+      downloadLink.click();
+      downloadLink.remove();
+
+      showMessage(dashboardMessage, "Step 1 of 2: Downloading the payment receipt PDF. WhatsApp will open shortly. If your phone asks, allow the download.", "success");
+
+      setTimeout(() => URL.revokeObjectURL(blobUrl), 60000);
+      await new Promise(resolve => setTimeout(resolve, 1800));
+
+      showMessage(dashboardMessage, "Step 2 of 2: WhatsApp is opening. In the customer's chat, tap the attachment icon, choose Document, select " + file.name + ", then press Send.", "success");
+      window.location.href = "https://api.whatsapp.com/send?phone=" + phone + "&text=" + encodeURIComponent(message + " I have attached the payment receipt PDF.");
       return;
     }
+
     if (navigator.share && navigator.canShare && navigator.canShare({files:[file]})) {
       try {
         await navigator.share({files:[file], title:"Payment Receipt " + order.id, text:message});
@@ -310,18 +327,13 @@ async function sharePaymentReceiptPdf(event, channel) {
         if (error && error.name === "AbortError") return;
       }
     }
+
     pdf.save(file.name);
-    if (channel === "whatsapp") {
-      const phone = String(order.customerPhone).replace(/[^0-9]/g, "").replace(/^0/, "27");
-      window.open("https://api.whatsapp.com/send?phone=" + phone + "&text=" + encodeURIComponent(message), "_blank", "noopener");
-      showMessage(dashboardMessage, "Payment receipt PDF downloaded. In the customer's WhatsApp chat, tap the attachment icon and select the downloaded PDF before sending.", "success");
-    } else {
-      const mailto = "mailto:" + encodeURIComponent(String(order.email).trim()) +
-        "?subject=" + encodeURIComponent("MTN Data Payment Receipt " + order.id) +
-        "&body=" + encodeURIComponent(message + "\n\nPlease find the payment receipt PDF attached.");
-      window.location.href = mailto;
-      showMessage(dashboardMessage, "Payment receipt PDF downloaded. Attach the downloaded PDF to the email before sending.", "success");
-    }
+    const mailto = "mailto:" + encodeURIComponent(String(order.email).trim()) +
+      "?subject=" + encodeURIComponent("MTN Data Payment Receipt " + order.id) +
+      "&body=" + encodeURIComponent(message + "\n\nPlease find the payment receipt PDF attached.");
+    window.location.href = mailto;
+    showMessage(dashboardMessage, "Payment receipt PDF downloaded. Attach the downloaded PDF to the email before sending.", "success");
   } catch (error) {
     showMessage(dashboardMessage, "Could not create the PDF receipt: " + (error.message || "Please try again."), "error");
   }

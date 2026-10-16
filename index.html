@@ -58,7 +58,7 @@ footer{background:var(--navy2);color:white;padding:32px 7%;text-align:center}foo
   <ul class="nav-links" id="navLinks">
     <li><a href="#home"><i class="fas fa-house"></i> Home</a></li>
     <li><a href="#offers"><i class="fas fa-wifi"></i> Offers</a></li>
-    <li><a href="#order"><i class="fas fa-cart-shopping"></i> Order</a></li>
+    <li><a href="#offers"><i class="fas fa-cart-shopping"></i> Order</a></li>
     <li><a href="#payment"><i class="fas fa-wallet"></i> Payment</a></li>
     <li><a href="#contact"><i class="fas fa-phone"></i> Contact</a></li>
   </ul>
@@ -84,29 +84,13 @@ footer{background:var(--navy2);color:white;padding:32px 7%;text-align:center}foo
 </section>
 
 <section id="order">
-  <div class="section-title"><h2><i class="fas fa-cart-shopping"></i> Place Your Order</h2><p>Complete the fields below. Your order will be sent to WhatsApp for confirmation.</p></div>
-  <div class="order-wrap">
-    <form id="orderForm">
-      <div class="form-grid">
-        <div class="field"><label for="customerName">Full name *</label><input id="customerName" name="customerName" autocomplete="name" placeholder="Your full name" required maxlength="100"></div>
-        <div class="field"><label for="contactPhone">Your contact number *</label><input id="contactPhone" name="contactPhone" type="tel" autocomplete="tel" inputmode="tel" placeholder="e.g. 0821234567" pattern="[0-9+() -]{7,20}" required><span class="hint">Number we can use to contact you about the order.</span></div>
-        <div class="field"><label for="phoneNumber">MTN number to receive data *</label><input id="phoneNumber" name="phoneNumber" type="tel" inputmode="numeric" autocomplete="tel-national" placeholder="e.g. 0730916623" maxlength="10" pattern="[0-9]{10}" required><span class="hint">Enter the 10-digit MTN number receiving the bundle.</span></div>
-        <div class="field"><label for="customerEmail">Email address (optional)</label><input id="customerEmail" name="customerEmail" type="email" autocomplete="email" placeholder="you@example.com" maxlength="120"></div>
-        <div class="field full"><label for="bundle">Choose your data bundle *</label><select id="bundle" name="bundle" required><option value="">-- Select a bundle --</option><option value="10GB Anytime|100">10GB Anytime — R100</option><option value="20GB Anytime|150">20GB Anytime — R150</option><option value="35GB Anytime|250">35GB Anytime — R250</option><option value="50GB Anytime|350">50GB Anytime — R350</option></select></div>
-      </div>
-      <div class="summary" aria-live="polite">
-        <h3><i class="fas fa-receipt"></i> Order Summary</h3>
-        <div class="summary-row"><span>Full name</span><strong id="summaryName">Not entered</strong></div>
-        <div class="summary-row"><span>Contact number</span><strong id="summaryContact">Not entered</strong></div>
-        <div class="summary-row"><span>MTN number receiving data</span><strong id="summaryPhone">Not entered</strong></div>
-        <div class="summary-row"><span>Email address</span><strong id="summaryEmail">Not provided</strong></div>
-        <div class="summary-row"><span>Bundle</span><strong id="summaryBundle">Not selected</strong></div>
-        <div class="summary-row summary-total"><span>Total to confirm</span><strong id="summaryPrice">R0</strong></div>
-        <p class="hint" style="margin-top:8px">Check all details carefully before sending your order. Please wait for us to confirm your order and payment instructions before paying.</p>
-      </div>
-      <button class="btn btn-whatsapp" type="submit" style="width:100%;font-size:16px"><i class="fab fa-whatsapp"></i> Send Order on WhatsApp</button>
-    </form>
-    <div class="notice"><strong><i class="fas fa-circle-info"></i> Important payment notice</strong><p>Sending an order does not mean payment has been made. We will confirm the payment method and instructions with you on WhatsApp. Your data order is processed only after payment has been received and confirmed in our account. A payment screenshot or proof of payment alone is not confirmation.</p></div>
+  <div class="section-title"><h2><i class="fas fa-cart-shopping"></i> Place Your Order</h2><p>Choose a data bundle to continue to our order page, where your order is saved and you receive an order number.</p></div>
+  <div class="order-wrap" style="text-align:center">
+    <i class="fas fa-clipboard-check" style="font-size:38px;color:var(--navy);margin-bottom:12px" aria-hidden="true"></i>
+    <h3 style="color:var(--navy);font-size:22px;margin-bottom:8px">Ready to order?</h3>
+    <p style="color:var(--muted);margin-bottom:18px">Select one of the available bundles first. On the next page, enter your details, review your order summary and save your order. You will receive an order number to keep for your records.</p>
+    <a class="btn btn-primary" href="#offers"><i class="fas fa-wifi"></i> Choose a Data Bundle</a>
+    <div class="notice" style="text-align:left"><strong><i class="fas fa-circle-info"></i> Payment reminder</strong><p>Wait for us to confirm availability and send payment instructions. Your order is processed only after payment is received and confirmed in our account. A payment screenshot alone is not confirmation.</p></div>
   </div>
 </section>
 
@@ -169,50 +153,6 @@ document.querySelectorAll(".choose").forEach(button => button.addEventListener("
   openOfferOrder(button.dataset.bundle, button.dataset.price);
 }));
 
-document.querySelectorAll(".choose").forEach(button => button.addEventListener("click", () => {
-  document.getElementById("bundle").value = button.dataset.bundle + "|" + button.dataset.price;
-  updateSummary();
-  document.getElementById("order").scrollIntoView({behavior:"smooth"});
-}));
-function updateSummary() {
-  const value = document.getElementById("bundle").value;
-  const parts = value ? value.split("|") : [];
-  document.getElementById("summaryName").textContent = document.getElementById("customerName").value.trim() || "Not entered";
-  document.getElementById("summaryContact").textContent = document.getElementById("contactPhone").value.trim() || "Not entered";
-  document.getElementById("summaryPhone").textContent = document.getElementById("phoneNumber").value.trim() || "Not entered";
-  document.getElementById("summaryEmail").textContent = document.getElementById("customerEmail").value.trim() || "Not provided";
-  document.getElementById("summaryBundle").textContent = parts[0] || "Not selected";
-  document.getElementById("summaryPrice").textContent = parts[1] ? "R" + parts[1] : "R0";
-}
-["customerName", "contactPhone", "phoneNumber", "customerEmail", "bundle"].forEach(id => {
-  document.getElementById(id).addEventListener("input", updateSummary);
-  document.getElementById(id).addEventListener("change", updateSummary);
-});
-document.getElementById("orderForm").addEventListener("submit", event => {
-  event.preventDefault();
-  const name = document.getElementById("customerName").value.trim();
-  const contactPhone = document.getElementById("contactPhone").value.trim();
-  const recipientPhone = document.getElementById("phoneNumber").value.trim();
-  const email = document.getElementById("customerEmail").value.trim();
-  const value = document.getElementById("bundle").value;
-  if (!value) { alert("Please select a data bundle."); return; }
-  if (!/^[0-9]{10}$/.test(recipientPhone)) { alert("Please enter the 10-digit MTN number that will receive the data."); return; }
-  const [bundle, price] = value.split("|");
-  const message = [
-    "Hello, I would like to place an MTN Anytime Data order.",
-    "",
-    "Name: " + name,
-    "Contact number: " + contactPhone,
-    "MTN number receiving data: " + recipientPhone,
-    "Email: " + (email || "Not provided"),
-    "Bundle: " + bundle,
-    "Total: R" + price,
-    "",
-    "Please confirm availability and send me the payment instructions. I understand that my order will be processed only after payment is received and confirmed."
-  ].join("\n");
-  window.open("https://wa.me/" + WHATSAPP_NUMBER + "?text=" + encodeURIComponent(message), "_blank", "noopener");
-});
-updateSummary();
 </script>
 </body>
 </html>

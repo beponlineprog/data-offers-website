@@ -19,7 +19,7 @@ button,.btn{display:inline-flex;align-items:center;justify-content:center;gap:8p
 #loginPanel{max-width:460px;margin:40px auto}.message{margin-top:12px;padding:11px;border-radius:7px;background:#fff8d6;display:none}.message.error{display:block;background:#fee2e2;color:#991b1b}.message.success{display:block;background:#dcfce7;color:#166534}
 .stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-bottom:18px}.stat{background:#f0f4fb;border-radius:10px;padding:16px}.stat span{display:block;color:var(--muted);font-size:13px}.stat strong{display:block;color:var(--navy);font-size:25px}
 .table-wrap{overflow-x:auto}table{width:100%;border-collapse:collapse;min-width:900px}th,td{text-align:left;padding:12px;border-bottom:1px solid #e7ebf2;vertical-align:top;font-size:14px}th{background:#f0f4fb;color:var(--navy)}td strong{color:var(--navy)}.order-id{font-size:11px;color:var(--muted);overflow-wrap:anywhere;max-width:150px}.status-control{min-width:145px}.small{font-size:12px;color:var(--muted)}.empty{text-align:center;padding:30px;color:var(--muted)}
-.filters{display:grid;grid-template-columns:2fr 1fr 1fr;gap:12px}.filters label{margin-top:0}
+.filters{display:grid;grid-template-columns:2fr 1fr 1fr;gap:12px}.filters label{margin-top:0}.quick-filters{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}.quick-filter{background:#e9eef7;color:var(--navy);border:1px solid #d5deeb;padding:9px 12px;font-size:13px}.quick-filter.active{background:var(--navy);color:white;border-color:var(--navy)}.status-pending{font-weight:900;outline:1px solid #f59e0b}.status-processing{font-weight:900;outline:1px solid #60a5fa}
 .order-number{font-size:13px;font-weight:800;color:var(--navy);overflow-wrap:anywhere;max-width:190px}
 .status-badge{display:inline-block;padding:4px 8px;border-radius:999px;font-size:12px;font-weight:800;background:#eef2f7;color:#334155;margin:3px 4px 3px 0}
 .status-pending{background:#fef3c7;color:#92400e}.status-paid,.status-completed{background:#dcfce7;color:#166534}.status-processing{background:#dbeafe;color:#1d4ed8}.status-failed,.status-refunded,.status-cancelled{background:#fee2e2;color:#991b1b}
@@ -57,6 +57,15 @@ button,.btn{display:inline-flex;align-items:center;justify-content:center;gap:8p
         <div><label for="orderSearch">Search</label><input id="orderSearch" type="search" placeholder="Order number, name or phone"></div>
         <div><label for="paymentFilter">Payment status</label><select id="paymentFilter"><option value="">All payments</option><option>Pending</option><option>Paid</option><option>Failed</option><option>Refunded</option></select></div>
         <div><label for="orderFilter">Order status</label><select id="orderFilter"><option value="">All order statuses</option><option>Pending</option><option>Processing</option><option>Completed</option><option>Cancelled</option></select></div>
+      </div>
+      <div class="quick-filters" aria-label="Quick order filters">
+        <button type="button" class="quick-filter active" data-quick-filter="all">All Orders</button>
+        <button type="button" class="quick-filter" data-quick-filter="payment-pending">Payment Pending</button>
+        <button type="button" class="quick-filter" data-quick-filter="paid">Paid</button>
+        <button type="button" class="quick-filter" data-quick-filter="order-pending">Order Pending</button>
+        <button type="button" class="quick-filter" data-quick-filter="processing">Processing</button>
+        <button type="button" class="quick-filter" data-quick-filter="completed">Completed</button>
+        <button type="button" class="quick-filter" data-quick-filter="cancelled">Cancelled</button>
       </div>
       <p id="filteredCount" class="muted" style="margin-top:12px" aria-live="polite">Showing all orders</p>
     </div>
@@ -134,16 +143,26 @@ function badgeClass(value) {
   const key = String(value || "Pending").toLowerCase().replace(/[^a-z]/g, "");
   return "status-badge status-" + key;
 }
+let quickFilter = "all";
 function renderFilteredOrders() {
   const search = (document.getElementById("orderSearch").value || "").trim().toLowerCase();
   const paymentFilter = document.getElementById("paymentFilter").value;
   const orderFilter = document.getElementById("orderFilter").value;
   const filtered = currentOrders.filter(order => {
+    const payment = order.paymentStatus || "Pending";
+    const status = order.orderStatus || "Pending";
     const matchesSearch = !search || [order.id, order.customerName, order.customerPhone, order.recipientNumber, order.email]
       .some(value => String(value || "").toLowerCase().includes(search));
-    return matchesSearch &&
-      (!paymentFilter || (order.paymentStatus || "Pending") === paymentFilter) &&
-      (!orderFilter || (order.orderStatus || "Pending") === orderFilter);
+    const matchesQuick = quickFilter === "all" ||
+      (quickFilter === "payment-pending" && payment === "Pending") ||
+      (quickFilter === "paid" && payment === "Paid") ||
+      (quickFilter === "order-pending" && status === "Pending") ||
+      (quickFilter === "processing" && status === "Processing") ||
+      (quickFilter === "completed" && status === "Completed") ||
+      (quickFilter === "cancelled" && status === "Cancelled");
+    return matchesSearch && matchesQuick &&
+      (!paymentFilter || payment === paymentFilter) &&
+      (!orderFilter || status === orderFilter);
   });
   document.getElementById("filteredCount").textContent = "Showing " + filtered.length + " of " + currentOrders.length + " saved order(s)";
   if (!filtered.length) {
@@ -172,6 +191,15 @@ function renderFilteredOrders() {
 }
 ["orderSearch","paymentFilter","orderFilter"].forEach(id => {
   document.getElementById(id).addEventListener(id === "orderSearch" ? "input" : "change", renderFilteredOrders);
+});
+document.querySelectorAll("[data-quick-filter]").forEach(button => {
+  button.addEventListener("click", () => {
+    quickFilter = button.dataset.quickFilter;
+    document.querySelectorAll("[data-quick-filter]").forEach(item => item.classList.toggle("active", item === button));
+    document.getElementById("paymentFilter").value = "";
+    document.getElementById("orderFilter").value = "";
+    renderFilteredOrders();
+  });
 });
 async function deleteOrder(event) {
   const button = event.currentTarget;

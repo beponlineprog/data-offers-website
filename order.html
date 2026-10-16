@@ -225,6 +225,17 @@ async function shareOrderPdf(event, channel) {
   const pdf = createOrderConfirmationPdf(order);
   const file = new File([pdf.output("blob")], "MTN-Order-Confirmation-" + order.id + ".pdf", {type:"application/pdf"});
   const message = "MTN Anytime Data order confirmation " + order.id + ". This is not a payment receipt.";
+  if (channel === "whatsapp") {
+    const phone = String(order.contactPhone || "").replace(/[^0-9]/g,"").replace(/^0/,"27");
+    if (phone.length < 11) {
+      alert("The customer's contact number is missing or invalid. Please check the order details.");
+      return;
+    }
+    pdf.save(file.name);
+    window.location.href = "https://wa.me/" + phone + "?text=" + encodeURIComponent(message + " Please see the order confirmation PDF. I will attach it to this chat.");
+    alert("The PDF has been downloaded and the customer's WhatsApp chat is opening. In that chat, tap the attachment icon, choose Document, select MTN-Order-Confirmation-" + order.id + ".pdf, then send.");
+    return;
+  }
   if (navigator.share && navigator.canShare && navigator.canShare({files:[file]})) {
     try {
       await navigator.share({files:[file], title:"Order Confirmation " + order.id, text:message});

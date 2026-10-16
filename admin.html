@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#071b4d">
+<title>Admin Orders | MTN Anytime Data</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+<style>
+:root{--navy:#071b4d;--navy2:#04153b;--gold:#ffcc00;--paper:#f5f7fb;--ink:#172033;--muted:#647084;--green:#167847;--red:#a61d24}
+*{box-sizing:border-box}body{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--paper);color:var(--ink);line-height:1.5}
+header{background:var(--navy);color:white;padding:18px max(18px,5%);display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+header h1{font-size:22px;margin:0;color:var(--gold)}header a{color:white;text-decoration:none;font-weight:bold}
+main{width:min(1200px,94%);margin:26px auto 50px}.panel{background:white;border:1px solid #e2e7f0;border-radius:14px;padding:22px;margin-bottom:20px;box-shadow:0 6px 20px #071b4d0b}
+h2{margin:0 0 14px;color:var(--navy);font-size:22px}.muted{color:var(--muted);font-size:14px}
+label{display:block;font-weight:bold;color:var(--navy);margin:12px 0 6px}input,select{width:100%;padding:12px;border:1px solid #cbd3e0;border-radius:7px;font:inherit;background:white}
+button,.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:0;border-radius:7px;padding:11px 15px;font:inherit;font-weight:bold;cursor:pointer;text-decoration:none}
+.primary{background:var(--gold);color:var(--navy)}.secondary{background:#e9eef7;color:var(--navy)}.danger{background:#fee2e2;color:#991b1b}
+#loginPanel{max-width:460px;margin:40px auto}.message{margin-top:12px;padding:11px;border-radius:7px;background:#fff8d6;display:none}.message.error{display:block;background:#fee2e2;color:#991b1b}.message.success{display:block;background:#dcfce7;color:#166534}
+.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-bottom:18px}.stat{background:#f0f4fb;border-radius:10px;padding:16px}.stat span{display:block;color:var(--muted);font-size:13px}.stat strong{display:block;color:var(--navy);font-size:25px}
+.table-wrap{overflow-x:auto}table{width:100%;border-collapse:collapse;min-width:900px}th,td{text-align:left;padding:12px;border-bottom:1px solid #e7ebf2;vertical-align:top;font-size:14px}th{background:#f0f4fb;color:var(--navy)}td strong{color:var(--navy)}.order-id{font-size:11px;color:var(--muted);overflow-wrap:anywhere;max-width:150px}.status-control{min-width:145px}.small{font-size:12px;color:var(--muted)}.empty{text-align:center;padding:30px;color:var(--muted)}
+@media(max-width:650px){.stats{grid-template-columns:repeat(2,minmax(0,1fr))}.panel{padding:16px}header{padding:15px 4%}main{width:94%}}
+</style>
+</head>
+<body>
+<header><h1><i class="fas fa-gauge-high"></i> MTN Data Offers — Admin</h1><a href="index.html"><i class="fas fa-arrow-left"></i> View website</a></header>
+<main>
+  <section id="loginPanel" class="panel">
+    <h2><i class="fas fa-lock"></i> Administrator Login</h2>
+    <p class="muted">Sign in with the administrator account registered in Firebase Authentication.</p>
+    <form id="loginForm">
+      <label for="email">Email address</label><input id="email" type="email" autocomplete="username" required>
+      <label for="password">Password</label><input id="password" type="password" autocomplete="current-password" required>
+      <button class="primary" type="submit" style="width:100%;margin-top:16px"><i class="fas fa-right-to-bracket"></i> Sign in</button>
+    </form>
+    <div id="loginMessage" class="message" role="status"></div>
+  </section>
+  <section id="dashboard" hidden>
+    <div class="panel">
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap"><div><h2><i class="fas fa-clipboard-list"></i> Orders Dashboard</h2><p class="muted">Order data refreshes automatically. Confirm payments manually in your actual account; this page does not verify payments.</p></div><button id="logoutBtn" class="secondary"><i class="fas fa-right-from-bracket"></i> Sign out</button></div>
+      <div id="dashboardMessage" class="message" role="status"></div>
+    </div>
+    <div class="stats">
+      <div class="stat"><span>Total orders</span><strong id="totalCount">0</strong></div>
+      <div class="stat"><span>Pending payment</span><strong id="pendingCount">0</strong></div>
+      <div class="stat"><span>Paid</span><strong id="paidCount">0</strong></div>
+      <div class="stat"><span>Completed</span><strong id="completedCount">0</strong></div>
+    </div>
+    <div class="panel"><h2>Customer Orders</h2><p class="muted" style="margin-bottom:14px">Use the status selectors to record payment and fulfilment progress.</p><div id="ordersContainer" class="table-wrap"><p class="empty">Loading orders…</p></div></div>
+  </section>
+</main>
+<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore-compat.js"></script>
+<script>
+const firebaseConfig = {
+  apiKey: "AIzaSyBcUuzyOSX73fbYqQB8Y0XyJNttUKEFGX0",
+  authDomain: "data-mtn.firebaseapp.com",
+  projectId: "data-mtn",
+  storageBucket: "data-mtn.firebasestorage.app",
+  messagingSenderId: "404391475217",
+  appId: "1:404391475217:web:1af70626d13def144c59b0",
+  measurementId: "G-7P605HTFNZ"
+};
+const ADMIN_UID = "jL524E6wuCTDkKYZ9lue7u3fJtH2";
+if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
+const auth = firebase.auth();
+const db = firebase.firestore();
+const loginPanel = document.getElementById("loginPanel");
+const dashboard = document.getElementById("dashboard");
+const loginMessage = document.getElementById("loginMessage");
+const dashboardMessage = document.getElementById("dashboardMessage");
+let unsubscribeOrders = null;
+let currentOrders = [];
+
+function showMessage(el, text, type) {
+  el.textContent = text;
+  el.className = "message " + (type || "");
+}
+function safeText(value) { return value == null || value === "" ? "—" : String(value); }
+function escapeHtml(value) {
+  return String(value == null ? "" : value).replace(/[&<>"']/g, ch => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[ch]));
+}
+function dateText(timestamp) {
+  try { return timestamp && timestamp.toDate ? timestamp.toDate().toLocaleString() : "Just received"; }
+  catch (_) { return "—"; }
+}
+function setSignedInUI(signedIn) {
+  loginPanel.hidden = signedIn;
+  dashboard.hidden = !signedIn;
+}
+document.getElementById("loginForm").addEventListener("submit", async event => {
+  event.preventDefault();
+  showMessage(loginMessage, "Signing in…", "");
+  try {
+    const result = await auth.signInWithEmailAndPassword(
+      document.getElementById("email").value.trim(),
+      document.getElementById("password").value
+    );
+    if (result.user.uid !== ADMIN_UID) {
+      await auth.signOut();
+      showMessage(loginMessage, "Access denied. This account is not authorised as the administrator.", "error");
+    }
+  } catch (error) {
+    showMessage(loginMessage, error.code === "auth/invalid-credential" || error.code === "auth/wrong-password" || error.code === "auth/user-not-found"
+      ? "Email or password is incorrect."
+      : "Sign-in failed: " + (error.message || "Please try again."), "error");
+  }
+});
+document.getElementById("logoutBtn").addEventListener("click", () => auth.signOut());
+function renderOrders(snapshot) {
+  currentOrders = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+  document.getElementById("totalCount").textContent = currentOrders.length;
+  document.getElementById("pendingCount").textContent = currentOrders.filter(o => o.paymentStatus === "Pending").length;
+  document.getElementById("paidCount").textContent = currentOrders.filter(o => o.paymentStatus === "Paid").length;
+  document.getElementById("completedCount").textContent = currentOrders.filter(o => o.orderStatus === "Completed").length;
+  if (!currentOrders.length) {
+    document.getElementById("ordersContainer").innerHTML = '<p class="empty">No orders yet. Customer orders will appear here after the order form is connected and used.</p>';
+    return;
+  }
+  const rows = currentOrders.map(order => {
+    const id = escapeHtml(order.id);
+    const paymentOptions = ["Pending","Paid","Failed","Refunded"].map(s => '<option value="' + s + '"' + (order.paymentStatus === s ? " selected" : "") + '>' + s + '</option>').join("");
+    const statusOptions = ["Pending","Processing","Completed","Cancelled"].map(s => '<option value="' + s + '"' + (order.orderStatus === s ? " selected" : "") + '>' + s + '</option>').join("");
+    return '<tr>' +
+      '<td><strong>' + escapeHtml(order.bundle) + '</strong><br>R' + escapeHtml(order.price) + '<div class="order-id">ID: ' + id + '</div><div class="small">' + escapeHtml(dateText(order.createdAt)) + '</div></td>' +
+      '<td><strong>' + escapeHtml(order.customerName) + '</strong><br>' + escapeHtml(order.customerPhone) + '<br>' + escapeHtml(order.email || "No email") + '</td>' +
+      '<td>' + escapeHtml(order.recipientNumber) + '</td>' +
+      '<td><label class="small" for="pay-' + id + '">Payment</label><select class="status-control payment-select" id="pay-' + id + '" data-id="' + id + '">' + paymentOptions + '</select></td>' +
+      '<td><label class="small" for="status-' + id + '">Order</label><select class="status-control order-select" id="status-' + id + '" data-id="' + id + '">' + statusOptions + '</select></td>' +
+      '<td><button class="primary save-status" data-id="' + id + '"><i class="fas fa-floppy-disk"></i> Save</button></td>' +
+      '</tr>';
+  }).join("");
+  document.getElementById("ordersContainer").innerHTML = '<table><thead><tr><th>Order</th><th>Customer</th><th>MTN recipient</th><th>Payment status</th><th>Order status</th><th>Action</th></tr></thead><tbody>' + rows + '</tbody></table>';
+  document.querySelectorAll(".save-status").forEach(button => button.addEventListener("click", saveOrderStatus));
+}
+async function saveOrderStatus(event) {
+  const id = event.currentTarget.dataset.id;
+  const paymentStatus = document.getElementById("pay-" + id).value;
+  const orderStatus = document.getElementById("status-" + id).value;
+  event.currentTarget.disabled = true;
+  try {
+    await db.collection("orders").doc(id).update({ paymentStatus, orderStatus });
+    showMessage(dashboardMessage, "Order status saved.", "success");
+  } catch (error) {
+    showMessage(dashboardMessage, "Could not save status. Check your connection and Firestore rules. " + (error.message || ""), "error");
+  } finally {
+    event.currentTarget.disabled = false;
+  }
+}
+auth.onAuthStateChanged(user => {
+  if (unsubscribeOrders) { unsubscribeOrders(); unsubscribeOrders = null; }
+  if (!user) {
+    setSignedInUI(false);
+    return;
+  }
+  if (user.uid !== ADMIN_UID) {
+    auth.signOut();
+    showMessage(loginMessage, "Access denied. This account is not authorised as the administrator.", "error");
+    setSignedInUI(false);
+    return;
+  }
+  setSignedInUI(true);
+  unsubscribeOrders = db.collection("orders").orderBy("createdAt", "desc").onSnapshot(renderOrders, error => {
+    showMessage(dashboardMessage, "Unable to load orders: " + (error.message || "Check Firestore rules."), "error");
+    document.getElementById("ordersContainer").innerHTML = '<p class="empty">Orders could not be loaded.</p>';
+  });
+});
+</script>
+</body>
+</html>

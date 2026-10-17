@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#071b4d">
+<title>Payment Receipt | Nhlanganiso Communications</title>
+<style>
+:root{--navy:#071b4d;--gold:#ffcc00;--paper:#f5f7fb;--ink:#172033;--muted:#647084;--green:#166534}
+*{box-sizing:border-box}
+body{margin:0;padding:22px;background:var(--paper);font-family:Arial,Helvetica,sans-serif;color:var(--ink);line-height:1.5}
+main{max-width:760px;margin:0 auto;background:white;border:2px solid var(--navy);border-radius:12px;padding:clamp(18px,4vw,34px);box-shadow:0 8px 24px #071b4d12}
+.brand{font-weight:900;color:#8a6500;letter-spacing:1px;text-transform:uppercase}
+h1{margin:5px 0;color:var(--navy);font-size:clamp(25px,5vw,34px)}
+h2{font-size:16px;color:var(--navy);margin:24px 0 8px}
+.tag{display:inline-block;background:#dcfce7;color:var(--green);padding:8px 13px;border-radius:6px;font-weight:900;margin:12px 0}
+.row{display:flex;justify-content:space-between;gap:18px;border-bottom:1px solid #e5e7eb;padding:10px 0}
+.row span{color:var(--muted);flex:1}
+.row strong{text-align:right;overflow-wrap:anywhere;flex:1}
+.total{font-size:23px;font-weight:900;color:var(--navy);border-top:2px solid var(--navy);margin-top:16px;padding-top:16px;display:flex;justify-content:space-between;gap:15px}
+.note{margin-top:22px;padding:14px;background:var(--paper);font-size:13px}
+.small{font-size:12px;color:var(--muted);margin-top:20px;overflow-wrap:anywhere}
+.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px}
+button{border:0;border-radius:7px;padding:12px 16px;font-size:15px;font-weight:800;cursor:pointer;background:var(--gold);color:var(--navy)}
+.secondary{background:#e9eef7}
+#message{padding:16px;border-radius:8px;background:#fff8d6}
+#message.error{background:#fee2e2;color:#991b1b}
+[hidden]{display:none!important}
+@media(max-width:480px){body{padding:8px}.row{gap:10px}.row span,.row strong{font-size:13px}.total{font-size:20px}}
+@media print{body{padding:0;background:white}main{max-width:none;border:2px solid var(--navy);border-radius:0;box-shadow:none;padding:16mm}.actions{display:none}.note{break-inside:avoid}}
+</style>
+</head>
+<body>
+<main>
+  <div id="message">Loading your receipt…</div>
+  <article id="receipt" hidden>
+    <div class="brand" id="businessName">Nhlanganiso Communications</div>
+    <div id="businessService" class="small" style="margin-top:4px">MTN Anytime Data</div>
+    <h1>Payment Receipt</h1>
+    <p>Thank you for your order. This receipt confirms that payment was manually confirmed by the administrator.</p>
+    <div class="tag">PAYMENT STATUS: PAID</div>
+
+    <h2>Business information</h2>
+    <div class="row"><span>Business name</span><strong id="businessNameRow">—</strong></div>
+    <div class="row"><span>WhatsApp</span><strong id="businessWhatsApp">—</strong></div>
+    <div class="row"><span>Email</span><strong id="businessEmail">—</strong></div>
+
+    <h2>Customer information</h2>
+    <div class="row"><span>Customer name</span><strong id="customerName">—</strong></div>
+    <div class="row"><span>Contact number</span><strong id="customerPhone">—</strong></div>
+    <div class="row"><span>Email address</span><strong id="customerEmail">—</strong></div>
+    <div class="row"><span>MTN recipient number</span><strong id="recipientNumber">—</strong></div>
+
+    <h2>Order and payment details</h2>
+    <div class="row"><span>Receipt number</span><strong id="receiptNumber">—</strong></div>
+    <div class="row"><span>Order number</span><strong id="orderNumber">—</strong></div>
+    <div class="row"><span>Order date</span><strong id="orderDate">—</strong></div>
+    <div class="row"><span>Payment confirmed</span><strong id="paymentDate">—</strong></div>
+    <div class="row"><span>Payment method</span><strong id="paymentMethod">EFT / Manual Payment</strong></div>
+    <div class="row"><span>Data bundle</span><strong id="bundle">—</strong></div>
+    <div class="row"><span>Order status</span><strong id="orderStatus">—</strong></div>
+    <div class="total"><span>Amount received</span><span id="amount">—</span></div>
+
+    <div class="note">This receipt confirms payment status only. Data delivery/fulfilment is tracked separately in the order status. Bank account details are not shown because they have not yet been added.</div>
+    <p class="small">Please keep this receipt for your records. Anyone who has this unique receipt link may be able to view the details shown on this page.</p>
+    <div class="actions">
+      <button type="button" onclick="window.print()">Print / Save as PDF</button>
+      <button type="button" class="secondary" id="shareButton">Share receipt link</button>
+    </div>
+  </article>
+</main>
+<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore-compat.js"></script>
+<script>
+const firebaseConfig = {
+  apiKey: "AIzaSyBcUuzyOSX73fbYqQB8Y0XyJNttUKEFGX0",
+  authDomain: "data-mtn.firebaseapp.com",
+  projectId: "data-mtn",
+  storageBucket: "data-mtn.firebasestorage.app",
+  messagingSenderId: "404391475217",
+  appId: "1:404391475217:web:1af70626d13def144c59b0",
+  measurementId: "G-7P605HTFNZ"
+};
+if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
+const db = firebase.firestore();
+const message = document.getElementById("message");
+function setText(id, value) {
+  document.getElementById(id).textContent = value == null || value === "" ? "—" : String(value);
+}
+function displayDate(value) {
+  try {
+    if (value && typeof value.toDate === "function") return value.toDate().toLocaleString("en-ZA");
+    if (value) return new Date(value).toLocaleString("en-ZA");
+  } catch (_) {}
+  return "Not recorded";
+}
+function showError(text) {
+  message.textContent = text;
+  message.className = "error";
+}
+(async function loadReceipt() {
+  const id = new URLSearchParams(window.location.search).get("id");
+  if (!id || !/^[A-Za-z0-9_-]{10,40}$/.test(id)) {
+    showError("This receipt link is incomplete or invalid. Please ask Nhlanganiso Communications for a new link.");
+    return;
+  }
+  try {
+    const snapshot = await db.collection("receipts").doc(id).get();
+    if (!snapshot.exists) {
+      showError("This receipt could not be found. The link may be incorrect, or the receipt rules may not yet be published.");
+      return;
+    }
+    const r = snapshot.data() || {};
+    if (r.paymentStatus !== "Paid") {
+      showError("This receipt is not available because payment has not been confirmed.");
+      return;
+    }
+    const business = r.business || {};
+    setText("businessName", business.name || "Nhlanganiso Communications");
+    setText("businessService", business.service || "MTN Anytime Data");
+    setText("businessNameRow", business.name || "Nhlanganiso Communications");
+    setText("businessWhatsApp", business.whatsapp || "073 091 6623");
+    setText("businessEmail", business.email || "bep.onlineprog@gmail.com");
+    setText("customerName", r.customerName);
+    setText("customerPhone", r.customerPhone);
+    setText("customerEmail", r.email);
+    setText("recipientNumber", r.recipientNumber);
+    setText("receiptNumber", id);
+    setText("orderNumber", r.orderId);
+    setText("orderDate", displayDate(r.createdAt));
+    setText("paymentDate", displayDate(r.paymentConfirmedAt));
+    setText("paymentMethod", r.paymentMethod || "EFT / Manual Payment");
+    setText("bundle", r.bundle ? r.bundle + " (30-day validity)" : "—");
+    setText("orderStatus", r.orderStatus || "Pending");
+    setText("amount", "R" + Number(r.price || 0).toFixed(2));
+    message.hidden = true;
+    document.getElementById("receipt").hidden = false;
+    document.title = "Receipt " + id + " | Nhlanganiso Communications";
+    document.getElementById("shareButton").addEventListener("click", async () => {
+      const shareData = {title: document.title, text: "Nhlanganiso Communications payment receipt", url: window.location.href};
+      try {
+        if (navigator.share) await navigator.share(shareData);
+        else if (navigator.clipboard && navigator.clipboard.writeText) {
+          await navigator.clipboard.writeText(window.location.href);
+          alert("Receipt link copied. You can now paste it into WhatsApp or email.");
+        } else {
+          window.prompt("Copy this receipt link:", window.location.href);
+        }
+      } catch (error) {
+        if (!error || error.name !== "AbortError") window.prompt("Copy this receipt link:", window.location.href);
+      }
+    });
+  } catch (error) {
+    showError("We could not load this receipt. The administrator may need to publish the Firestore receipt rules. " + (error && error.code === "permission-denied" ? "Access is currently blocked by Firestore rules." : ""));
+  }
+})();
+</script>
+</body>
+</html>

@@ -186,7 +186,7 @@ function renderFilteredOrders() {
       '<td>' + escapeHtml(order.recipientNumber) + '</td>' +
       '<td><span class="' + badgeClass(payment) + '">Payment: ' + escapeHtml(payment) + '</span><label class="small" for="pay-' + id + '">Update payment</label><select class="status-control" id="pay-' + id + '">' + paymentOptions + '</select></td>' +
       '<td><span class="' + badgeClass(status) + '">Order: ' + escapeHtml(status) + '</span><label class="small" for="status-' + id + '">Update order</label><select class="status-control" id="status-' + id + '">' + statusOptions + '</select></td>' +
-      '<td><div style="display:flex;gap:8px;flex-wrap:wrap">' + (payment === "Paid" ? '<button class="receipt-button print-payment-receipt" data-id="' + id + '"><i class="fas fa-receipt"></i> Payment receipt</button><button class="receipt-button share-payment-whatsapp" data-id="' + id + '" style="background:#25D366;color:#063d22"><i class="fab fa-whatsapp"></i> Send receipt on WhatsApp</button><button class="receipt-button share-payment-email" data-id="' + id + '" style="background:#ffcc00;color:#071b4d"><i class="fas fa-envelope"></i> Send receipt by Email</button>' : '') + '<button class="primary save-status" data-id="' + id + '"><i class="fas fa-floppy-disk"></i> Save</button><button class="danger delete-order" data-id="' + id + '"><i class="fas fa-trash"></i> Delete</button></div></td>' +
+      '<td><div style="display:flex;gap:8px;flex-wrap:wrap">' + (payment === "Paid" ? '<button class="receipt-button print-payment-receipt" data-id="' + id + '"><i class="fas fa-receipt"></i> Payment receipt</button><button class="receipt-button share-payment-whatsapp" data-id="' + id + '" style="background:#25D366;color:#063d22"><i class="fab fa-whatsapp"></i> Send receipt link on WhatsApp</button><button class="receipt-button share-payment-email" data-id="' + id + '" style="background:#ffcc00;color:#071b4d"><i class="fas fa-envelope"></i> Send receipt link by Email</button>' : '') + '<button class="primary save-status" data-id="' + id + '"><i class="fas fa-floppy-disk"></i> Save</button><button class="danger delete-order" data-id="' + id + '"><i class="fas fa-trash"></i> Delete</button></div></td>' +
       '</tr>';
   }).join("");
   document.getElementById("ordersContainer").innerHTML = '<table><thead><tr><th>Order number / bundle</th><th>Customer</th><th>MTN recipient</th><th>Payment</th><th>Order fulfilment</th><th>Actions</th></tr></thead><tbody>' + rows + '</tbody></table>';
@@ -271,11 +271,53 @@ function createPaymentReceiptPdf(order) {
   });
   return pdf;
 }
-async function sharePaymentReceiptPdf(event, channel) {
-  const id = event.currentTarget.dataset.id;
+function receiptUrl(receiptId) {
+  const page = new URL("receipt.html", window.location.href);
+  page.searchParams.set("id", receiptId);
+  return page.href;
+}
+async function createOrGetReceiptLink(order) {
+  if (!order || order.paymentStatus !== "Paid") {
+    throw new Error("A receipt link can be created only after payment is marked Paid.");
+  }
+  let receiptRef = order.receiptId ? db.collection("receipts").doc(order.receiptId) : null;
+  if (receiptRef) {
+    const existing = await receiptRef.get();
+    if (existing.exists) return receiptUrl(receiptRef.id);
+  }
+  receiptRef = db.collection("receipts").doc();
+  const payload = {
+    orderId: order.id,
+    customerName: String(order.customerName || ""),
+    customerPhone: String(order.customerPhone || ""),
+    recipientNumber: String(order.recipientNumber || ""),
+    email: String(order.email || ""),
+    bundle: String(order.bundle || ""),
+    price: Number(order.price || 0),
+    paymentStatus: "Paid",
+    orderStatus: String(order.orderStatus || "Pending"),
+    paymentMethod: "EFT / Manual Payment",
+    createdAt: order.createdAt || null,
+    paymentConfirmedAt: order.paymentConfirmedAt || null,
+    issuedAt: firebase.firestore.FieldValue.serverTimestamp(),
+    business: {
+      name: "Nhlanganiso Communications",
+      service: "MTN Anytime Data",
+      whatsapp: "073 091 6623",
+      email: "bep.onlineprog@gmail.com"
+    }
+  };
+  await receiptRef.set(payload);
+  await db.collection("orders").doc(order.id).update({receiptId: receiptRef.id});
+  order.receiptId = receiptRef.id;
+  return receiptUrl(receiptRef.id);
+}
+async function sharePaymentReceiptLink(event, channel) {
+  const button = event.currentTarget;
+  const id = button.dataset.id;
   const order = currentOrders.find(item => item.id === id);
   if (!order || order.paymentStatus !== "Paid") {
-    showMessage(dashboardMessage, "A payment receipt can be shared only after payment is marked Paid.", "error");
+    showMessage(dashboardMessage, "A receipt link can be shared only after payment is marked Paid.", "error");
     return;
   }
   if (channel === "email" && !String(order.email || "").trim()) {
@@ -286,60 +328,32 @@ async function sharePaymentReceiptPdf(event, channel) {
     showMessage(dashboardMessage, "This order does not have a valid customer contact number.", "error");
     return;
   }
+  button.disabled = true;
   try {
-    const pdf = createPaymentReceiptPdf(order);
-    const file = new File([pdf.output("blob")], "MTN-Payment-Receipt-" + order.id + ".pdf", {type:"application/pdf"});
-    const message = "MTN Anytime Data payment receipt for order " + order.id + ". Payment was manually confirmed.";
-
+    showMessage(dashboardMessage, "Preparing a customer receipt link…", "");
+    const link = await createOrGetReceiptLink(order);
+    const message = "Nhlanganiso Communications — MTN Anytime Data payment receipt for order " +
+      order.id + ". Payment was manually confirmed. Open your receipt here: " + link;
     if (channel === "whatsapp") {
       const phone = String(order.customerPhone || "").replace(/[^0-9]/g, "").replace(/^0/, "27");
-      if (phone.length < 11) {
-        showMessage(dashboardMessage, "This order does not have a valid customer contact number.", "error");
-        return;
-      }
-
-      // Start the PDF download first, then wait briefly before opening WhatsApp.
-      const blobUrl = URL.createObjectURL(file);
-      const downloadLink = document.createElement("a");
-      downloadLink.href = blobUrl;
-      downloadLink.download = file.name;
-      downloadLink.style.display = "none";
-      document.body.appendChild(downloadLink);
-      downloadLink.click();
-      downloadLink.remove();
-
-      showMessage(dashboardMessage, "Step 1 of 2: Downloading the payment receipt PDF. WhatsApp will open shortly. If your phone asks, allow the download.", "success");
-
-      setTimeout(() => URL.revokeObjectURL(blobUrl), 60000);
-      await new Promise(resolve => setTimeout(resolve, 1800));
-
-      showMessage(dashboardMessage, "Step 2 of 2: WhatsApp is opening. In the customer's chat, tap the attachment icon, choose Document, select " + file.name + ", then press Send.", "success");
-      window.location.href = "https://api.whatsapp.com/send?phone=" + phone + "&text=" + encodeURIComponent(message + " I have attached the payment receipt PDF.");
-      return;
+      if (phone.length < 11) throw new Error("This order does not have a valid South African customer contact number.");
+      window.location.href = "https://wa.me/" + phone + "?text=" + encodeURIComponent(message);
+      showMessage(dashboardMessage, "Receipt link prepared. WhatsApp is opening the customer's chat. Send the message to share the receipt.", "success");
+    } else {
+      const subject = "Nhlanganiso Communications Payment Receipt " + order.id;
+      const body = message + "\\n\\nPayment method: EFT / Manual Payment";
+      window.location.href = "mailto:" + encodeURIComponent(String(order.email).trim()) +
+        "?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(body);
+      showMessage(dashboardMessage, "Receipt link prepared. Your email app is opening with the customer address and receipt link.", "success");
     }
-
-    if (navigator.share && navigator.canShare && navigator.canShare({files:[file]})) {
-      try {
-        await navigator.share({files:[file], title:"Payment Receipt " + order.id, text:message});
-        showMessage(dashboardMessage, "PDF share opened. Choose your email app, then choose the customer and send the attached PDF.", "success");
-        return;
-      } catch (error) {
-        if (error && error.name === "AbortError") return;
-      }
-    }
-
-    pdf.save(file.name);
-    const mailto = "mailto:" + encodeURIComponent(String(order.email).trim()) +
-      "?subject=" + encodeURIComponent("MTN Data Payment Receipt " + order.id) +
-      "&body=" + encodeURIComponent(message + "\n\nPlease find the payment receipt PDF attached.");
-    window.location.href = mailto;
-    showMessage(dashboardMessage, "Payment receipt PDF downloaded. Attach the downloaded PDF to the email before sending.", "success");
   } catch (error) {
-    showMessage(dashboardMessage, "Could not create the PDF receipt: " + (error.message || "Please try again."), "error");
+    showMessage(dashboardMessage, "Could not create/share receipt link. Check that the new Firestore receipt rules have been published. " + (error.message || ""), "error");
+  } finally {
+    button.disabled = false;
   }
 }
-function sharePaymentReceiptWhatsApp(event) { return sharePaymentReceiptPdf(event, "whatsapp"); }
-function sharePaymentReceiptEmail(event) { return sharePaymentReceiptPdf(event, "email"); }
+function sharePaymentReceiptWhatsApp(event) { return sharePaymentReceiptLink(event, "whatsapp"); }
+function sharePaymentReceiptEmail(event) { return sharePaymentReceiptLink(event, "email"); }
 function printPaymentReceipt(event) {
   const id = event.currentTarget.dataset.id;
   const order = currentOrders.find(item => item.id === id);

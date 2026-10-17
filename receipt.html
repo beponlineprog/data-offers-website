@@ -6,23 +6,23 @@
 <meta name="theme-color" content="#071b4d">
 <title>Payment Receipt | Nhlanganiso Communications</title>
 <style>
-:root{--navy:#071b4d;--gold:#ffcc00;--paper:#f5f7fb;--ink:#172033;--muted:#647084;--green:#166534}
+:root{--navy:#071b4d;--gold:#ffcc00;--paper:#f5f7fb;--ink:#172033;--muted:#647084;--green:#166534;--blue:#0877bd;--line:#dbe5f0}
 *{box-sizing:border-box}
 body{margin:0;padding:22px;background:var(--paper);font-family:Arial,Helvetica,sans-serif;color:var(--ink);line-height:1.5}
-main{max-width:760px;margin:0 auto;background:white;border:2px solid var(--navy);border-radius:12px;padding:clamp(18px,4vw,34px);box-shadow:0 8px 24px #071b4d12}
-.brand-header{display:flex;align-items:center;gap:14px;padding-bottom:16px;border-bottom:2px solid #d9eaf8;margin-bottom:18px}
+main{max-width:760px;margin:0 auto;background:white;border:2px solid var(--navy);border-top:8px solid var(--gold);border-radius:12px;padding:clamp(18px,4vw,34px);box-shadow:0 8px 24px #071b4d12}
+.brand-header{display:flex;align-items:center;gap:14px;padding-bottom:16px;border-bottom:2px solid var(--line);margin-bottom:18px}
 .brand-mark{width:76px;height:76px;flex:0 0 76px;display:block}
 .brand-copy{min-width:0}
 .brand{font-weight:900;color:var(--navy);letter-spacing:.5px;text-transform:uppercase;font-size:clamp(16px,3.5vw,23px);line-height:1.2;overflow-wrap:anywhere}
 .brand-subtitle{font-size:12px;font-weight:800;letter-spacing:1.5px;color:#1686c9;text-transform:uppercase;margin-top:5px}
-h1{margin:18px 0 5px;color:var(--navy);font-size:clamp(25px,5vw,34px)}
-h2{font-size:16px;color:var(--navy);margin:24px 0 8px}
-.tag{display:inline-block;background:#dcfce7;color:var(--green);padding:8px 13px;border-radius:6px;font-weight:900;margin:12px 0}
-.row{display:flex;justify-content:space-between;gap:18px;border-bottom:1px solid #e5e7eb;padding:10px 0}
+.receipt-kicker{font-size:11px;font-weight:900;letter-spacing:1.8px;color:var(--blue);text-transform:uppercase;margin-top:18px}\nh1{margin:3px 0 5px;color:var(--navy);font-size:clamp(25px,5vw,34px)}\n.receipt-intro{margin:0 0 10px;color:var(--muted)}\n.service-strip{display:flex;align-items:center;gap:10px;background:#edf7ff;border:1px solid #c9e8fa;border-left:5px solid var(--blue);border-radius:7px;padding:10px 12px;margin:15px 0 8px;font-weight:800;color:var(--navy)}\n.service-dot{width:9px;height:9px;flex:0 0 9px;border-radius:50%;background:var(--gold);box-shadow:0 0 0 3px #ffcc0033}
+h2{font-size:16px;color:var(--navy);margin:24px 0 8px;padding-bottom:6px;border-bottom:1px solid var(--line)}
+.tag{display:inline-flex;align-items:center;gap:8px;background:#dcfce7;color:var(--green);padding:8px 13px;border:1px solid #bbf7d0;border-radius:6px;font-weight:900;margin:8px 0 12px;letter-spacing:.3px}\n.tag:before{content:"✓";display:inline-grid;place-items:center;width:19px;height:19px;border-radius:50%;background:var(--green);color:white;font-size:12px}
+.row{display:flex;justify-content:space-between;gap:18px;border-bottom:1px solid #e5e7eb;padding:10px 0}\n.row.featured{background:#f2f8ff;border:1px solid #d6eafa;border-radius:7px;padding:12px;margin:8px 0}\n.row.featured span{font-weight:800;color:var(--navy)}\n.row.featured strong{color:var(--blue);font-size:16px}
 .row span{color:var(--muted);flex:1}
 .row strong{text-align:right;overflow-wrap:anywhere;flex:1}
-.total{font-size:23px;font-weight:900;color:var(--navy);border-top:2px solid var(--navy);margin-top:16px;padding-top:16px;display:flex;justify-content:space-between;gap:15px}
-.note{margin-top:22px;padding:14px;background:var(--paper);font-size:13px}
+.total{font-size:23px;font-weight:900;color:var(--navy);background:#fff9db;border:1px solid #f3d76a;border-left:6px solid var(--gold);border-radius:8px;margin-top:18px;padding:16px;display:flex;justify-content:space-between;gap:15px}
+.note{margin-top:22px;padding:14px;background:var(--paper);border:1px solid var(--line);border-radius:8px;font-size:13px}
 .small{font-size:12px;color:var(--muted);margin-top:20px;overflow-wrap:anywhere}
 .actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px}
 button{border:0;border-radius:7px;padding:12px 16px;font-size:15px;font-weight:800;cursor:pointer;background:var(--gold);color:var(--navy)}
@@ -31,7 +31,7 @@ button{border:0;border-radius:7px;padding:12px 16px;font-size:15px;font-weight:8
 #message.error{background:#fee2e2;color:#991b1b}
 [hidden]{display:none!important}
 @media(max-width:480px){body{padding:8px}.row{gap:10px}.row span,.row strong{font-size:13px}.total{font-size:20px}}
-@page{size:auto;margin:10mm}@media print{html,body{margin:0!important;padding:0!important;background:#fff!important;font-size:12px;line-height:1.4}main{width:100%;max-width:none;margin:0;border:1.5px solid var(--navy);border-radius:0;box-shadow:none;padding:8mm}.brand-header{gap:12px;padding-bottom:10px;margin-bottom:12px;break-inside:avoid}.brand-mark{width:64px;height:64px;flex:0 0 64px;-webkit-print-color-adjust:exact;print-color-adjust:exact}.brand{font-size:21px;line-height:1.2}.brand-subtitle{font-size:10px;letter-spacing:1.2px;margin-top:4px}.brand-header .small{font-size:10px;margin-top:4px!important}h1{font-size:28px;margin:12px 0 5px}p{margin:7px 0}.tag{padding:6px 10px;margin:8px 0;font-size:11px}h2{font-size:13px;margin:15px 0 5px}.row{gap:12px;padding:7px 0;break-inside:avoid}.row span,.row strong{font-size:11.5px;line-height:1.3}.total{font-size:20px;margin-top:11px;padding-top:11px;gap:10px}.note{margin-top:14px;padding:10px;font-size:10.5px;line-height:1.35;break-inside:avoid}.small{font-size:10px;margin-top:10px;line-height:1.3;overflow-wrap:anywhere}.actions{display:none}}
+@page{size:auto;margin:10mm}@media print{html,body{margin:0!important;padding:0!important;background:#fff!important;font-size:12px;line-height:1.4}main{width:100%;max-width:none;margin:0;border:1.5px solid var(--navy);border-radius:0;box-shadow:none;padding:8mm}.brand-header{gap:12px;padding-bottom:10px;margin-bottom:10px;break-inside:avoid}.brand-mark{width:64px;height:64px;flex:0 0 64px;-webkit-print-color-adjust:exact;print-color-adjust:exact}.brand{font-size:21px;line-height:1.2}.brand-subtitle{font-size:10px;letter-spacing:1.2px;margin-top:4px}.brand-header .small{font-size:10px;margin-top:4px!important}.receipt-kicker{font-size:9px;margin-top:10px}h1{font-size:28px;margin:3px 0 4px}.receipt-intro{margin:0 0 6px}.service-strip{padding:7px 10px;margin:8px 0 5px;font-size:10px}.tag{padding:6px 10px;margin:6px 0;font-size:11px}h2{font-size:13px;margin:12px 0 5px;padding-bottom:4px}.row{gap:12px;padding:6px 0;break-inside:avoid}.row.featured{padding:7px 9px;margin:5px 0}.row span,.row strong{font-size:11.5px;line-height:1.3}.row.featured strong{font-size:13px}.total{font-size:20px;margin-top:10px;padding:10px;gap:10px}.note{margin-top:10px;padding:8px;font-size:10.5px;line-height:1.3;break-inside:avoid}.small{font-size:10px;margin-top:8px;line-height:1.25;overflow-wrap:anywhere}.actions{display:none}}
 </style>
 </head>
 <body>
@@ -67,7 +67,7 @@ button{border:0;border-radius:7px;padding:12px 16px;font-size:15px;font-weight:8
     <div class="row"><span>Customer name</span><strong id="customerName">—</strong></div>
     <div class="row"><span>Contact number</span><strong id="customerPhone">—</strong></div>
     <div class="row"><span>Email address</span><strong id="customerEmail">—</strong></div>
-    <div class="row"><span>MTN recipient number</span><strong id="recipientNumber">—</strong></div>
+    <div class="row featured"><span>MTN recipient number</span><strong id="recipientNumber">—</strong></div>
 
     <h2>Order and payment details</h2>
     <div class="row"><span>Receipt number</span><strong id="receiptNumber">—</strong></div>
@@ -75,7 +75,7 @@ button{border:0;border-radius:7px;padding:12px 16px;font-size:15px;font-weight:8
     <div class="row"><span>Order date</span><strong id="orderDate">—</strong></div>
     <div class="row"><span>Payment confirmed</span><strong id="paymentDate">—</strong></div>
     <div class="row"><span>Payment method</span><strong id="paymentMethod">EFT / Manual Payment</strong></div>
-    <div class="row"><span>Data bundle</span><strong id="bundle">—</strong></div>
+    <div class="row featured"><span>Data bundle</span><strong id="bundle">—</strong></div>
     <div class="row"><span>Order status</span><strong id="orderStatus">—</strong></div>
     <div class="total"><span>Amount received</span><span id="amount">—</span></div>
 

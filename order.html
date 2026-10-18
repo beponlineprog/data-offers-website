@@ -37,12 +37,13 @@ input:focus{outline:3px solid #ffcc0055;border-color:#b18d00}
 footer{background:var(--navy2);color:white;padding:26px 7%;text-align:center}footer h2{color:var(--gold)}footer p{margin-top:7px;color:#e1e8f5}
 @media(max-width:600px){nav{padding:10px 4%;gap:8px}.brand-lockup{gap:7px;flex:1}.brand-mark{width:36px;height:36px;flex-basis:36px}.logo{font-size:12px;letter-spacing:0}.brand-service,.brand-slogan{font-size:9px}.btn{font-size:12px;padding:10px 9px}.form-grid{grid-template-columns:1fr}.field.full{grid-column:auto}.selected .selected-price{font-size:24px}.summary{padding:14px}.summary-row{font-size:14px}}
 
-.receipt-card{background:#fff;border:1px solid #d8dfeb;border-radius:10px;padding:18px;margin-top:18px;color:var(--ink)}
-.receipt-card h3{color:var(--navy);font-size:20px;margin-bottom:4px}.receipt-label{font-size:12px;font-weight:900;letter-spacing:1px;color:#8a5b00}
-.receipt-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px 16px;margin:14px 0}.receipt-item{padding:7px 0;border-bottom:1px solid #edf0f5;overflow-wrap:anywhere}.receipt-item span{display:block;color:var(--muted);font-size:12px}.receipt-item strong{overflow-wrap:anywhere}
-.receipt-total{display:flex;justify-content:space-between;gap:12px;padding-top:12px;border-top:2px solid var(--navy);font-size:22px;font-weight:900;color:var(--navy)}
-@media print{body *{visibility:hidden!important}#receiptDocument,#receiptDocument *{visibility:visible!important}#receiptDocument{display:block!important;position:absolute;left:0;top:0;width:100%;margin:0;border:0;box-shadow:none;padding:24px}.receipt-card{border:0}.no-print{display:none!important}}
-@media(max-width:520px){.receipt-grid{grid-template-columns:1fr}}
+.receipt-card{background:#fff;border:2px solid var(--navy);border-top:7px solid var(--gold);border-radius:12px;padding:clamp(16px,4vw,28px);margin-top:18px;color:var(--ink);box-shadow:0 8px 24px #071b4d12}
+.confirm-brand-header{display:flex;align-items:center;gap:13px;padding-bottom:15px;border-bottom:2px solid #dbe5f0;margin-bottom:16px}.confirm-brand-mark{width:64px;height:64px;flex:0 0 64px;display:block}.confirm-brand{font-weight:900;color:var(--navy);font-size:clamp(16px,3.5vw,22px);line-height:1.2;overflow-wrap:anywhere}.confirm-brand-subtitle{font-size:11px;font-weight:900;letter-spacing:1.3px;color:#1686c9;text-transform:uppercase;margin-top:5px}.receipt-label{font-size:11px;font-weight:900;letter-spacing:1.4px;color:#8a5b00;text-transform:uppercase;margin:14px 0 4px}
+.receipt-card h3{color:var(--navy);font-size:clamp(24px,4vw,31px);margin-bottom:5px}.confirm-service-strip{display:flex;align-items:center;gap:9px;background:#edf7ff;border:1px solid #c9e8fa;border-left:5px solid #0877bd;border-radius:7px;padding:10px 12px;margin:14px 0;font-weight:800;color:var(--navy)}.confirm-service-dot{width:9px;height:9px;flex:0 0 9px;border-radius:50%;background:var(--gold)}
+.confirm-section-title{font-size:15px;color:var(--navy);margin:20px 0 7px;padding-bottom:6px;border-bottom:1px solid #dbe5f0}.receipt-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px 16px;margin:10px 0}.receipt-item{padding:8px 0;border-bottom:1px solid #edf0f5;overflow-wrap:anywhere}.receipt-item span{display:block;color:var(--muted);font-size:12px}.receipt-item strong{overflow-wrap:anywhere}
+.confirm-status{display:inline-flex;align-items:center;background:#fff8d6;color:var(--navy);border:1px solid #f0d86b;border-left:5px solid var(--gold);border-radius:6px;padding:8px 12px;font-weight:900;margin:8px 0 10px}.receipt-total{display:flex;justify-content:space-between;gap:12px;padding:14px;margin-top:16px;background:#fff9db;border:1px solid #f3d76a;border-left:6px solid var(--gold);border-radius:8px;font-size:22px;font-weight:900;color:var(--navy)}
+@media print{body *{visibility:hidden!important}#receiptDocument,#receiptDocument *{visibility:visible!important}#receiptDocument{display:block!important;position:absolute;left:0;top:0;width:100%;margin:0;border-radius:0;box-shadow:none;padding:8mm;border:1.5px solid var(--navy);border-top:5px solid var(--gold)}.no-print{display:none!important}.confirm-brand-mark{width:56px;height:56px;flex-basis:56px}}
+@media(max-width:520px){.receipt-grid{grid-template-columns:1fr}.confirm-brand-mark{width:50px;height:50px;flex-basis:50px}}
 </style>
 </head>
 <body>
@@ -79,23 +80,42 @@ footer{background:var(--navy2);color:white;padding:26px 7%;text-align:center}foo
     <div class="order-id-copy-row"><span id="successOrderId" class="success-order-id"></span><button type="button" id="copyOrderIdBtn" class="btn btn-primary copy-order-btn"><i class="fas fa-copy"></i> Copy order number</button></div><p id="copyOrderIdMessage" class="hint" role="status" aria-live="polite"></p>
 
     <section id="receiptDocument" class="receipt-card" aria-label="Order confirmation receipt">
-      <div class="receipt-label">ORDER CONFIRMATION · NOT A PAYMENT RECEIPT</div>
-      <h3>MTN Anytime Data</h3>
-      <p class="hint">Order confirmation — payment has not yet been confirmed.</p>
-      <div style="margin-top:12px"><span class="hint">ORDER NUMBER</span><br><strong id="receiptOrderNumber" style="overflow-wrap:anywhere;color:var(--navy)"></strong></div>
+      <header class="confirm-brand-header" aria-label="Nhlanganiso Communications logo">
+        <svg class="confirm-brand-mark" viewBox="0 0 100 100" role="img" aria-label="Nhlanganiso Communications Wi-Fi logo">
+          <rect x="2" y="2" width="96" height="96" rx="23" fill="#071b4d" stroke="#ffcc00" stroke-width="3"/>
+          <path d="M18 36 Q50 8 82 36" fill="none" stroke="#42c7f5" stroke-width="7" stroke-linecap="round"/>
+          <path d="M28 47 Q50 28 72 47" fill="none" stroke="#42c7f5" stroke-width="7" stroke-linecap="round"/>
+          <path d="M39 58 Q50 49 61 58" fill="none" stroke="#42c7f5" stroke-width="7" stroke-linecap="round"/>
+          <circle cx="50" cy="69" r="6" fill="#ffcc00"/>
+        </svg>
+        <div>
+          <div class="confirm-brand">Nhlanganiso Communications</div>
+          <div class="confirm-brand-subtitle">MTN Anytime Data</div>
+          <div class="hint" style="margin-top:4px">Affordable Data. Simple Ordering.</div>
+        </div>
+      </header>
+      <div class="receipt-label">Order confirmation · Not a payment receipt</div>
+      <h3>Order Confirmation</h3>
+      <p class="hint">Your order has been recorded. Payment has not yet been confirmed.</p>
+      <div class="confirm-service-strip"><span class="confirm-service-dot"></span><span>MTN Anytime Data · 30-day validity</span></div>
+      <div class="confirm-status">PAYMENT STATUS: PENDING — UNPAID</div>
+      <h4 class="confirm-section-title">Order information</h4>
       <div class="receipt-grid">
+        <div class="receipt-item"><span>Order number</span><strong id="receiptOrderNumber" style="overflow-wrap:anywhere;color:var(--navy)"></strong></div>
         <div class="receipt-item"><span>Order date</span><strong id="receiptOrderDate"></strong></div>
-        <div class="receipt-item"><span>Payment status</span><strong>Pending — unpaid</strong></div>
-        <div class="receipt-item"><span>Customer</span><strong id="receiptCustomer"></strong></div>
-        <div class="receipt-item"><span>Contact number</span><strong id="receiptContact"></strong></div>
-        <div class="receipt-item"><span>MTN number receiving data</span><strong id="receiptRecipient"></strong></div>
-        <div class="receipt-item"><span>Email</span><strong id="receiptEmail"></strong></div>
         <div class="receipt-item"><span>Data bundle</span><strong id="receiptBundle"></strong></div>
         <div class="receipt-item"><span>Validity</span><strong>30 days</strong></div>
       </div>
+      <h4 class="confirm-section-title">Customer information</h4>
+      <div class="receipt-grid">
+        <div class="receipt-item"><span>Customer name</span><strong id="receiptCustomer"></strong></div>
+        <div class="receipt-item"><span>Contact number</span><strong id="receiptContact"></strong></div>
+        <div class="receipt-item"><span>MTN number receiving data</span><strong id="receiptRecipient"></strong></div>
+        <div class="receipt-item"><span>Email address</span><strong id="receiptEmail"></strong></div>
+      </div>
       <div class="receipt-total"><span>Total due</span><span id="receiptTotal"></span></div>
-      <p style="margin-top:14px;font-size:13px">This confirms that your order was recorded only. It does not confirm payment or data delivery. Please wait for payment instructions. The order will be processed only after payment is received and confirmed in the business account.</p>
-      <p style="margin-top:12px;font-size:12px;color:var(--muted)">Contact: WhatsApp 073 091 6623 · bep.onlineprog@gmail.com</p>
+      <div class="notice" style="margin-top:16px"><strong>Important payment information</strong><p>Your order is not yet paid. Please wait for payment instructions. We process the order only after payment has been received and confirmed in the business account. A payment screenshot alone is not confirmation.</p></div>
+      <p style="margin-top:14px;font-size:12px;color:var(--muted)">Business contact: WhatsApp 073 091 6623 · bep.onlineprog@gmail.com</p>
     </section>
     <div class="success-actions no-print"><button type="button" id="printOrderConfirmation" class="btn btn-primary"><i class="fas fa-print"></i> Print / Save order confirmation</button><a id="shareOrderWhatsApp" class="btn btn-whatsapp" href="#" target="_blank" rel="noopener"><i class="fab fa-whatsapp"></i> Share on WhatsApp</a><a id="shareOrderEmail" class="btn btn-primary" href="#"><i class="fas fa-envelope"></i> Share by Email</a></div>
     <p><strong>Important:</strong> Do not make payment until you receive the payment instructions. Your order is processed only after payment reaches our account and is confirmed. A screenshot alone is not proof of payment.</p>

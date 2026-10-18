@@ -371,6 +371,7 @@ document.getElementById("orderForm").addEventListener("submit", async event => {
     populateOrderConfirmation(orderRef.id, new Date().toLocaleString("en-ZA"), name, contactPhone, recipientPhone, email, bundle, price);
     document.getElementById("sendSavedOrderWhatsApp").href = "https://wa.me/" + WHATSAPP_NUMBER + "?text=" + encodeURIComponent(message);
     const customerWhatsApp = contactPhone.replace(/[^0-9]/g, "").replace(/^0/, "27");
+    const confirmationLink = makeConfirmationLink(savedOrderForReceipt);
     const confirmationMessage = [
       "MTN Anytime Data — ORDER CONFIRMATION (NOT A PAYMENT RECEIPT)",
       "Order number: " + orderRef.id,
@@ -381,6 +382,7 @@ document.getElementById("orderForm").addEventListener("submit", async event => {
       "Bundle: " + bundle + " (30-day validity)",
       "Total due: R" + price,
       "Payment status: Pending — unpaid",
+      "OPEN / SAVE YOUR PDF ORDER CONFIRMATION: " + confirmationLink,
       "This confirms the order was recorded only. It does not confirm payment or data delivery. The order is processed only after payment is received and confirmed.",
       "Business contact: WhatsApp 073 091 6623 · bep.onlineprog@gmail.com"
     ].join("\n");

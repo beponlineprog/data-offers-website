@@ -207,7 +207,7 @@ document.getElementById("shareOrderWhatsApp").addEventListener("click", event =>
   const link = makeConfirmationLink(order);
   const phone = String(order.contactPhone || "").replace(/[^0-9]/g, "").replace(/^0/, "27");
   const message = "Nhlanganiso Communications — MTN Anytime Data Order Confirmation\\nOrder number: " + order.id +
-    "\\nPayment status: PENDING — UNPAID\\nThis is not a payment receipt.\\nOPEN / SAVE YOUR PDF ORDER CONFIRMATION: " + link;
+    "\\nPayment status: PENDING — UNPAID\\nThis is not a payment receipt.\\n\\nORDER CONFIRMATION LINK (tap to open):\\n" + link + "\\n\\nOpen the link above to view or save your order confirmation.";
   window.location.href = "https://api.whatsapp.com/send?phone=" + phone + "&text=" + encodeURIComponent(message);
 });
 document.getElementById("shareOrderEmail").addEventListener("click", event => shareOrderPdf(event, "email"));
@@ -262,9 +262,11 @@ function createOrderConfirmationPdf(order) {
   pdf.text("WhatsApp 073 091 6623  |  bep.onlineprog@gmail.com", left, y);
   pdf.setFont("helvetica","normal"); pdf.setFontSize(7); pdf.setTextColor(100,112,132);
   pdf.text("Affordable Data. Simple Ordering.", left, y+5);
+  // Guarantee that the downloadable confirmation never contains more than one page.
+  while (pdf.getNumberOfPages() > 1) pdf.deletePage(pdf.getNumberOfPages());
   return pdf;
 }
-async function makeConfirmationLink(order) {\n  const confirmationParams = new URLSearchParams({id:order.id,date:order.date,name:order.name,contact:order.contactPhone,recipient:order.recipientPhone,email:order.email || "",bundle:order.bundle,price:String(order.price)});\n  const link = new URL("order-confirmation.html", window.location.href);\n  link.search = confirmationParams.toString();\n  return link.href;\n}\nfunction shareOrderPdf(event, channel) {
+async function makeConfirmationLink(order) {\n  const confirmationParams = new URLSearchParams({id:order.id,date:order.date,name:order.name,contact:order.contactPhone,recipient:order.recipientPhone,email:order.email || "",bundle:order.bundle,price:String(order.price)});\n  const link = new URL("https://beponlineprog.github.io/data-offers-website/order-confirmation.html");\n  link.search = confirmationParams.toString();\n  return link.href;\n}\nfunction shareOrderPdf(event, channel) {
   event.preventDefault();
   if (!savedOrderForReceipt) { alert("Please save your order before sharing its confirmation."); return; }
   const order = savedOrderForReceipt;
@@ -382,7 +384,7 @@ document.getElementById("orderForm").addEventListener("submit", async event => {
       "Bundle: " + bundle + " (30-day validity)",
       "Total due: R" + price,
       "Payment status: Pending — unpaid",
-      "OPEN / SAVE YOUR PDF ORDER CONFIRMATION: " + confirmationLink,
+      "ORDER CONFIRMATION LINK (tap to open):",\n      confirmationLink,
       "This confirms the order was recorded only. It does not confirm payment or data delivery. The order is processed only after payment is received and confirmed.",
       "Business contact: WhatsApp 073 091 6623 · bep.onlineprog@gmail.com"
     ].join("\n");

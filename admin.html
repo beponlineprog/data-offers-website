@@ -281,11 +281,16 @@ async function createOrGetReceiptLink(order) {
     throw new Error("A receipt link can be created only after payment is marked Paid.");
   }
   let receiptRef = order.receiptId ? db.collection("receipts").doc(order.receiptId) : null;
+  let existingReceiptData = null;
   if (receiptRef) {
     const existing = await receiptRef.get();
-    if (existing.exists) return receiptUrl(receiptRef.id);
+    if (existing.exists) {
+      existingReceiptData = existing.data() || {};
+    } else {
+      receiptRef = null;
+    }
   }
-  receiptRef = db.collection("receipts").doc();
+  if (!receiptRef) receiptRef = db.collection("receipts").doc();
   const payload = {
     orderId: order.id,
     customerName: String(order.customerName || ""),
@@ -307,6 +312,7 @@ async function createOrGetReceiptLink(order) {
       email: "bep.onlineprog@gmail.com"
     }
   };
+  if (existingReceiptData && existingReceiptData.issuedAt) payload.issuedAt = existingReceiptData.issuedAt;
   await receiptRef.set(payload);
   await db.collection("orders").doc(order.id).update({receiptId: receiptRef.id});
   order.receiptId = receiptRef.id;
@@ -394,8 +400,20 @@ async function saveOrderStatus(event) {
     if (paymentStatus === "Paid" && order && !order.paymentConfirmedAt) {
       update.paymentConfirmedAt = firebase.firestore.FieldValue.serverTimestamp();
     }
-    await db.collection("orders").doc(id).update(update);
-    showMessage(dashboardMessage, paymentStatus === "Paid" ? "Payment status saved. A payment receipt is now available for this order." : "Order status saved.", "success");
+    const orderRef = db.collection("orders").doc(id);
+    const batch = db.batch();
+    batch.update(orderRef, update);
+    if (order && order.receiptId) {
+      const receiptRef = db.collection("receipts").doc(order.receiptId);
+      const receiptSnapshot = await receiptRef.get();
+      if (receiptSnapshot.exists) {
+        const receiptUpdate = { paymentStatus, orderStatus };
+        if (update.paymentConfirmedAt) receiptUpdate.paymentConfirmedAt = update.paymentConfirmedAt;
+        batch.update(receiptRef, receiptUpdate);
+      }
+    }
+    await batch.commit();
+    showMessage(dashboardMessage, paymentStatus === "Paid" ? "Payment and order status saved. Any existing receipt has been synchronised." : "Payment and order status saved. Any existing receipt has been synchronised.", "success");
   } catch (error) {
     showMessage(dashboardMessage, "Could not save status. Check your connection and Firestore rules. " + (error.message || ""), "error");
   } finally {

@@ -48,12 +48,15 @@ input:focus,select:focus{outline:3px solid #ffcc0055;border-color:#b18d00}
 .contact-card{background:white;border-radius:12px;padding:24px;text-align:center;border:1px solid #e5e9f1}.contact-card i{font-size:30px;color:var(--navy);margin-bottom:8px}
 footer{background:var(--navy2);color:white;padding:32px 7%;text-align:center}footer h2{color:var(--gold)}footer p{margin-top:8px;color:#e1e8f5}
 .floating-wa{position:fixed;right:18px;bottom:18px;width:56px;height:56px;border-radius:50%;background:var(--green);color:#063d22;display:flex;align-items:center;justify-content:center;font-size:29px;text-decoration:none;z-index:999;box-shadow:0 5px 20px #0003}
-@media(max-width:760px){nav{padding:10px 5%}.brand-logo{width:42px;height:42px;flex-basis:42px}.logo{font-size:15px}.brand-service{font-size:9px;letter-spacing:.7px}.brand-slogan{font-size:9px}.hero-brand{gap:10px;margin-bottom:18px}.hero-brand .brand-logo{width:60px;height:60px;flex-basis:60px}.hero-slogan{font-size:11px!important}.menu-btn{display:block}.nav-links{display:none;position:absolute;top:100%;left:0;width:100%;background:var(--navy);padding:18px;flex-direction:column;align-items:stretch;text-align:center}.nav-links.show{display:flex}.nav-links li{padding:6px}.hero{padding:58px 17px}.hero p{font-size:16px}section{padding:43px 5%}.offers{grid-template-columns:repeat(4,minmax(145px,1fr));overflow-x:auto;gap:10px;padding:0 0 10px;scroll-snap-type:x proximity}.offer-card{padding:16px 10px;scroll-snap-align:start}.offer-card h3{font-size:16px}.offer-card>i{font-size:24px}.price{font-size:24px}.offer-card button{font-size:11px;padding:9px 5px}.form-grid{grid-template-columns:1fr}.field.full{grid-column:auto}}
+@media(max-width:760px){nav{padding:9px 3%;gap:8px}.brand-lockup{gap:7px;flex:1}.brand-logo{width:38px;height:38px;flex-basis:38px}.logo{font-size:12px;letter-spacing:0}.brand-service{font-size:9px;letter-spacing:.5px}.brand-slogan{font-size:9px}.brand-copy{overflow-wrap:anywhere}.menu-btn{flex:0 0 auto}.hero-brand{gap:10px;margin-bottom:18px}.hero-brand .brand-logo{width:60px;height:60px;flex-basis:60px}.hero-slogan{font-size:11px!important}.menu-btn{display:block}.nav-links{display:none;position:absolute;top:100%;left:0;width:100%;background:var(--navy);padding:18px;flex-direction:column;align-items:stretch;text-align:center}.nav-links.show{display:flex}.nav-links li{padding:6px}.hero{padding:58px 17px}.hero p{font-size:16px}section{padding:43px 5%}.offers{grid-template-columns:repeat(4,minmax(145px,1fr));overflow-x:auto;gap:10px;padding:0 0 10px;scroll-snap-type:x proximity}.offer-card{padding:16px 10px;scroll-snap-align:start}.offer-card h3{font-size:16px}.offer-card>i{font-size:24px}.price{font-size:24px}.offer-card button{font-size:11px;padding:9px 5px}.form-grid{grid-template-columns:1fr}.field.full{grid-column:auto}}
 </style>
 </head>
 <body>
 <nav>
-  <a class="logo" href="#home" style="text-decoration:none">MTN <span>Anytime Data</span></a>
+  <a class="brand-lockup" href="#home" aria-label="Nhlanganiso Communications MTN Anytime Data home">
+    <svg class="brand-logo" viewBox="0 0 100 100" role="img" aria-label="Wi-Fi logo"><rect x="2" y="2" width="96" height="96" rx="23" fill="#071b4d" stroke="#ffcc00" stroke-width="3"/><path d="M18 36 Q50 8 82 36" fill="none" stroke="#42c7f5" stroke-width="7" stroke-linecap="round"/><path d="M28 47 Q50 28 72 47" fill="none" stroke="#42c7f5" stroke-width="7" stroke-linecap="round"/><path d="M39 58 Q50 49 61 58" fill="none" stroke="#42c7f5" stroke-width="7" stroke-linecap="round"/><circle cx="50" cy="69" r="6" fill="#ffcc00"/><path d="M27 82 H73" stroke="#ffffff" stroke-width="3" stroke-linecap="round"/></svg>
+    <span class="brand-copy"><span class="logo">Nhlanganiso <span>Communications</span></span><span class="brand-service">MTN Anytime Data</span><span class="brand-slogan">Affordable Data. Simple Ordering.</span></span>
+  </a>
   <button class="menu-btn" id="menuBtn" aria-label="Open navigation" aria-expanded="false"><i class="fas fa-bars"></i></button>
   <ul class="nav-links" id="navLinks">
     <li><a href="#home"><i class="fas fa-house"></i> Home</a></li>
@@ -65,6 +68,11 @@ footer{background:var(--navy2);color:white;padding:32px 7%;text-align:center}foo
 </nav>
 <div class="banner"><i class="fas fa-bolt"></i> Affordable MTN Anytime Data • Simple WhatsApp ordering <i class="fas fa-bolt"></i></div>
 <header class="hero" id="home">
+  <div class="hero-brand">
+    <svg class="brand-logo" viewBox="0 0 100 100" role="img" aria-label="Nhlanganiso Communications Wi-Fi logo"><rect x="2" y="2" width="96" height="96" rx="23" fill="#071b4d" stroke="#ffcc00" stroke-width="3"/><path d="M18 36 Q50 8 82 36" fill="none" stroke="#42c7f5" stroke-width="7" stroke-linecap="round"/><path d="M28 47 Q50 28 72 47" fill="none" stroke="#42c7f5" stroke-width="7" stroke-linecap="round"/><path d="M39 58 Q50 49 61 58" fill="none" stroke="#42c7f5" stroke-width="7" stroke-linecap="round"/><circle cx="50" cy="69" r="6" fill="#ffcc00"/><path d="M27 82 H73" stroke="#ffffff" stroke-width="3" stroke-linecap="round"/></svg>
+    <div><div class="hero-business">Nhlanganiso Communications</div><div class="hero-slogan">Affordable Data. Simple Ordering.</div></div>
+  </div>
+  <div class="hero-service">MTN ANYTIME DATA</div>
   <h1>Stay Connected with <span>Affordable Data</span></h1>
   <p>Choose your bundle, enter your details and send your order directly to us on WhatsApp. We'll confirm the payment instructions with you.</p>
   <div class="hero-buttons">

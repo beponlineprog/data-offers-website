@@ -42,7 +42,7 @@ footer{background:var(--navy2);color:white;padding:26px 7%;text-align:center}foo
 .receipt-card h3{color:var(--navy);font-size:clamp(24px,4vw,31px);margin-bottom:5px}.confirm-service-strip{display:flex;align-items:center;gap:9px;background:#edf7ff;border:1px solid #c9e8fa;border-left:5px solid #0877bd;border-radius:7px;padding:10px 12px;margin:14px 0;font-weight:800;color:var(--navy)}.confirm-service-dot{width:9px;height:9px;flex:0 0 9px;border-radius:50%;background:var(--gold)}
 .confirm-section-title{font-size:15px;color:var(--navy);margin:20px 0 7px;padding-bottom:6px;border-bottom:1px solid #dbe5f0}.receipt-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px 16px;margin:10px 0}.receipt-item{padding:8px 0;border-bottom:1px solid #edf0f5;overflow-wrap:anywhere}.receipt-item span{display:block;color:var(--muted);font-size:12px}.receipt-item strong{overflow-wrap:anywhere}
 .confirm-status{display:inline-flex;align-items:center;background:#fff8d6;color:var(--navy);border:1px solid #f0d86b;border-left:5px solid var(--gold);border-radius:6px;padding:8px 12px;font-weight:900;margin:8px 0 10px}.receipt-total{display:flex;justify-content:space-between;gap:12px;padding:14px;margin-top:16px;background:#fff9db;border:1px solid #f3d76a;border-left:6px solid var(--gold);border-radius:8px;font-size:22px;font-weight:900;color:var(--navy)}
-@media print{body *{visibility:hidden!important}#receiptDocument,#receiptDocument *{visibility:visible!important}#receiptDocument{display:block!important;position:absolute;left:0;top:0;width:100%;margin:0;border-radius:0;box-shadow:none;padding:8mm;border:1.5px solid var(--navy);border-top:5px solid var(--gold)}.no-print{display:none!important}.confirm-brand-mark{width:56px;height:56px;flex-basis:56px}}
+@media print{@page{size:A4 portrait;margin:7mm}body *{visibility:hidden!important}#receiptDocument,#receiptDocument *{visibility:visible!important}#receiptDocument{display:block!important;position:absolute;left:0;top:0;width:100%;margin:0;border-radius:0;box-shadow:none;padding:5mm;border:1px solid var(--navy);border-top:4px solid var(--gold);font-size:10px}.confirm-brand-header{gap:8px;padding-bottom:6px;margin-bottom:7px}.confirm-brand-mark{width:38px;height:38px;flex-basis:38px}.confirm-brand{font-size:15px}.confirm-brand-subtitle{font-size:8px;margin-top:2px}.receipt-label{font-size:8px;margin:5px 0 2px}.receipt-card h3{font-size:20px;margin-bottom:2px}.confirm-service-strip{padding:5px 8px;margin:6px 0;font-size:9px}.confirm-status{padding:4px 8px;margin:4px 0;font-size:9px}.confirm-section-title{font-size:10px;margin:8px 0 3px;padding-bottom:3px}.receipt-grid{gap:3px 12px;margin:4px 0}.receipt-item{padding:3px 0}.receipt-item span{font-size:8px}.receipt-item strong{font-size:9px}.receipt-total{font-size:16px;margin-top:7px;padding:7px}.notice{margin-top:7px!important;padding:7px;font-size:9px;line-height:1.25}.receipt-card>p{font-size:8px!important;margin-top:6px!important}.no-print{display:none!important;break-inside:avoid}}
 @media(max-width:520px){.receipt-grid{grid-template-columns:1fr}.confirm-brand-mark{width:50px;height:50px;flex-basis:50px}}
 </style>
 </head>
@@ -205,35 +205,54 @@ document.getElementById("shareOrderEmail").addEventListener("click", event => sh
 function createOrderConfirmationPdf(order) {
   if (!window.jspdf || !window.jspdf.jsPDF) throw new Error("PDF library is not available. Check your internet connection and retry.");
   const pdf = new window.jspdf.jsPDF({unit:"mm",format:"a4"});
-  let y = 18;
-  pdf.setFont("helvetica","bold"); pdf.setFontSize(17); pdf.setTextColor(7,27,77);
-  pdf.text("MTN ANYTIME DATA", 15, y); y += 9;
-  pdf.setFontSize(14); pdf.text("ORDER CONFIRMATION", 15, y); y += 7;
-  pdf.setFontSize(9); pdf.setTextColor(138,91,0);
-  pdf.text("NOT A PAYMENT RECEIPT — PAYMENT NOT CONFIRMED", 15, y); y += 10;
-  pdf.setFont("helvetica","normal"); pdf.setFontSize(10); pdf.setTextColor(23,32,51);
-  const lines = [
-    "Order number: " + order.id,
-    "Order date: " + order.date,
-    "Payment status: Pending — unpaid",
-    "Customer: " + order.name,
-    "Contact number: " + order.contactPhone,
-    "MTN number receiving data: " + order.recipientPhone,
-    "Email: " + (order.email || "Not provided"),
-    "Data bundle: " + order.bundle + " (30-day validity)",
-    "Total due: R" + Number(order.price).toFixed(2),
-    "",
-    "This confirms that your order was recorded only. It does not confirm payment or data delivery.",
-    "The order will be processed only after payment is received and confirmed in the business account.",
-    "",
-    "Business contact: WhatsApp 073 091 6623",
-    "Email: bep.onlineprog@gmail.com"
-  ];
-  lines.forEach(line => {
-    const wrapped = pdf.splitTextToSize(line, 178);
-    if (y + wrapped.length * 5 > 280) { pdf.addPage(); y = 18; }
-    pdf.text(wrapped, 15, y); y += wrapped.length * 5 + 2;
-  });
+  const left = 15, width = 180;
+  let y = 14;
+  pdf.setFillColor(7,27,77); pdf.roundedRect(10, 8, 190, 29, 2, 2, "F");
+  pdf.setDrawColor(255,204,0); pdf.setLineWidth(1.5); pdf.line(10, 8, 200, 8);
+  pdf.setFont("helvetica","bold"); pdf.setFontSize(15); pdf.setTextColor(255,204,0);
+  pdf.text("NHLANGANISO COMMUNICATIONS", left, y + 3);
+  pdf.setFontSize(9); pdf.setTextColor(142,220,255); pdf.text("MTN ANYTIME DATA", left, y + 10);
+  pdf.setFontSize(13); pdf.setTextColor(255,255,255); pdf.text("ORDER CONFIRMATION", left, y + 18);
+  pdf.setFontSize(8); pdf.setTextColor(255,230,150); pdf.text("NOT A PAYMENT RECEIPT — PAYMENT NOT CONFIRMED", left, y + 24);
+  y = 46;
+  const section = title => {
+    pdf.setFillColor(237,247,255); pdf.rect(left, y-4, width, 7, "F");
+    pdf.setFont("helvetica","bold"); pdf.setFontSize(9); pdf.setTextColor(7,27,77); pdf.text(title.toUpperCase(), left+2, y+0.5); y += 7;
+  };
+  const row = (label, value) => {
+    pdf.setFont("helvetica","normal"); pdf.setFontSize(8.5); pdf.setTextColor(100,112,132);
+    pdf.text(label, left+2, y);
+    pdf.setFont("helvetica","bold"); pdf.setTextColor(23,32,51);
+    const lines = pdf.splitTextToSize(String(value || "Not provided"), 112);
+    pdf.text(lines, left+65, y);
+    y += Math.max(5, lines.length*4.2);
+    pdf.setDrawColor(225,231,240); pdf.setLineWidth(.2); pdf.line(left, y-2, left+width, y-2);
+  };
+  section("Order information");
+  row("Order number", order.id);
+  row("Order date", order.date);
+  row("Payment status", "PENDING — UNPAID");
+  row("Data bundle", order.bundle + " (30-day validity)");
+  section("Customer information");
+  row("Customer name", order.name);
+  row("Contact number", order.contactPhone);
+  row("MTN number receiving data", order.recipientPhone);
+  row("Email address", order.email || "Not provided");
+  y += 2;
+  pdf.setFillColor(255,249,219); pdf.setDrawColor(243,215,106); pdf.roundedRect(left, y-2, width, 12, 1.5, 1.5, "FD");
+  pdf.setFont("helvetica","bold"); pdf.setFontSize(12); pdf.setTextColor(7,27,77);
+  pdf.text("TOTAL DUE", left+4, y+5.5); pdf.text("R" + Number(order.price).toFixed(2), left+width-4, y+5.5, {align:"right"});
+  y += 17;
+  pdf.setFont("helvetica","bold"); pdf.setFontSize(8.5); pdf.setTextColor(138,91,0);
+  pdf.text("IMPORTANT PAYMENT INFORMATION", left, y); y += 5;
+  pdf.setFont("helvetica","normal"); pdf.setFontSize(8); pdf.setTextColor(23,32,51);
+  const note = "This confirms that your order was recorded only. It does not confirm payment or data delivery. Wait for payment instructions. The order is processed only after payment is received and confirmed in the business account. A payment screenshot alone is not confirmation.";
+  pdf.text(pdf.splitTextToSize(note, width), left, y);
+  y += 13;
+  pdf.setFont("helvetica","bold"); pdf.setFontSize(8); pdf.setTextColor(7,27,77);
+  pdf.text("WhatsApp 073 091 6623  |  bep.onlineprog@gmail.com", left, y);
+  pdf.setFont("helvetica","normal"); pdf.setFontSize(7); pdf.setTextColor(100,112,132);
+  pdf.text("Affordable Data. Simple Ordering.", left, y+5);
   return pdf;
 }
 async function shareOrderPdf(event, channel) {
@@ -242,7 +261,20 @@ async function shareOrderPdf(event, channel) {
   const order = savedOrderForReceipt;
   const pdf = createOrderConfirmationPdf(order);
   const file = new File([pdf.output("blob")], "MTN-Order-Confirmation-" + order.id + ".pdf", {type:"application/pdf"});
-  const message = "MTN Anytime Data order confirmation " + order.id + ". This is not a payment receipt.";
+  const confirmationParams = new URLSearchParams({
+    id: order.id,
+    date: order.date,
+    name: order.name,
+    contact: order.contactPhone,
+    recipient: order.recipientPhone,
+    email: order.email || "",
+    bundle: order.bundle,
+    price: String(order.price)
+  });
+  const confirmationLink = new URL("order-confirmation.html", window.location.href);
+  confirmationLink.search = confirmationParams.toString();
+  const message = "Nhlanganiso Communications — MTN Anytime Data Order Confirmation\\nOrder number: " + order.id +
+    "\\nPayment status: PENDING — UNPAID\\nThis is not a payment receipt.\\nView your order confirmation: " + confirmationLink.href;
   if (channel === "whatsapp") {
     const phone = String(order.contactPhone || "").replace(/[^0-9]/g,"").replace(/^0/,"27");
     if (phone.length < 11) {
@@ -250,7 +282,7 @@ async function shareOrderPdf(event, channel) {
       return;
     }
     pdf.save(file.name);
-    window.location.href = "https://api.whatsapp.com/send?phone=" + phone + "&text=" + encodeURIComponent(message + " Please see the order confirmation PDF. I will attach it to this chat.");
+    window.location.href = "https://api.whatsapp.com/send?phone=" + phone + "&text=" + encodeURIComponent(message + "\\nThe PDF copy is downloaded separately if you also need it.");
     alert("The PDF has been downloaded and the customer's WhatsApp chat is opening. In that chat, tap the attachment icon, choose Document, select MTN-Order-Confirmation-" + order.id + ".pdf, then send.");
     return;
   }

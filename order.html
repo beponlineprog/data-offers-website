@@ -199,8 +199,17 @@ document.getElementById("copyOrderIdBtn").addEventListener("click", async () => 
   }
 });
 
-document.getElementById("printOrderConfirmation").addEventListener("click", () => window.print());
-document.getElementById("shareOrderWhatsApp").addEventListener("click", event => shareOrderPdf(event, "whatsapp"));
+document.getElementById("printOrderConfirmation").addEventListener("click", () => { try { if (!savedOrderForReceipt) throw new Error("Order details are unavailable."); createOrderConfirmationPdf(savedOrderForReceipt).save("MTN-Order-Confirmation-" + savedOrderForReceipt.id + ".pdf"); } catch (error) { alert("Could not create the PDF: " + error.message); } });
+document.getElementById("shareOrderWhatsApp").addEventListener("click", event => {
+  event.preventDefault();
+  if (!savedOrderForReceipt) { alert("Please save your order before sharing its confirmation."); return; }
+  const order = savedOrderForReceipt;
+  const link = makeConfirmationLink(order);
+  const phone = String(order.contactPhone || "").replace(/[^0-9]/g, "").replace(/^0/, "27");
+  const message = "Nhlanganiso Communications — MTN Anytime Data Order Confirmation\\nOrder number: " + order.id +
+    "\\nPayment status: PENDING — UNPAID\\nThis is not a payment receipt.\\nOPEN / SAVE YOUR PDF ORDER CONFIRMATION: " + link;
+  window.location.href = "https://api.whatsapp.com/send?phone=" + phone + "&text=" + encodeURIComponent(message);
+});
 document.getElementById("shareOrderEmail").addEventListener("click", event => shareOrderPdf(event, "email"));
 function createOrderConfirmationPdf(order) {
   if (!window.jspdf || !window.jspdf.jsPDF) throw new Error("PDF library is not available. Check your internet connection and retry.");
@@ -255,24 +264,13 @@ function createOrderConfirmationPdf(order) {
   pdf.text("Affordable Data. Simple Ordering.", left, y+5);
   return pdf;
 }
-async function shareOrderPdf(event, channel) {
+async function makeConfirmationLink(order) {\n  const confirmationParams = new URLSearchParams({id:order.id,date:order.date,name:order.name,contact:order.contactPhone,recipient:order.recipientPhone,email:order.email || "",bundle:order.bundle,price:String(order.price)});\n  const link = new URL("order-confirmation.html", window.location.href);\n  link.search = confirmationParams.toString();\n  return link.href;\n}\nfunction shareOrderPdf(event, channel) {
   event.preventDefault();
   if (!savedOrderForReceipt) { alert("Please save your order before sharing its confirmation."); return; }
   const order = savedOrderForReceipt;
   const pdf = createOrderConfirmationPdf(order);
   const file = new File([pdf.output("blob")], "MTN-Order-Confirmation-" + order.id + ".pdf", {type:"application/pdf"});
-  const confirmationParams = new URLSearchParams({
-    id: order.id,
-    date: order.date,
-    name: order.name,
-    contact: order.contactPhone,
-    recipient: order.recipientPhone,
-    email: order.email || "",
-    bundle: order.bundle,
-    price: String(order.price)
-  });
-  const confirmationLink = new URL("order-confirmation.html", window.location.href);
-  confirmationLink.search = confirmationParams.toString();
+  const confirmationLink = {href: makeConfirmationLink(order)};
   const message = "Nhlanganiso Communications — MTN Anytime Data Order Confirmation\nOrder number: " + order.id +
     "\nPayment status: PENDING — UNPAID\nThis is not a payment receipt.\nView your order confirmation: " + confirmationLink.href;
   if (channel === "whatsapp") {

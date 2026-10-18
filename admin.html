@@ -361,34 +361,29 @@ async function sharePaymentReceiptLink(event, channel) {
 }
 function sharePaymentReceiptWhatsApp(event) { return sharePaymentReceiptLink(event, "whatsapp"); }
 function sharePaymentReceiptEmail(event) { return sharePaymentReceiptLink(event, "email"); }
-function printPaymentReceipt(event) {
-  const id = event.currentTarget.dataset.id;
+async function printPaymentReceipt(event) {
+  const button = event.currentTarget;
+  const id = button.dataset.id;
   const order = currentOrders.find(item => item.id === id);
   if (!order || order.paymentStatus !== "Paid") {
     showMessage(dashboardMessage, "A payment receipt is available only after the order is marked Paid.", "error");
     return;
   }
-  const esc = value => escapeHtml(value == null || value === "" ? "—" : String(value));
-  const money = "R" + Number(order.price || 0).toFixed(2);
-  let confirmedDate = "Payment confirmation date not recorded";
-  try { if (order.paymentConfirmedAt && order.paymentConfirmedAt.toDate) confirmedDate = order.paymentConfirmedAt.toDate().toLocaleString("en-ZA"); } catch (_) {}
-  const receipt = '<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Payment Receipt ' + esc(id) + '</title><style>' +
-    'body{font-family:Arial,sans-serif;color:#172033;margin:0;padding:28px;background:#fff}main{max-width:760px;margin:0 auto;border:2px solid #071b4d;padding:28px}h1{color:#071b4d;margin:0 0 6px}.brand{color:#8a6500;font-weight:900;letter-spacing:1px}.tag{display:inline-block;background:#dcfce7;color:#166534;padding:7px 12px;border-radius:5px;font-weight:800;margin:12px 0}.row{display:flex;justify-content:space-between;gap:18px;border-bottom:1px solid #e5e7eb;padding:10px 0}.row span{color:#647084}.row strong{text-align:right;overflow-wrap:anywhere}.total{font-size:24px;font-weight:900;color:#071b4d;border-top:2px solid #071b4d;margin-top:16px;padding-top:16px;display:flex;justify-content:space-between;gap:15px}.note{margin-top:22px;padding:14px;background:#f5f7fb;font-size:13px}.small{font-size:12px;color:#647084;margin-top:20px}@media print{body{padding:0}main{border:2px solid #071b4d;max-width:none}}' +
-    '</style></head><body><main><div class="brand">NHLANGANISO COMMUNICATIONS</div><p style="color:#075985;font-weight:800;letter-spacing:1px;margin:4px 0 12px">MTN ANYTIME DATA · AFFORDABLE DATA. SIMPLE ORDERING.</p><h1>Payment Receipt</h1><p>Receipt issued after payment was manually confirmed by the administrator.</p><div class="tag">PAYMENT STATUS: PAID</div>' +
-    '<div class="row"><span>Receipt / order number</span><strong>' + esc(id) + '</strong></div>' +
-    '<div class="row"><span>Order date</span><strong>' + esc(dateText(order.createdAt)) + '</strong></div>' +
-    '<div class="row"><span>Payment confirmed</span><strong>' + esc(confirmedDate) + '</strong></div>' +
-    '<div class="row"><span>Customer name</span><strong>' + esc(order.customerName) + '</strong></div>' +
-    '<div class="row"><span>Contact number</span><strong>' + esc(order.customerPhone) + '</strong></div>' +
-    '<div class="row"><span>MTN recipient number</span><strong>' + esc(order.recipientNumber) + '</strong></div>' +
-    '<div class="row"><span>Email</span><strong>' + esc(order.email) + '</strong></div>' +
-    '<div class="row"><span>Data bundle</span><strong>' + esc(order.bundle) + ' (30-day validity)</strong></div>' +
-    '<div class="total"><span>Amount received</span><span>' + esc(money) + '</span></div>' +
-    '<div class="note">This payment receipt is generated from the order marked Paid by the administrator. It confirms payment status only; data delivery/fulfilment is tracked separately in the order status.</div>' +
-    '<p class="small">MTN Anytime Data · WhatsApp 073 091 6623 · bep.onlineprog@gmail.com</p><button onclick="window.print()" style="padding:10px 16px;background:#ffcc00;border:0;font-weight:bold;cursor:pointer">Print / Save as PDF</button></main><script>window.addEventListener("load",function(){setTimeout(function(){window.print()},300)});<\/script></body></html>';
-  const win = window.open("", "_blank");
-  if (!win) { showMessage(dashboardMessage, "Your browser blocked the receipt pop-up. Allow pop-ups for this site and try again.", "error"); return; }
-  win.document.open(); win.document.write(receipt); win.document.close();
+
+  // Open the tab immediately so mobile browsers do not block it after the async Firestore work.
+  const win = window.open("about:blank", "_blank");
+  if (!win) {
+    showMessage(dashboardMessage, "Your browser blocked the receipt pop-up. Allow pop-ups for this site and try again.", "error");
+    return;
+  }
+  win.document.write("<!DOCTYPE html><html><head><title>Opening branded receipt…</title></head><body style='font-family:Arial,sans-serif;padding:24px'>Opening the branded payment receipt…</body></html>");
+  try {
+    const url = await createOrGetReceiptLink(order);
+    win.location.href = url;
+  } catch (error) {
+    win.close();
+    showMessage(dashboardMessage, "Could not open the branded receipt. Check your connection and Firestore rules. " + (error.message || ""), "error");
+  }
 }
 async function saveOrderStatus(event) {
   const id = event.currentTarget.dataset.id;

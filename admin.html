@@ -397,7 +397,7 @@ async function saveOrderStatus(event) {
   try {
     const order = currentOrders.find(item => item.id === id);
     const update = { paymentStatus, orderStatus };
-    if (paymentStatus === "Paid" && order && !order.paymentConfirmedAt) {
+    if (paymentStatus === "Paid" && order && order.paymentStatus !== "Paid") {
       update.paymentConfirmedAt = firebase.firestore.FieldValue.serverTimestamp();
     }
     const orderRef = db.collection("orders").doc(id);
@@ -413,7 +413,7 @@ async function saveOrderStatus(event) {
       }
     }
     await batch.commit();
-    showMessage(dashboardMessage, paymentStatus === "Paid" ? "Payment and order status saved. Any existing receipt has been synchronised." : "Payment and order status saved. Any existing receipt has been synchronised.", "success");
+    showMessage(dashboardMessage, "Payment and order status saved. Any existing receipt has been synchronised.", "success");
   } catch (error) {
     showMessage(dashboardMessage, "Could not save status. Check your connection and Firestore rules. " + (error.message || ""), "error");
   } finally {

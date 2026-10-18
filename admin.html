@@ -29,7 +29,7 @@ button,.btn{display:inline-flex;align-items:center;justify-content:center;gap:8p
 </style>
 </head>
 <body>
-<header><h1><i class="fas fa-gauge-high"></i> MTN Data Offers — Admin</h1><a href="index.html"><i class="fas fa-arrow-left"></i> View website</a></header>
+<header><div><h1><i class="fas fa-gauge-high"></i> Nhlanganiso Communications</h1><div style="color:#8edcff;font-size:12px;font-weight:900;letter-spacing:1px;margin-top:4px">MTN ANYTIME DATA · ADMIN DASHBOARD</div><div style="color:#e1e8f5;font-size:12px;margin-top:3px">Affordable Data. Simple Ordering.</div></div><a href="index.html"><i class="fas fa-arrow-left"></i> View website</a></header>
 <main>
   <section id="loginPanel" class="panel">
     <h2><i class="fas fa-lock"></i> Administrator Login</h2>
@@ -373,7 +373,7 @@ function printPaymentReceipt(event) {
   try { if (order.paymentConfirmedAt && order.paymentConfirmedAt.toDate) confirmedDate = order.paymentConfirmedAt.toDate().toLocaleString("en-ZA"); } catch (_) {}
   const receipt = '<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Payment Receipt ' + esc(id) + '</title><style>' +
     'body{font-family:Arial,sans-serif;color:#172033;margin:0;padding:28px;background:#fff}main{max-width:760px;margin:0 auto;border:2px solid #071b4d;padding:28px}h1{color:#071b4d;margin:0 0 6px}.brand{color:#8a6500;font-weight:900;letter-spacing:1px}.tag{display:inline-block;background:#dcfce7;color:#166534;padding:7px 12px;border-radius:5px;font-weight:800;margin:12px 0}.row{display:flex;justify-content:space-between;gap:18px;border-bottom:1px solid #e5e7eb;padding:10px 0}.row span{color:#647084}.row strong{text-align:right;overflow-wrap:anywhere}.total{font-size:24px;font-weight:900;color:#071b4d;border-top:2px solid #071b4d;margin-top:16px;padding-top:16px;display:flex;justify-content:space-between;gap:15px}.note{margin-top:22px;padding:14px;background:#f5f7fb;font-size:13px}.small{font-size:12px;color:#647084;margin-top:20px}@media print{body{padding:0}main{border:2px solid #071b4d;max-width:none}}' +
-    '</style></head><body><main><div class="brand">MTN ANYTIME DATA</div><h1>Payment Receipt</h1><p>Receipt issued after payment was manually confirmed by the administrator.</p><div class="tag">PAYMENT STATUS: PAID</div>' +
+    '</style></head><body><main><div class="brand">NHLANGANISO COMMUNICATIONS</div><p style="color:#075985;font-weight:800;letter-spacing:1px;margin:4px 0 12px">MTN ANYTIME DATA · AFFORDABLE DATA. SIMPLE ORDERING.</p><h1>Payment Receipt</h1><p>Receipt issued after payment was manually confirmed by the administrator.</p><div class="tag">PAYMENT STATUS: PAID</div>' +
     '<div class="row"><span>Receipt / order number</span><strong>' + esc(id) + '</strong></div>' +
     '<div class="row"><span>Order date</span><strong>' + esc(dateText(order.createdAt)) + '</strong></div>' +
     '<div class="row"><span>Payment confirmed</span><strong>' + esc(confirmedDate) + '</strong></div>' +

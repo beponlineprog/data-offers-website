@@ -200,7 +200,8 @@ document.getElementById("copyOrderIdBtn").addEventListener("click", async () => 
 });
 
 document.getElementById("printOrderConfirmation").addEventListener("click", () => { try { if (!savedOrderForReceipt) throw new Error("Order details are unavailable."); createOrderConfirmationPdf(savedOrderForReceipt).save("MTN-Order-Confirmation-" + savedOrderForReceipt.id + ".pdf"); } catch (error) { alert("Could not create the PDF: " + error.message); } });
-document.getElementById("shareOrderWhatsApp").addEventListener("click", event => shareOrderPdf(event, "whatsapp"));\ndocument.getElementById("shareOrderEmail").addEventListener("click", event => shareOrderPdf(event, "email"));
+document.getElementById("shareOrderWhatsApp").addEventListener("click", event => shareOrderPdf(event, "whatsapp"));
+document.getElementById("shareOrderEmail").addEventListener("click", event => shareOrderPdf(event, "email"));
 function createOrderConfirmationPdf(order) {
   if (!window.jspdf || !window.jspdf.jsPDF) throw new Error("PDF library is not available. Check your internet connection and retry.");
   const pdf = new window.jspdf.jsPDF({unit:"mm",format:"a4"});
@@ -256,7 +257,22 @@ function createOrderConfirmationPdf(order) {
   while (pdf.getNumberOfPages() > 1) pdf.deletePage(pdf.getNumberOfPages());
   return pdf;
 }
-function makeConfirmationLink(order) {\n  const confirmationParams = new URLSearchParams({id:order.id,date:order.date,name:order.name,contact:order.contactPhone,recipient:order.recipientPhone,email:order.email || "",bundle:order.bundle,price:String(order.price)});\n  const link = new URL("https://beponlineprog.github.io/data-offers-website/order-confirmation.html");\n  link.search = confirmationParams.toString();\n  return link.href;\n}\nfunction shareOrderPdf(event, channel) {
+function makeConfirmationLink(order) {
+  const confirmationParams = new URLSearchParams({
+    id: order.id,
+    date: order.date,
+    name: order.name,
+    contact: order.contactPhone,
+    recipient: order.recipientPhone,
+    email: order.email || "",
+    bundle: order.bundle,
+    price: String(order.price)
+  });
+  const link = new URL("https://beponlineprog.github.io/data-offers-website/order-confirmation.html");
+  link.search = confirmationParams.toString();
+  return link.href;
+}
+function shareOrderPdf(event, channel) {
   event.preventDefault();
   if (!savedOrderForReceipt) {
     alert("Please save your order before sharing its confirmation.");

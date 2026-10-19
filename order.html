@@ -42,7 +42,7 @@ footer{background:var(--navy2);color:white;padding:26px 7%;text-align:center}foo
 .receipt-card h3{color:var(--navy);font-size:clamp(24px,4vw,31px);margin-bottom:5px}.confirm-service-strip{display:flex;align-items:center;gap:9px;background:#edf7ff;border:1px solid #c9e8fa;border-left:5px solid #0877bd;border-radius:7px;padding:10px 12px;margin:14px 0;font-weight:800;color:var(--navy)}.confirm-service-dot{width:9px;height:9px;flex:0 0 9px;border-radius:50%;background:var(--gold)}
 .confirm-section-title{font-size:15px;color:var(--navy);margin:20px 0 7px;padding-bottom:6px;border-bottom:1px solid #dbe5f0}.receipt-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px 16px;margin:10px 0}.receipt-item{padding:8px 0;border-bottom:1px solid #edf0f5;overflow-wrap:anywhere}.receipt-item span{display:block;color:var(--muted);font-size:12px}.receipt-item strong{overflow-wrap:anywhere}
 .confirm-status{display:inline-flex;align-items:center;background:#fff8d6;color:var(--navy);border:1px solid #f0d86b;border-left:5px solid var(--gold);border-radius:6px;padding:8px 12px;font-weight:900;margin:8px 0 10px}.receipt-total{display:flex;justify-content:space-between;gap:12px;padding:14px;margin-top:16px;background:#fff9db;border:1px solid #f3d76a;border-left:6px solid var(--gold);border-radius:8px;font-size:22px;font-weight:900;color:var(--navy)}
-@media print{@page{size:A4 portrait;margin:7mm}body *{visibility:hidden!important}#receiptDocument,#receiptDocument *{visibility:visible!important}#receiptDocument{display:block!important;position:absolute;left:0;top:0;width:100%;margin:0;border-radius:0;box-shadow:none;padding:5mm;border:1px solid var(--navy);border-top:4px solid var(--gold);font-size:10px}.confirm-brand-header{gap:8px;padding-bottom:6px;margin-bottom:7px}.confirm-brand-mark{width:38px;height:38px;flex-basis:38px}.confirm-brand{font-size:15px}.confirm-brand-subtitle{font-size:8px;margin-top:2px}.receipt-label{font-size:8px;margin:5px 0 2px}.receipt-card h3{font-size:20px;margin-bottom:2px}.confirm-service-strip{padding:5px 8px;margin:6px 0;font-size:9px}.confirm-status{padding:4px 8px;margin:4px 0;font-size:9px}.confirm-section-title{font-size:10px;margin:8px 0 3px;padding-bottom:3px}.receipt-grid{gap:3px 12px;margin:4px 0}.receipt-item{padding:3px 0}.receipt-item span{font-size:8px}.receipt-item strong{font-size:9px}.receipt-total{font-size:16px;margin-top:7px;padding:7px}.notice{margin-top:7px!important;padding:7px;font-size:9px;line-height:1.25}.receipt-card>p{font-size:8px!important;margin-top:6px!important}.no-print{display:none!important;break-inside:avoid}}
+@media print{@page{size:A4 portrait;margin:7mm}body *{visibility:hidden!important}#receiptDocument,#receiptDocument *{visibility:visible!important}#receiptDocument{display:block!important;position:absolute;left:0;top:0;width:100%;margin:0;border-radius:0;box-shadow:none;padding:5mm;border:1px solid var(--navy);border-top:4px solid var(--gold);font-size:10px}.confirm-brand-header{gap:8px;padding-bottom:6px;margin-bottom:7px}.confirm-brand-mark{width:38px;height:38px;flex-basis:38px}.confirm-brand{font-size:15px}.confirm-brand-subtitle{font-size:8px;margin-top:2px}.receipt-label{font-size:8px;margin:5px 0 2px}.receipt-card h3{font-size:20px;margin-bottom:2px}.confirm-service-strip{padding:5px 8px;margin:6px 0;font-size:9px}.confirm-status{padding:4px 8px;margin:4px 0;font-size:9px}.confirm-section-title{font-size:10px;margin:8px 0 3px;padding-bottom:3px}.receipt-grid{grid-template-columns:1fr 1fr!important;gap:3px 12px;margin:4px 0}.receipt-item{padding:3px 0}.receipt-item span{font-size:8px}.receipt-item strong{font-size:9px}.receipt-total{font-size:16px;margin-top:7px;padding:7px}.notice{margin-top:7px!important;padding:7px;font-size:9px;line-height:1.25}.receipt-card>p{font-size:8px!important;margin-top:6px!important}.no-print{display:none!important;break-inside:avoid}}
 @media(max-width:520px){.receipt-grid{grid-template-columns:1fr}.confirm-brand-mark{width:50px;height:50px;flex-basis:50px}}
 </style>
 </head>
@@ -200,17 +200,7 @@ document.getElementById("copyOrderIdBtn").addEventListener("click", async () => 
 });
 
 document.getElementById("printOrderConfirmation").addEventListener("click", () => { try { if (!savedOrderForReceipt) throw new Error("Order details are unavailable."); createOrderConfirmationPdf(savedOrderForReceipt).save("MTN-Order-Confirmation-" + savedOrderForReceipt.id + ".pdf"); } catch (error) { alert("Could not create the PDF: " + error.message); } });
-document.getElementById("shareOrderWhatsApp").addEventListener("click", event => {
-  event.preventDefault();
-  if (!savedOrderForReceipt) { alert("Please save your order before sharing its confirmation."); return; }
-  const order = savedOrderForReceipt;
-  const link = makeConfirmationLink(order);
-  const phone = String(order.contactPhone || "").replace(/[^0-9]/g, "").replace(/^0/, "27");
-  const message = "Nhlanganiso Communications — MTN Anytime Data Order Confirmation\\nOrder number: " + order.id +
-    "\\nPayment status: PENDING — UNPAID\\nThis is not a payment receipt.\\n\\nORDER CONFIRMATION LINK (tap to open):\\n" + link + "\\n\\nOpen the link above to view or save your order confirmation.";
-  window.location.href = "https://api.whatsapp.com/send?phone=" + phone + "&text=" + encodeURIComponent(message);
-});
-document.getElementById("shareOrderEmail").addEventListener("click", event => shareOrderPdf(event, "email"));
+document.getElementById("shareOrderWhatsApp").addEventListener("click", event => shareOrderPdf(event, "whatsapp"));\ndocument.getElementById("shareOrderEmail").addEventListener("click", event => shareOrderPdf(event, "email"));
 function createOrderConfirmationPdf(order) {
   if (!window.jspdf || !window.jspdf.jsPDF) throw new Error("PDF library is not available. Check your internet connection and retry.");
   const pdf = new window.jspdf.jsPDF({unit:"mm",format:"a4"});
@@ -266,47 +256,49 @@ function createOrderConfirmationPdf(order) {
   while (pdf.getNumberOfPages() > 1) pdf.deletePage(pdf.getNumberOfPages());
   return pdf;
 }
-async function makeConfirmationLink(order) {\n  const confirmationParams = new URLSearchParams({id:order.id,date:order.date,name:order.name,contact:order.contactPhone,recipient:order.recipientPhone,email:order.email || "",bundle:order.bundle,price:String(order.price)});\n  const link = new URL("https://beponlineprog.github.io/data-offers-website/order-confirmation.html");\n  link.search = confirmationParams.toString();\n  return link.href;\n}\nfunction shareOrderPdf(event, channel) {
+function makeConfirmationLink(order) {\n  const confirmationParams = new URLSearchParams({id:order.id,date:order.date,name:order.name,contact:order.contactPhone,recipient:order.recipientPhone,email:order.email || "",bundle:order.bundle,price:String(order.price)});\n  const link = new URL("https://beponlineprog.github.io/data-offers-website/order-confirmation.html");\n  link.search = confirmationParams.toString();\n  return link.href;\n}\nfunction shareOrderPdf(event, channel) {
   event.preventDefault();
-  if (!savedOrderForReceipt) { alert("Please save your order before sharing its confirmation."); return; }
+  if (!savedOrderForReceipt) {
+    alert("Please save your order before sharing its confirmation.");
+    return;
+  }
   const order = savedOrderForReceipt;
-  const pdf = createOrderConfirmationPdf(order);
-  const file = new File([pdf.output("blob")], "MTN-Order-Confirmation-" + order.id + ".pdf", {type:"application/pdf"});
-  const confirmationLink = {href: makeConfirmationLink(order)};
-  const message = "Nhlanganiso Communications — MTN Anytime Data Order Confirmation\nOrder number: " + order.id +
-    "\nPayment status: PENDING — UNPAID\nThis is not a payment receipt.\nView your order confirmation: " + confirmationLink.href;
+  let pdf;
+  try {
+    pdf = createOrderConfirmationPdf(order);
+  } catch (error) {
+    alert("Could not create the PDF: " + error.message);
+    return;
+  }
+  const filename = "MTN-Order-Confirmation-" + order.id + ".pdf";
+  const confirmationLink = makeConfirmationLink(order);
+  const message = "Nhlanganiso Communications — MTN Anytime Data Order Confirmation\\n" +
+    "Order number: " + order.id +
+    "\\nPayment status: PENDING — UNPAID" +
+    "\\nThis is not a payment receipt." +
+    "\\nView your order confirmation: " + confirmationLink +
+    "\\nA PDF copy is downloaded separately; attach it in the chat or email if required.";
+
   if (channel === "whatsapp") {
-    const phone = String(order.contactPhone || "").replace(/[^0-9]/g,"").replace(/^0/,"27");
+    const phone = String(order.contactPhone || "").replace(/[^0-9]/g, "").replace(/^0/, "27");
     if (phone.length < 11) {
       alert("The customer's contact number is missing or invalid. Please check the order details.");
       return;
     }
-    pdf.save(file.name);
-    window.location.href = "https://api.whatsapp.com/send?phone=" + phone + "&text=" + encodeURIComponent(message + "\nThe PDF copy is downloaded separately if you also need it.");
-    alert("The PDF has been downloaded and the customer's WhatsApp chat is opening. In that chat, tap the attachment icon, choose Document, select MTN-Order-Confirmation-" + order.id + ".pdf, then send.");
+    pdf.save(filename);
+    window.location.href = "https://api.whatsapp.com/send?phone=" + phone + "&text=" + encodeURIComponent(message);
     return;
   }
-  if (navigator.share && navigator.canShare && navigator.canShare({files:[file]})) {
-    try {
-      await navigator.share({files:[file], title:"Order Confirmation " + order.id, text:message});
-      return;
-    } catch (error) {
-      if (error && error.name === "AbortError") return;
-    }
+
+  if (!order.email) {
+    alert("No email address was entered for this order. The PDF will be downloaded so you can share it another way.");
+    pdf.save(filename);
+    return;
   }
-  pdf.save(file.name);
-  if (channel === "whatsapp") {
-    const phone = String(order.contactPhone || "").replace(/[^0-9]/g,"").replace(/^0/,"27");
-    window.open("https://api.whatsapp.com/send?phone=" + phone + "&text=" + encodeURIComponent(message), "_blank", "noopener");
-    alert("Your PDF has been downloaded. In WhatsApp, tap the attachment icon and select the downloaded PDF before sending.");
-  } else {
-    if (!order.email) {
-      alert("Your PDF has been downloaded, but this order has no email address. Attach the PDF to an email addressed to the customer.");
-      return;
-    }
-    window.location.href = "mailto:" + encodeURIComponent(order.email) + "?subject=" + encodeURIComponent("MTN Data Order Confirmation " + order.id) + "&body=" + encodeURIComponent(message + "\n\nPlease find the order confirmation PDF attached.");
-    alert("Your PDF has been downloaded. Attach it to the email before sending.");
-  }
+  pdf.save(filename);
+  window.location.href = "mailto:" + order.email + "?subject=" +
+    encodeURIComponent("MTN Data Order Confirmation " + order.id) +
+    "&body=" + encodeURIComponent(message + "\\n\\nPlease attach the downloaded PDF before sending.");
 }
 function populateOrderConfirmation(orderId, orderDate, name, contactPhone, recipientPhone, email, bundleName, total) {
   document.getElementById("receiptOrderNumber").textContent = orderId;
@@ -384,7 +376,8 @@ document.getElementById("orderForm").addEventListener("submit", async event => {
       "Bundle: " + bundle + " (30-day validity)",
       "Total due: R" + price,
       "Payment status: Pending — unpaid",
-      "ORDER CONFIRMATION LINK (tap to open):",\n      confirmationLink,
+      "ORDER CONFIRMATION LINK (tap to open):",
+      confirmationLink,
       "This confirms the order was recorded only. It does not confirm payment or data delivery. The order is processed only after payment is received and confirmed.",
       "Business contact: WhatsApp 073 091 6623 · bep.onlineprog@gmail.com"
     ].join("\n");

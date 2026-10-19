@@ -237,44 +237,43 @@ function createOrderConfirmationPdf(order) {
 }
 async function shareOrderPdf(event, channel) {
   event.preventDefault();
-  if (!savedOrderForReceipt) { alert("Please save your order before sharing its confirmation."); return; }
+  if (!savedOrderForReceipt) {
+    alert("Please save your order before sharing its confirmation.");
+    return;
+  }
   const order = savedOrderForReceipt;
-  const pdf = createOrderConfirmationPdf(order);
-  const file = new File([pdf.output("blob")], "MTN-Order-Confirmation-" + order.id + ".pdf", {type:"application/pdf"});
-  const message = "MTN Anytime Data order confirmation " + order.id + ". This is not a payment receipt.";
+  const confirmationLink = makeConfirmationLink(order);
+  const message = [
+    "Nhlanganiso Communications — MTN Anytime Data Order Confirmation",
+    "Order number: " + order.id,
+    "Payment status: PENDING — UNPAID",
+    "This is not a payment receipt.",
+    "",
+    "ORDER CONFIRMATION LINK (tap to open):",
+    confirmationLink,
+    "",
+    "This confirms that the order was recorded only. It does not confirm payment or data delivery."
+  ].join("\n");
+
   if (channel === "whatsapp") {
-    const phone = String(order.contactPhone || "").replace(/[^0-9]/g,"").replace(/^0/,"27");
+    const phone = String(order.contactPhone || "").replace(/[^0-9]/g, "").replace(/^0/, "27");
     if (phone.length < 11) {
       alert("The customer's contact number is missing or invalid. Please check the order details.");
       return;
     }
-    pdf.save(file.name);
-    window.location.href = "https://api.whatsapp.com/send?phone=" + phone + "&text=" + encodeURIComponent(message + " Please see the order confirmation PDF. I will attach it to this chat.");
-    alert("The PDF has been downloaded and the customer's WhatsApp chat is opening. In that chat, tap the attachment icon, choose Document, select MTN-Order-Confirmation-" + order.id + ".pdf, then send.");
+    window.location.href = "https://api.whatsapp.com/send?phone=" + phone + "&text=" + encodeURIComponent(message);
     return;
   }
-  if (navigator.share && navigator.canShare && navigator.canShare({files:[file]})) {
-    try {
-      await navigator.share({files:[file], title:"Order Confirmation " + order.id, text:message});
-      return;
-    } catch (error) {
-      if (error && error.name === "AbortError") return;
-    }
+
+  if (!order.email) {
+    alert("No email address was entered for this order.");
+    return;
   }
-  pdf.save(file.name);
-  if (channel === "whatsapp") {
-    const phone = String(order.contactPhone || "").replace(/[^0-9]/g,"").replace(/^0/,"27");
-    window.open("https://api.whatsapp.com/send?phone=" + phone + "&text=" + encodeURIComponent(message), "_blank", "noopener");
-    alert("Your PDF has been downloaded. In WhatsApp, tap the attachment icon and select the downloaded PDF before sending.");
-  } else {
-    if (!order.email) {
-      alert("Your PDF has been downloaded, but this order has no email address. Attach the PDF to an email addressed to the customer.");
-      return;
-    }
-    window.location.href = "mailto:" + encodeURIComponent(order.email) + "?subject=" + encodeURIComponent("MTN Data Order Confirmation " + order.id) + "&body=" + encodeURIComponent(message + "\n\nPlease find the order confirmation PDF attached.");
-    alert("Your PDF has been downloaded. Attach it to the email before sending.");
-  }
+  window.location.href = "mailto:" + encodeURIComponent(order.email) +
+    "?subject=" + encodeURIComponent("MTN Data Order Confirmation " + order.id) +
+    "&body=" + encodeURIComponent(message + "\n\nOpen the confirmation link above to view or save the confirmation.");
 }
+
 function populateOrderConfirmation(orderId, orderDate, name, contactPhone, recipientPhone, email, bundleName, total) {
   document.getElementById("receiptOrderNumber").textContent = orderId;
   document.getElementById("receiptOrderDate").textContent = orderDate;

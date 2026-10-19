@@ -179,7 +179,26 @@ document.getElementById("copyOrderIdBtn").addEventListener("click", async () => 
   }
 });
 
-document.getElementById("printOrderConfirmation").addEventListener("click", () => window.print());
+function makeConfirmationLink(order) {
+  const confirmationParams = new URLSearchParams({
+    id: order.id,
+    date: order.date,
+    name: order.name,
+    contact: order.contactPhone,
+    recipient: order.recipientPhone,
+    email: order.email || "",
+    bundle: order.bundle,
+    price: String(order.price)
+  });
+  return "https://beponlineprog.github.io/data-offers-website/order-confirmation.html?" + confirmationParams.toString();
+}
+document.getElementById("printOrderConfirmation").addEventListener("click", () => {
+  if (!savedOrderForReceipt) {
+    alert("Please save your order before opening the confirmation.");
+    return;
+  }
+  window.open(makeConfirmationLink(savedOrderForReceipt), "_blank", "noopener");
+});
 document.getElementById("shareOrderWhatsApp").addEventListener("click", event => shareOrderPdf(event, "whatsapp"));
 document.getElementById("shareOrderEmail").addEventListener("click", event => shareOrderPdf(event, "email"));
 function createOrderConfirmationPdf(order) {
